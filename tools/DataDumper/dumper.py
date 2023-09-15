@@ -87,7 +87,7 @@ def add_one_user(user, db_cursor):
 
 	# add to userToPost table
 	for elem in user["posts"]:
-		db_cursor.execute("INSERT INTO public.\"userToSkill\"(user_id, post_id) VALUES(%s, %s)", (user["id"], elem))
+		db_cursor.execute("INSERT INTO public.\"userToPost\"(user_id, post_id) VALUES(%s, %s)", (user["id"], elem))
 
 	# add to userToBookmark table
 	for elem in user["bookmarks"]:

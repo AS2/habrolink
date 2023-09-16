@@ -124,20 +124,23 @@ if __name__ == "__main__":
 		with conn.cursor() as cur:			
 			if args.mode == "users":
 				for i in range(args.index, len(usernames), args.count):
-					try:
-						user = get_user(usernames[i])
-						if user != None:
-								add_one_user(user, cur)
-								conn.commit()
-						else:
-							print("\nskipped", user)	
-					except Exception as e:
-						cur.execute("ROLLBACK")
-						conn.commit()
-						print()
-						print(e)
+					cur.execute("SELECT COUNT(*) FROM users WHERE id=%s", (usernames[i],))
+					res = cur.fetchone()[0]
+					if res == 0:
+						try:
+							user = get_user(usernames[i])
+							if user != None:
+									add_one_user(user, cur)
+									conn.commit()
+							else:
+								print("\nskipped", user)	
+						except Exception as e:
+							cur.execute("ROLLBACK")
+							conn.commit()
+							print()
+							print(e)
 					currentTime = time.time()
-					totalTime = (currentTime - startTime) * len(usernames) / (i + 0.1) / args.count
+					totalTime = (currentTime - startTime) * len(usernames) / (i + 0.1)
 					ss = "\r User " + usernames[i] + " index " + str(i) + "/" + str(len(usernames)) + " time left " + str(totalTime - (currentTime - startTime)) + "s"
 					if len(ss) < 80:
 						ss += "*" * (80 - len(ss))

@@ -129,7 +129,7 @@ def get_user(uname : str):
 	#combine all that data to one beautiful file
 	userInfo = {}
 	#copy data from card
-	userInfo["id"] = NoneFix(cardInfo.get("alias", "")) # str
+	userInfo["id"] = NoneFix(cardInfo.get("alias", "")).lower() # str
 	userInfo["fullname"] = NoneFix(cardInfo.get("fullname", "")) # str
 	userInfo["avatar"] = NoneFix(cardInfo.get("avatarUrl", ""))  # url-str      
 	userInfo["speciality"] = NoneFix(cardInfo.get("speciality", "")) # str
@@ -143,9 +143,20 @@ def get_user(uname : str):
 	userInfo["is_readonly"] = cardInfo["isReadonly"] # bool 
 	userInfo["invited"] = not cardInfo["canBeInvited"] # bool
 	if cardInfo["location"] != None:
-		userInfo["location_city"] = NoneFix(cardInfo["location"].get("city", {}).get("title", ""))
-		userInfo["location_region"] = NoneFix(cardInfo["location"].get("region", {}).get("title", ""))
-		userInfo["location_country"] = NoneFix(cardInfo["location"].get("country", {}).get("title", ""))
+		if cardInfo["location"]["city"] != None:
+			userInfo["location_city"] = NoneFix(cardInfo["location"]["city"]["title"])
+		else:
+			userInfo["location_city"] = ""
+
+		if cardInfo["location"]["region"] != None:
+			userInfo["location_region"] = NoneFix(cardInfo["location"]["region"]["title"])
+		else:
+			userInfo["location_region"] = ""
+
+		if cardInfo["location"]["country"] != None:
+			userInfo["location_country"] = NoneFix(cardInfo["location"]["country"]["title"])
+		else:
+			userInfo["location_country"] = ""
 	else:
 		userInfo["location_city"] = ""
 		userInfo["location_region"] = ""
@@ -155,7 +166,7 @@ def get_user(uname : str):
 	
 	# copy data from whois	
 	if whoisInfo["invitedBy"] != None:
-		userInfo["invited_by"] = NoneFix(whoisInfo["invitedBy"].get("issuerLogin", "")) # string
+		userInfo["invited_by"] = NoneFix(whoisInfo["invitedBy"].get("issuerLogin", "")).lower() # string
 		userInfo["invited_at"] = NoneFix(whoisInfo["invitedBy"].get("timeCreated", "")) # string in format YYYY-MM-DDThh:mm:ss+00:00, Y - year, M - mounth, D - day, h - hour, m - minute, s - second
 	else:
 		userInfo["invited_by"] = "" # string
@@ -175,7 +186,7 @@ def get_user(uname : str):
 	userInfo["skills"] = [t["name"] for t in  occupationInfo["skills"]]
 	
 	# copy data from invited
-	userInfo["invites"] = invitedInfo # array with strings
+	userInfo["invites"] = [t.lower() for t in invitedInfo] # array with strings
  
 	# copy data from hubs
 	userInfo["hubs"] = hubsInfo # array with strings
@@ -187,10 +198,10 @@ def get_user(uname : str):
 	userInfo["bookmarks"] = bookmarkIndices # array with numbers
 	
 	# copy data about followers
-	userInfo["followers"] = followersInfo # array with str
+	userInfo["followers"] = [t.lower() for t in followersInfo] # array with str
 
 	# copy data about followed
-	userInfo["followed"] = followedInfo # array with str
+	userInfo["followed"] = [t.lower() for t in followedInfo] # array with str
 
 	return userInfo
 

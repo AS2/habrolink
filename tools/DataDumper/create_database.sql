@@ -57,7 +57,7 @@ ALTER TABLE public."postToHub" ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY 
 --
 
 CREATE TABLE public."postToTag" (
-    id1 bigint NOT NULL,
+    id bigint NOT NULL,
     post_id bigint,
     tag text
 );
@@ -67,11 +67,11 @@ ALTER TABLE public."postToTag" OWNER TO postgres;
 
 --
 -- TOC entry 233 (class 1259 OID 16483)
--- Name: postToTags_id1_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: postToTags_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-ALTER TABLE public."postToTag" ALTER COLUMN id1 ADD GENERATED ALWAYS AS IDENTITY (
-    SEQUENCE NAME public."postToTags_id1_seq"
+ALTER TABLE public."postToTag" ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public."postToTags_id_seq"
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -385,7 +385,7 @@ ALTER TABLE ONLY public."postToHub"
 --
 
 ALTER TABLE ONLY public."postToTag"
-    ADD CONSTRAINT "postToTags_pkey" PRIMARY KEY (id1);
+    ADD CONSTRAINT "postToTags_pkey" PRIMARY KEY (id);
 
 
 --
@@ -479,35 +479,6 @@ ALTER TABLE ONLY public.users
 
 
 -- Completed on 2023-09-15 19:15:45
-
-ALTER TABLE public."userToBookmark" ADD FOREIGN KEY ("user_id") REFERENCES public."users" ("id");
-
-ALTER TABLE public."userToBookmark" ADD FOREIGN KEY ("post_id") REFERENCES public."posts" ("id");
-
-ALTER TABLE public."postToTag" ADD FOREIGN KEY ("post_id") REFERENCES public."posts" ("id");
-
-ALTER TABLE public."userToFollow" ADD FOREIGN KEY ("parent_id") REFERENCES public."users" ("id");
-
-ALTER TABLE public."userToFollow" ADD FOREIGN KEY ("follower_id") REFERENCES public."users" ("id");
-
-ALTER TABLE public."userToSkill" ADD FOREIGN KEY ("user_id") REFERENCES public."users" ("id");
-
-ALTER TABLE public."userToInvite" ADD FOREIGN KEY ("parent_id") REFERENCES public."users" ("id");
-
-ALTER TABLE public."userToInvite" ADD FOREIGN KEY ("child_id") REFERENCES public."users" ("id");
-
-ALTER TABLE public."userToHub" ADD FOREIGN KEY ("user_id") REFERENCES public."users" ("id");
-
-ALTER TABLE public."userToSpecialization" ADD FOREIGN KEY ("user_id") REFERENCES public."users" ("id");
-
-ALTER TABLE public."userToPost" ADD FOREIGN KEY ("user_id") REFERENCES public."users" ("id");
-
-ALTER TABLE public."userToPost" ADD FOREIGN KEY ("post_id") REFERENCES public."posts" ("id");
-
-ALTER TABLE public."userToWorkplace" ADD FOREIGN KEY ("user_id") REFERENCES public."users" ("id");
-
-ALTER TABLE public."postToHub" ADD FOREIGN KEY ("post_id") REFERENCES public."posts" ("id");
-
 --
 -- PostgreSQL database dump complete
 --

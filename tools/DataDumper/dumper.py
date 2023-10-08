@@ -42,6 +42,17 @@ def add_one_post(post, db_cursor):
 	for elem in post["hubs"]:
 		db_cursor.execute("INSERT INTO public.\"postToHub\"(post_id, hub_id) VALUES(%s, %s)", (post["id"], elem))
 
+	# add to comments table
+	for elem in post["comments"]:
+		db_cursor.execute("INSERT INTO comments("
+		"id, parent_id, post_id, user_id, time,"
+		"score, votes_count)"
+		" VALUES("
+		"%s, %s, %s, %s, %s, "
+		"%s, %s)",
+		(elem["id"], elem["parent_id"], elem["post_id"], elem["user_id"], habrTimeToPostgreTime(elem["time"]),
+		elem["score"], elem["votes_count"]))
+
 # this function will push one user to database
 def add_one_user(user, db_cursor):	
 	# for multiple users we can do executemany.
@@ -147,21 +158,23 @@ if __name__ == "__main__":
 					print(ss, end="")
 			else:
 				for i in range(args.index, 1000000, args.count):				
-					try:
-						post = get_post(i)
-						if post != None:
-							with conn.cursor() as cur:			
+					cur.execute("SELECT COUNT(*) FROM posts WHERE id=%s", (i,))
+					res = cur.fetchone()[0]
+					if res == 0:
+						try:
+							post = get_post(i)
+							if post != None:
 								add_one_post(post, cur)	
 								conn.commit()
-						else:
-							print("\nskipped", post)	
-					except Exception as e:
-						cur.execute("ROLLBACK")
-						conn.commit()
-						print()
-						print(e)
+							else:
+								print("\nskipped", post)	
+						except Exception as e:
+							cur.execute("ROLLBACK")
+							conn.commit()
+							print()
+							print(e)
 					currentTime = time.time()
-					totalTime = (currentTime - startTime) * 1000000 / (i + 0.1) / args.count
+					totalTime = (currentTime - startTime) * 1000000 / (i + 0.1)
 					ss = "\r Post " + str(i) + "/" + str(len(usernames)) + " time left " + str(totalTime - (currentTime - startTime)) + "s"
 					if len(ss) < 80:
 						ss += "*" * (80 - len(ss))

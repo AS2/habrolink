@@ -212,7 +212,7 @@ def get_user(uname : str):
 def get_post(index : int):	
 	postRequest = requests.get("https://habr.com/kek/v2/articles/" + str(index) + "/?fl=ru&hl=ru")
 	if postRequest.status_code != 200:
-		print("Failed to retrieve", "https://habr.com/kek/v2/articles/" + str(index) + "/?fl=ru&hl=ru")
+		print("\nFailed to retrieve", "https://habr.com/kek/v2/articles/" + str(index) + "/?fl=ru&hl=ru")
 		return None
 	postInfo = json.loads(postRequest.text)
 
@@ -233,13 +233,43 @@ def get_post(index : int):
 	ourPostInfo["votes_count"] = int(postInfo["statistics"]["votesCount"]) # number 
 	ourPostInfo["hubs"] = [ t["alias"] for t in postInfo["hubs"]] # array with strings
 	ourPostInfo["tags"] = [ t["titleHtml"] for t in postInfo["tags"]] # array with strings
+	if postInfo["readingTime"] == None:
+		ourPostInfo["reading_minutes"] = 0                            # fake number
+	else:
+		ourPostInfo["reading_minutes"] = int(postInfo["readingTime"]) # number
 	#ourPostInfo["content"] = postInfo["textHtml"] # string 
-	ourPostInfo["reading_minutes"] = int(postInfo["readingTime"]) # number
-		
+
+	commentsRequest = requests.get("https://habr.com/kek/v2/articles/" + str(index) + "/comments?fl=ru&hl=ru")
+	if commentsRequest.status_code != 200:
+		print("\nFailed to retrieve comments for", "https://habr.com/kek/v2/articles/" + str(index) + "/comments?fl=ru&hl=ru")
+		ourPostInfo["comments"] = []		
+	else:
+		commentsInfo = json.loads(commentsRequest.text)
+		comments = []
+		for comment_id in commentsInfo["comments"]:
+			if not bool(commentsInfo["comments"][comment_id]["author"]):
+				continue
+			comment = {}
+			comment["id"] = int(commentsInfo["comments"][comment_id]["id"]) # number
+			if commentsInfo["comments"][comment_id]["parentId"] == None:
+				comment["parent_id"] = -1
+			else:
+				comment["parent_id"] = int(commentsInfo["comments"][comment_id]["parentId"]) # number
+			comment["post_id"] = index # number
+			comment["user_id"] = commentsInfo["comments"][comment_id]["author"]["alias"] # string
+			comment["time"] = commentsInfo["comments"][comment_id]["timePublished"] # string
+			#comment["content"] =  commentsInfo["comments"][comment_id]["textHtml"]
+			comment["score"] = int(commentsInfo["comments"][comment_id]["score"]) # number
+			comment["votes_count"] = int(commentsInfo["comments"][comment_id]["votesCount"]) # number			
+			comments.append(comment)
+		ourPostInfo["comments"] = comments						
 	return ourPostInfo
 
 if __name__ == "__main__":
 	# test requests
-	print(get_user("sairsey"))
-	#print(get_post(326852))
-
+	#print(get_user("sairsey"))
+	print(get_post(1))
+	print(get_post(2))
+	print(get_post(3))
+	print(get_post(200))
+	print(get_post(326852))

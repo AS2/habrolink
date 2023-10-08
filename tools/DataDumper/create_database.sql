@@ -5,7 +5,7 @@
 -- Dumped from database version 16.0
 -- Dumped by pg_dump version 16.0
 
--- Started on 2023-09-15 19:15:44
+-- Started on 2023-10-08 16:49:37
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -23,7 +23,26 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 236 (class 1259 OID 16492)
+-- TOC entry 237 (class 1259 OID 24673)
+-- Name: comments; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.comments (
+    id bigint NOT NULL,
+    parent_id bigint,
+    post_id bigint,
+    user_id text,
+    "time" timestamp with time zone,
+    content text,
+    score bigint,
+    votes_count bigint
+);
+
+
+ALTER TABLE public.comments OWNER TO postgres;
+
+--
+-- TOC entry 215 (class 1259 OID 16895)
 -- Name: postToHub; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -37,7 +56,7 @@ CREATE TABLE public."postToHub" (
 ALTER TABLE public."postToHub" OWNER TO postgres;
 
 --
--- TOC entry 235 (class 1259 OID 16491)
+-- TOC entry 216 (class 1259 OID 16900)
 -- Name: postToHub_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -52,7 +71,7 @@ ALTER TABLE public."postToHub" ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY 
 
 
 --
--- TOC entry 234 (class 1259 OID 16484)
+-- TOC entry 217 (class 1259 OID 16901)
 -- Name: postToTag; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -66,7 +85,7 @@ CREATE TABLE public."postToTag" (
 ALTER TABLE public."postToTag" OWNER TO postgres;
 
 --
--- TOC entry 233 (class 1259 OID 16483)
+-- TOC entry 218 (class 1259 OID 16906)
 -- Name: postToTags_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -81,7 +100,7 @@ ALTER TABLE public."postToTag" ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY 
 
 
 --
--- TOC entry 232 (class 1259 OID 16476)
+-- TOC entry 219 (class 1259 OID 16907)
 -- Name: posts; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -100,14 +119,15 @@ CREATE TABLE public.posts (
     votes_up integer,
     votes_down integer,
     votes_count integer,
-    reading_minutes integer
+    reading_minutes integer,
+    content text
 );
 
 
 ALTER TABLE public.posts OWNER TO postgres;
 
 --
--- TOC entry 228 (class 1259 OID 16459)
+-- TOC entry 220 (class 1259 OID 16912)
 -- Name: userToBookmark; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -121,7 +141,7 @@ CREATE TABLE public."userToBookmark" (
 ALTER TABLE public."userToBookmark" OWNER TO postgres;
 
 --
--- TOC entry 229 (class 1259 OID 16464)
+-- TOC entry 221 (class 1259 OID 16917)
 -- Name: userToBookmark_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -136,7 +156,7 @@ ALTER TABLE public."userToBookmark" ALTER COLUMN id ADD GENERATED ALWAYS AS IDEN
 
 
 --
--- TOC entry 231 (class 1259 OID 16468)
+-- TOC entry 222 (class 1259 OID 16918)
 -- Name: userToFollow; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -150,7 +170,7 @@ CREATE TABLE public."userToFollow" (
 ALTER TABLE public."userToFollow" OWNER TO postgres;
 
 --
--- TOC entry 230 (class 1259 OID 16467)
+-- TOC entry 223 (class 1259 OID 16923)
 -- Name: userToFollower_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -165,7 +185,7 @@ ALTER TABLE public."userToFollow" ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTI
 
 
 --
--- TOC entry 225 (class 1259 OID 16444)
+-- TOC entry 224 (class 1259 OID 16924)
 -- Name: userToHub; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -179,7 +199,7 @@ CREATE TABLE public."userToHub" (
 ALTER TABLE public."userToHub" OWNER TO postgres;
 
 --
--- TOC entry 224 (class 1259 OID 16443)
+-- TOC entry 225 (class 1259 OID 16929)
 -- Name: userToHub_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -194,7 +214,7 @@ ALTER TABLE public."userToHub" ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY 
 
 
 --
--- TOC entry 223 (class 1259 OID 16436)
+-- TOC entry 226 (class 1259 OID 16930)
 -- Name: userToInvite; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -208,7 +228,7 @@ CREATE TABLE public."userToInvite" (
 ALTER TABLE public."userToInvite" OWNER TO postgres;
 
 --
--- TOC entry 222 (class 1259 OID 16435)
+-- TOC entry 227 (class 1259 OID 16935)
 -- Name: userToInvites_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -223,7 +243,7 @@ ALTER TABLE public."userToInvite" ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTI
 
 
 --
--- TOC entry 227 (class 1259 OID 16452)
+-- TOC entry 228 (class 1259 OID 16936)
 -- Name: userToPost; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -237,7 +257,7 @@ CREATE TABLE public."userToPost" (
 ALTER TABLE public."userToPost" OWNER TO postgres;
 
 --
--- TOC entry 226 (class 1259 OID 16451)
+-- TOC entry 229 (class 1259 OID 16941)
 -- Name: userToPost_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -252,7 +272,7 @@ ALTER TABLE public."userToPost" ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY
 
 
 --
--- TOC entry 221 (class 1259 OID 16428)
+-- TOC entry 230 (class 1259 OID 16942)
 -- Name: userToSkill; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -266,7 +286,7 @@ CREATE TABLE public."userToSkill" (
 ALTER TABLE public."userToSkill" OWNER TO postgres;
 
 --
--- TOC entry 220 (class 1259 OID 16427)
+-- TOC entry 231 (class 1259 OID 16947)
 -- Name: userToSkill_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -281,7 +301,7 @@ ALTER TABLE public."userToSkill" ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTIT
 
 
 --
--- TOC entry 219 (class 1259 OID 16420)
+-- TOC entry 232 (class 1259 OID 16948)
 -- Name: userToSpecialization; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -295,7 +315,7 @@ CREATE TABLE public."userToSpecialization" (
 ALTER TABLE public."userToSpecialization" OWNER TO postgres;
 
 --
--- TOC entry 218 (class 1259 OID 16419)
+-- TOC entry 233 (class 1259 OID 16953)
 -- Name: userToSpecialization_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -310,7 +330,7 @@ ALTER TABLE public."userToSpecialization" ALTER COLUMN id ADD GENERATED ALWAYS A
 
 
 --
--- TOC entry 217 (class 1259 OID 16412)
+-- TOC entry 234 (class 1259 OID 16954)
 -- Name: userToWorkplace; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -324,7 +344,7 @@ CREATE TABLE public."userToWorkplace" (
 ALTER TABLE public."userToWorkplace" OWNER TO postgres;
 
 --
--- TOC entry 216 (class 1259 OID 16411)
+-- TOC entry 235 (class 1259 OID 16959)
 -- Name: userToWorkplace_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -339,7 +359,7 @@ ALTER TABLE public."userToWorkplace" ALTER COLUMN id ADD GENERATED ALWAYS AS IDE
 
 
 --
--- TOC entry 215 (class 1259 OID 16399)
+-- TOC entry 236 (class 1259 OID 16960)
 -- Name: users; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -371,7 +391,16 @@ CREATE TABLE public.users (
 ALTER TABLE public.users OWNER TO postgres;
 
 --
--- TOC entry 4710 (class 2606 OID 16498)
+-- TOC entry 4716 (class 2606 OID 24679)
+-- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comments
+    ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4692 (class 2606 OID 16966)
 -- Name: postToHub postToHub_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -380,7 +409,7 @@ ALTER TABLE ONLY public."postToHub"
 
 
 --
--- TOC entry 4708 (class 2606 OID 16490)
+-- TOC entry 4694 (class 2606 OID 16968)
 -- Name: postToTag postToTags_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -389,7 +418,7 @@ ALTER TABLE ONLY public."postToTag"
 
 
 --
--- TOC entry 4706 (class 2606 OID 16482)
+-- TOC entry 4696 (class 2606 OID 16970)
 -- Name: posts posts_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -398,7 +427,7 @@ ALTER TABLE ONLY public.posts
 
 
 --
--- TOC entry 4702 (class 2606 OID 16466)
+-- TOC entry 4698 (class 2606 OID 16972)
 -- Name: userToBookmark userToBookmark_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -407,7 +436,7 @@ ALTER TABLE ONLY public."userToBookmark"
 
 
 --
--- TOC entry 4704 (class 2606 OID 16474)
+-- TOC entry 4700 (class 2606 OID 16974)
 -- Name: userToFollow userToFollower_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -416,7 +445,7 @@ ALTER TABLE ONLY public."userToFollow"
 
 
 --
--- TOC entry 4698 (class 2606 OID 16450)
+-- TOC entry 4702 (class 2606 OID 16976)
 -- Name: userToHub userToHub_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -425,7 +454,7 @@ ALTER TABLE ONLY public."userToHub"
 
 
 --
--- TOC entry 4696 (class 2606 OID 16442)
+-- TOC entry 4704 (class 2606 OID 16978)
 -- Name: userToInvite userToInvites_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -434,7 +463,7 @@ ALTER TABLE ONLY public."userToInvite"
 
 
 --
--- TOC entry 4700 (class 2606 OID 16458)
+-- TOC entry 4706 (class 2606 OID 16980)
 -- Name: userToPost userToPost_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -443,7 +472,7 @@ ALTER TABLE ONLY public."userToPost"
 
 
 --
--- TOC entry 4694 (class 2606 OID 16434)
+-- TOC entry 4708 (class 2606 OID 16982)
 -- Name: userToSkill userToSkill_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -452,7 +481,7 @@ ALTER TABLE ONLY public."userToSkill"
 
 
 --
--- TOC entry 4692 (class 2606 OID 16426)
+-- TOC entry 4710 (class 2606 OID 16984)
 -- Name: userToSpecialization userToSpecialization_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -461,7 +490,7 @@ ALTER TABLE ONLY public."userToSpecialization"
 
 
 --
--- TOC entry 4690 (class 2606 OID 16418)
+-- TOC entry 4712 (class 2606 OID 16986)
 -- Name: userToWorkplace userToWorkplace_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -470,7 +499,7 @@ ALTER TABLE ONLY public."userToWorkplace"
 
 
 --
--- TOC entry 4688 (class 2606 OID 16410)
+-- TOC entry 4714 (class 2606 OID 16988)
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -478,7 +507,8 @@ ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 
 
--- Completed on 2023-09-15 19:15:45
+-- Completed on 2023-10-08 16:49:37
+
 --
 -- PostgreSQL database dump complete
 --

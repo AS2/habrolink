@@ -127,8 +127,6 @@ SELECT "id" FROM "person" JOIN "skills" ON "skills"."person_id" = "person"."id" 
 INSERT INTO "marked" ("user_id", "person_id") VALUES ({user_id}, {person_id}) ON CONFLICT DO NOTHING;
 ```
 ## Unmark user
-
-## Mark person
   - user_id индекс пользователя, который снимает отметку
   - person_id индекс человека с которого снимают отметку
 ```sql

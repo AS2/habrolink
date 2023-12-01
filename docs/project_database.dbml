@@ -39,7 +39,6 @@ Table user {
   login text
   password_hash text
   person_id text
-  habr_link text
 }
 
 Table message {

@@ -31,7 +31,7 @@ Table person {
 Table marked {
   id integer [primary key]
   user_id integer
-  person text
+  person_id text
 }
 
 Table user {
@@ -61,6 +61,6 @@ Ref: "user"."id" < "message"."from"
 
 Ref: "user"."id" < "message"."to"
 
-Ref: "marked"."person" > "person"."id"
+Ref: "marked"."person_id" > "person"."id"
 
 Ref: "marked"."user_id" > "user"."id"

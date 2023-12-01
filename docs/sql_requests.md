@@ -27,7 +27,6 @@ Arguments:
   SELECT ("habr_link", "login") FROM "users" WERE "users"."person_id" == {person_id}; 
 ```
 # Get person short info
-# Get person full info
   - person_id Индекс человека, информацию о котором мы хотим узнать
 ```sql
   SELECT ("id", "fullname", "avatar", "source", "habr_karma", "habr_rating") FROM "person" WHERE "person"."id" == {person_id};
@@ -57,11 +56,33 @@ Arguments:
   INSERT INTO "user" ("login", "password_hash", "person_id") VALUES ({login}, {password_hash}, {person_id});
   UPDATE "person" SET "source" = 0 WHERE "person"."id" = person_id;
 ```
- 
-# Update user
 # Add Skill to User
+  - person_id Индекс человека
+  - skill Название умения
+```sql
+  INSERT INTO "personToSkill" ("person_id", "skill") VALUES ({person_id}, {skill});
+```
 # Add Speciality to User
+  - person_id Индекс человека
+  - speciality Название умения
+```sql
+  INSERT INTO "personToSpeciality" ("person_id", "speciality") VALUES ({person_id}, {speciality});
+```
 # Send message
+  - from Индекс отправителя
+  - to Индекс получателя
+  - message текст сообщения
+```sql
+  INSERT INTO "message" ("from", "to", "message") VALUES ({from}, {to}, {message});
+```
+# Get all messages in chat
+  - person1 - Индекс первого пользователя
+  - person2 - Индекс второго пользователя
+```sql
+  SELECT * FROM "message" WHERE ("message"."from" = {person1} AND "message"."to" = {person2}) OR ("message"."from" = {person2} AND "message"."to" = {person1});
+```
+# Get all chats
+
 # Search for users
 # Mark users
 # Get all marked users

@@ -1,0 +1,1002 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "FastAPI",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/user/auth": {
+      "get": {
+        "summary": "User Auth",
+        "operationId": "user_auth_user_auth_get",
+        "parameters": [
+          {
+            "name": "login",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Login"
+            }
+          },
+          {
+            "name": "password_hash",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Password Hash"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/registration/new": {
+      "get": {
+        "summary": "User Registration",
+        "operationId": "user_registration_user_registration_new_get",
+        "parameters": [
+          {
+            "name": "login",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Login"
+            }
+          },
+          {
+            "name": "password_hash",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Password Hash"
+            }
+          },
+          {
+            "name": "fullname",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Fullname"
+            }
+          },
+          {
+            "name": "avatar",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Avatar"
+            }
+          },
+          {
+            "name": "gender",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Gender"
+            }
+          },
+          {
+            "name": "birthday",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Birthday"
+            }
+          },
+          {
+            "name": "location_country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Location Country"
+            }
+          },
+          {
+            "name": "location_city",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Location City"
+            }
+          },
+          {
+            "name": "location_region",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Location Region"
+            }
+          },
+          {
+            "name": "salary",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Salary"
+            }
+          },
+          {
+            "name": "skills",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "title": "Skills"
+            }
+          },
+          {
+            "name": "speciality",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "title": "Speciality"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/registration/habr": {
+      "get": {
+        "summary": "User Registration",
+        "operationId": "user_registration_user_registration_habr_get",
+        "parameters": [
+          {
+            "name": "login",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Login"
+            }
+          },
+          {
+            "name": "password_hash",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Password Hash"
+            }
+          },
+          {
+            "name": "habr_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Habr Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/info": {
+      "get": {
+        "summary": "User Info",
+        "operationId": "user_info_user_info_get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/update": {
+      "get": {
+        "summary": "User Update",
+        "operationId": "user_update_user_update_get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Token"
+            }
+          },
+          {
+            "name": "password_hash",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Password Hash"
+            }
+          },
+          {
+            "name": "fullname",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Fullname"
+            }
+          },
+          {
+            "name": "avatar",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Avatar"
+            }
+          },
+          {
+            "name": "gender",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Gender"
+            }
+          },
+          {
+            "name": "birthday",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Birthday"
+            }
+          },
+          {
+            "name": "location_country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Location Country"
+            }
+          },
+          {
+            "name": "location_city",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Location City"
+            }
+          },
+          {
+            "name": "location_region",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Location Region"
+            }
+          },
+          {
+            "name": "salary",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Salary"
+            }
+          },
+          {
+            "name": "skills",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "title": "Skills"
+            }
+          },
+          {
+            "name": "speciality",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "title": "Speciality"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/messages/chats": {
+      "get": {
+        "summary": "User Messages Chats",
+        "operationId": "user_messages_chats_user_messages_chats_get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/messages/send": {
+      "get": {
+        "summary": "User Messages Send",
+        "operationId": "user_messages_send_user_messages_send_get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Token"
+            }
+          },
+          {
+            "name": "chat_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Chat Id"
+            }
+          },
+          {
+            "name": "message",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Message"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/messages/refresh": {
+      "get": {
+        "summary": "User Messages Refresh",
+        "operationId": "user_messages_refresh_user_messages_refresh_get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Token"
+            }
+          },
+          {
+            "name": "chat_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Chat Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/person/info": {
+      "get": {
+        "summary": "Person Info",
+        "operationId": "person_info_person_info_get",
+        "parameters": [
+          {
+            "name": "person_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Person Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/person/search": {
+      "get": {
+        "summary": "Person Search",
+        "operationId": "person_search_person_search_get",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Page"
+            }
+          },
+          {
+            "name": "source",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Source"
+            }
+          },
+          {
+            "name": "habr_rating_low",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Habr Rating Low"
+            }
+          },
+          {
+            "name": "habr_rating_high",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Habr Rating High"
+            }
+          },
+          {
+            "name": "habr_karma_low",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Habr Karma Low"
+            }
+          },
+          {
+            "name": "habr_karma_high",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Habr Karma High"
+            }
+          },
+          {
+            "name": "age_low",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Age Low"
+            }
+          },
+          {
+            "name": "age_high",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Age High"
+            }
+          },
+          {
+            "name": "location_country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Location Country"
+            }
+          },
+          {
+            "name": "location_city",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Location City"
+            }
+          },
+          {
+            "name": "location_region",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Location Region"
+            }
+          },
+          {
+            "name": "salary_low",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Salary Low"
+            }
+          },
+          {
+            "name": "salary_high",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Salary High"
+            }
+          },
+          {
+            "name": "skills",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "title": "Skills"
+            }
+          },
+          {
+            "name": "speciality",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "title": "Speciality"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/person/marks/add": {
+      "get": {
+        "summary": "Person Marks Add",
+        "operationId": "person_marks_add_person_marks_add_get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Token"
+            }
+          },
+          {
+            "name": "person_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Person Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/person/marks/status": {
+      "get": {
+        "summary": "Person Marks Status",
+        "operationId": "person_marks_status_person_marks_status_get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Token"
+            }
+          },
+          {
+            "name": "person_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Person Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/person/marks/remove": {
+      "get": {
+        "summary": "Person Marks Remove",
+        "operationId": "person_marks_remove_person_marks_remove_get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Token"
+            }
+          },
+          {
+            "name": "person_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Person Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/person/marks/all": {
+      "get": {
+        "summary": "Person Marks All",
+        "operationId": "person_marks_all_person_marks_all_get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

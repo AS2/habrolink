@@ -1,0 +1,1 @@
+SELECT user_id FROM public."userToHub" GROUP BY (user_id) ORDER BY user_id

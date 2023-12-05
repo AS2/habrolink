@@ -1,0 +1,1 @@
+SELECT user_id as user_id FROM public."userToBookmark" GROUP BY (user_id) ORDER BY user_id

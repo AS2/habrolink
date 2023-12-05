@@ -6,31 +6,30 @@
   },
   "paths": {
     "/user/auth": {
-      "get": {
+      "post": {
         "summary": "User Auth",
-        "operationId": "user_auth_user_auth_get",
-        "parameters": [
-          {
-            "name": "login",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "default": "",
-              "title": "Login"
+        "operationId": "user_auth_user_auth_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/UserAuth"
+                  }
+                ],
+                "title": "Data",
+                "examples": [
+                  {
+                    "login": "tommy1884@mail.com",
+                    "password_hash": "HashHashHashHash"
+                  }
+                ]
+              }
             }
           },
-          {
-            "name": "password_hash",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "default": "",
-              "title": "Password Hash"
-            }
-          }
-        ],
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -54,125 +53,46 @@
       }
     },
     "/user/registration/new": {
-      "get": {
+      "post": {
         "summary": "User Registration",
-        "operationId": "user_registration_user_registration_new_get",
-        "parameters": [
-          {
-            "name": "login",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Login"
+        "operationId": "user_registration_user_registration_new_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/UserRegisterNew"
+                  }
+                ],
+                "title": "Data",
+                "examples": [
+                  {
+                    "login": "tommy1884@mail.com",
+                    "password_hash": "HashHashHashHash",
+                    "fullname": "Томас Шелби",
+                    "avatar": "https://someimage.org/img.png",
+                    "gender": 1,
+                    "birthday": "20.01.1884",
+                    "location_country": "Англия",
+                    "location_city": "Смоллхит",
+                    "location_region": "Бирмингем",
+                    "salary": 20000000,
+                    "skills": [
+                      "Скачки",
+                      "Гадание",
+                      "Софтскиллс"
+                    ],
+                    "speciality": [
+                      "Ведение Биснеса"
+                    ]
+                  }
+                ]
+              }
             }
           },
-          {
-            "name": "password_hash",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Password Hash"
-            }
-          },
-          {
-            "name": "fullname",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Fullname"
-            }
-          },
-          {
-            "name": "avatar",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Avatar"
-            }
-          },
-          {
-            "name": "gender",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "title": "Gender"
-            }
-          },
-          {
-            "name": "birthday",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Birthday"
-            }
-          },
-          {
-            "name": "location_country",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Location Country"
-            }
-          },
-          {
-            "name": "location_city",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Location City"
-            }
-          },
-          {
-            "name": "location_region",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Location Region"
-            }
-          },
-          {
-            "name": "salary",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "title": "Salary"
-            }
-          },
-          {
-            "name": "skills",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "title": "Skills"
-            }
-          },
-          {
-            "name": "speciality",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "title": "Speciality"
-            }
-          }
-        ],
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -196,38 +116,31 @@
       }
     },
     "/user/registration/habr": {
-      "get": {
+      "post": {
         "summary": "User Registration",
-        "operationId": "user_registration_user_registration_habr_get",
-        "parameters": [
-          {
-            "name": "login",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Login"
+        "operationId": "user_registration_user_registration_habr_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/UserRegisterHabr"
+                  }
+                ],
+                "title": "Data",
+                "examples": [
+                  {
+                    "login": "tommy1884@mail.com",
+                    "password_hash": "HashHashHashHash",
+                    "habr_id": "tshelby"
+                  }
+                ]
+              }
             }
           },
-          {
-            "name": "password_hash",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Password Hash"
-            }
-          },
-          {
-            "name": "habr_id",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Habr Id"
-            }
-          }
-        ],
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -254,17 +167,26 @@
       "get": {
         "summary": "User Info",
         "operationId": "user_info_user_info_get",
-        "parameters": [
-          {
-            "name": "token",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Token"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/JustToken"
+                  }
+                ],
+                "title": "Data",
+                "examples": [
+                  {
+                    "token": "abcabcabc"
+                  }
+                ]
+              }
             }
-          }
-        ],
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -288,125 +210,46 @@
       }
     },
     "/user/update": {
-      "get": {
+      "post": {
         "summary": "User Update",
-        "operationId": "user_update_user_update_get",
-        "parameters": [
-          {
-            "name": "token",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Token"
+        "operationId": "user_update_user_update_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/UserUpdate"
+                  }
+                ],
+                "title": "Data",
+                "examples": [
+                  {
+                    "token": "abcabcabc",
+                    "password_hash": "HashHashHashHash",
+                    "fullname": "Томас Шелби",
+                    "avatar": "https://someimage.org/img.png",
+                    "gender": 1,
+                    "birthday": "20.01.1884",
+                    "location_country": "Англия",
+                    "location_city": "Смоллхит",
+                    "location_region": "Бирмингем",
+                    "salary": 20000000,
+                    "skills": [
+                      "Скачки",
+                      "Гадание",
+                      "Софтскиллс"
+                    ],
+                    "speciality": [
+                      "Ведение Биснеса"
+                    ]
+                  }
+                ]
+              }
             }
           },
-          {
-            "name": "password_hash",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Password Hash"
-            }
-          },
-          {
-            "name": "fullname",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Fullname"
-            }
-          },
-          {
-            "name": "avatar",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Avatar"
-            }
-          },
-          {
-            "name": "gender",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "title": "Gender"
-            }
-          },
-          {
-            "name": "birthday",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Birthday"
-            }
-          },
-          {
-            "name": "location_country",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Location Country"
-            }
-          },
-          {
-            "name": "location_city",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Location City"
-            }
-          },
-          {
-            "name": "location_region",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Location Region"
-            }
-          },
-          {
-            "name": "salary",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "title": "Salary"
-            }
-          },
-          {
-            "name": "skills",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "title": "Skills"
-            }
-          },
-          {
-            "name": "speciality",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "title": "Speciality"
-            }
-          }
-        ],
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -433,17 +276,26 @@
       "get": {
         "summary": "User Messages Chats",
         "operationId": "user_messages_chats_user_messages_chats_get",
-        "parameters": [
-          {
-            "name": "token",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Token"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/JustToken"
+                  }
+                ],
+                "title": "Data",
+                "examples": [
+                  {
+                    "token": "abcabcabc"
+                  }
+                ]
+              }
             }
-          }
-        ],
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -467,38 +319,31 @@
       }
     },
     "/user/messages/send": {
-      "get": {
+      "post": {
         "summary": "User Messages Send",
-        "operationId": "user_messages_send_user_messages_send_get",
-        "parameters": [
-          {
-            "name": "token",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Token"
+        "operationId": "user_messages_send_user_messages_send_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/UserSendMessage"
+                  }
+                ],
+                "title": "Data",
+                "examples": [
+                  {
+                    "token": "abcabcabc",
+                    "chat_id": "Big_bro",
+                    "message": "Артур, нужна твоя помощь. Приезжай в паб."
+                  }
+                ]
+              }
             }
           },
-          {
-            "name": "chat_id",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Chat Id"
-            }
-          },
-          {
-            "name": "message",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Message"
-            }
-          }
-        ],
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -525,26 +370,27 @@
       "get": {
         "summary": "User Messages Refresh",
         "operationId": "user_messages_refresh_user_messages_refresh_get",
-        "parameters": [
-          {
-            "name": "token",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Token"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/UserRefreshMessages"
+                  }
+                ],
+                "title": "Data",
+                "examples": [
+                  {
+                    "token": "abcabcabc",
+                    "chat_id": "Big_bro"
+                  }
+                ]
+              }
             }
           },
-          {
-            "name": "chat_id",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Chat Id"
-            }
-          }
-        ],
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -575,10 +421,16 @@
           {
             "name": "person_id",
             "in": "query",
-            "required": true,
+            "required": false,
             "schema": {
               "type": "string",
               "title": "Person Id"
+            },
+            "examples": {
+              "normal": {
+                "summary": "Example with normal data",
+                "value": "Big_bro"
+              }
             }
           }
         ],
@@ -612,118 +464,326 @@
           {
             "name": "page",
             "in": "query",
-            "required": true,
+            "required": false,
             "schema": {
-              "type": "integer",
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Page"
+            },
+            "examples": {
+              "short": {
+                "summary": "Short request example"
+              },
+              "full": {
+                "summary": "Full request example",
+                "value": 0
+              }
             }
           },
           {
             "name": "source",
             "in": "query",
-            "required": true,
+            "required": false,
             "schema": {
-              "type": "integer",
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Source"
+            },
+            "examples": {
+              "short": {
+                "summary": "Short request example"
+              },
+              "full": {
+                "summary": "Full request example",
+                "value": 0
+              }
             }
           },
           {
             "name": "habr_rating_low",
             "in": "query",
-            "required": true,
+            "required": false,
             "schema": {
-              "type": "integer",
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Habr Rating Low"
+            },
+            "examples": {
+              "short": {
+                "summary": "Short request example"
+              },
+              "full": {
+                "summary": "Full request example",
+                "value": 45
+              }
             }
           },
           {
             "name": "habr_rating_high",
             "in": "query",
-            "required": true,
+            "required": false,
             "schema": {
-              "type": "integer",
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Habr Rating High"
+            },
+            "examples": {
+              "short": {
+                "summary": "Short request example"
+              },
+              "full": {
+                "summary": "Full request example",
+                "value": 50
+              }
             }
           },
           {
             "name": "habr_karma_low",
             "in": "query",
-            "required": true,
+            "required": false,
             "schema": {
-              "type": "integer",
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Habr Karma Low"
+            },
+            "examples": {
+              "short": {
+                "summary": "Short request example"
+              },
+              "full": {
+                "summary": "Full request example",
+                "value": 100
+              }
             }
           },
           {
             "name": "habr_karma_high",
             "in": "query",
-            "required": true,
+            "required": false,
             "schema": {
-              "type": "integer",
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Habr Karma High"
+            },
+            "examples": {
+              "short": {
+                "summary": "Short request example"
+              },
+              "full": {
+                "summary": "Full request example",
+                "value": 1000000
+              }
             }
           },
           {
             "name": "age_low",
             "in": "query",
-            "required": true,
+            "required": false,
             "schema": {
-              "type": "integer",
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Age Low"
+            },
+            "examples": {
+              "short": {
+                "summary": "Short request example"
+              },
+              "full": {
+                "summary": "Full request example",
+                "value": 0
+              }
             }
           },
           {
             "name": "age_high",
             "in": "query",
-            "required": true,
+            "required": false,
             "schema": {
-              "type": "integer",
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Age High"
+            },
+            "examples": {
+              "short": {
+                "summary": "Short request example"
+              },
+              "full": {
+                "summary": "Full request example",
+                "value": 99
+              }
             }
           },
           {
             "name": "location_country",
             "in": "query",
-            "required": true,
+            "required": false,
             "schema": {
-              "type": "string",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Location Country"
+            },
+            "examples": {
+              "short": {
+                "summary": "Short request example"
+              },
+              "full": {
+                "summary": "Full request example",
+                "value": "Англия"
+              }
             }
           },
           {
             "name": "location_city",
             "in": "query",
-            "required": true,
+            "required": false,
             "schema": {
-              "type": "string",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Location City"
+            },
+            "examples": {
+              "short": {
+                "summary": "Short request example"
+              },
+              "full": {
+                "summary": "Full request example",
+                "value": "Бирмингем"
+              }
             }
           },
           {
             "name": "location_region",
             "in": "query",
-            "required": true,
+            "required": false,
             "schema": {
-              "type": "string",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Location Region"
+            },
+            "examples": {
+              "short": {
+                "summary": "Short request example"
+              },
+              "full": {
+                "summary": "Full request example",
+                "value": "Смоллхит"
+              }
             }
           },
           {
             "name": "salary_low",
             "in": "query",
-            "required": true,
+            "required": false,
             "schema": {
-              "type": "integer",
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Salary Low"
+            },
+            "examples": {
+              "short": {
+                "summary": "Short request example"
+              },
+              "full": {
+                "summary": "Full request example",
+                "value": 0
+              }
             }
           },
           {
             "name": "salary_high",
             "in": "query",
-            "required": true,
+            "required": false,
             "schema": {
-              "type": "integer",
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Salary High"
+            },
+            "examples": {
+              "short": {
+                "summary": "Short request example"
+              },
+              "full": {
+                "summary": "Full request example",
+                "value": 1000000
+              }
             }
           },
           {
@@ -731,11 +791,29 @@
             "in": "query",
             "required": false,
             "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Skills"
+            },
+            "examples": {
+              "short": {
+                "summary": "Short request example"
+              },
+              "full": {
+                "summary": "Full request example",
+                "value": [
+                  "Рэкетирство"
+                ]
+              }
             }
           },
           {
@@ -743,11 +821,31 @@
             "in": "query",
             "required": false,
             "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "title": "Speciality"
+            },
+            "examples": {
+              "short": {
+                "summary": "Short request example"
+              },
+              "full": {
+                "summary": "Full request example",
+                "value": [
+                  "Писать",
+                  "Считать",
+                  "Боксировать"
+                ]
+              }
             }
           }
         ],
@@ -774,29 +872,30 @@
       }
     },
     "/person/marks/add": {
-      "get": {
+      "post": {
         "summary": "Person Marks Add",
-        "operationId": "person_marks_add_person_marks_add_get",
-        "parameters": [
-          {
-            "name": "token",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Token"
+        "operationId": "person_marks_add_person_marks_add_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PersonMark"
+                  }
+                ],
+                "title": "Data",
+                "examples": [
+                  {
+                    "token": "abcabcabc",
+                    "person_id": "Big_bro"
+                  }
+                ]
+              }
             }
           },
-          {
-            "name": "person_id",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Person Id"
-            }
-          }
-        ],
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -823,26 +922,27 @@
       "get": {
         "summary": "Person Marks Status",
         "operationId": "person_marks_status_person_marks_status_get",
-        "parameters": [
-          {
-            "name": "token",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Token"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PersonMark"
+                  }
+                ],
+                "title": "Data",
+                "examples": [
+                  {
+                    "token": "abcabcabc",
+                    "person_id": "Big_bro"
+                  }
+                ]
+              }
             }
           },
-          {
-            "name": "person_id",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Person Id"
-            }
-          }
-        ],
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -866,29 +966,30 @@
       }
     },
     "/person/marks/remove": {
-      "get": {
+      "post": {
         "summary": "Person Marks Remove",
-        "operationId": "person_marks_remove_person_marks_remove_get",
-        "parameters": [
-          {
-            "name": "token",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Token"
+        "operationId": "person_marks_remove_person_marks_remove_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PersonMark"
+                  }
+                ],
+                "title": "Data",
+                "examples": [
+                  {
+                    "token": "abcabcabc",
+                    "person_id": "Big_bro"
+                  }
+                ]
+              }
             }
           },
-          {
-            "name": "person_id",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Person Id"
-            }
-          }
-        ],
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -915,17 +1016,26 @@
       "get": {
         "summary": "Person Marks All",
         "operationId": "person_marks_all_person_marks_all_get",
-        "parameters": [
-          {
-            "name": "token",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Token"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/JustToken"
+                  }
+                ],
+                "title": "Data",
+                "examples": [
+                  {
+                    "token": "abcabcabc"
+                  }
+                ]
+              }
             }
-          }
-        ],
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -963,6 +1073,267 @@
         },
         "type": "object",
         "title": "HTTPValidationError"
+      },
+      "JustToken": {
+        "properties": {
+          "token": {
+            "type": "string",
+            "title": "Token"
+          }
+        },
+        "type": "object",
+        "required": [
+          "token"
+        ],
+        "title": "JustToken"
+      },
+      "PersonMark": {
+        "properties": {
+          "token": {
+            "type": "string",
+            "title": "Token"
+          },
+          "person_id": {
+            "type": "string",
+            "title": "Person Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "token",
+          "person_id"
+        ],
+        "title": "PersonMark"
+      },
+      "UserAuth": {
+        "properties": {
+          "login": {
+            "type": "string",
+            "title": "Login"
+          },
+          "password_hash": {
+            "type": "string",
+            "title": "Password Hash"
+          }
+        },
+        "type": "object",
+        "required": [
+          "login",
+          "password_hash"
+        ],
+        "title": "UserAuth"
+      },
+      "UserRefreshMessages": {
+        "properties": {
+          "token": {
+            "type": "string",
+            "title": "Token"
+          },
+          "chat_id": {
+            "type": "string",
+            "title": "Chat Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "token",
+          "chat_id"
+        ],
+        "title": "UserRefreshMessages"
+      },
+      "UserRegisterHabr": {
+        "properties": {
+          "login": {
+            "type": "string",
+            "title": "Login"
+          },
+          "password_hash": {
+            "type": "string",
+            "title": "Password Hash"
+          },
+          "habr_id": {
+            "type": "string",
+            "title": "Habr Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "login",
+          "password_hash",
+          "habr_id"
+        ],
+        "title": "UserRegisterHabr"
+      },
+      "UserRegisterNew": {
+        "properties": {
+          "login": {
+            "type": "string",
+            "title": "Login"
+          },
+          "password_hash": {
+            "type": "string",
+            "title": "Password Hash"
+          },
+          "fullname": {
+            "type": "string",
+            "title": "Fullname"
+          },
+          "avatar": {
+            "type": "string",
+            "title": "Avatar"
+          },
+          "gender": {
+            "type": "integer",
+            "title": "Gender"
+          },
+          "birthday": {
+            "type": "string",
+            "title": "Birthday"
+          },
+          "location_country": {
+            "type": "string",
+            "title": "Location Country"
+          },
+          "location_city": {
+            "type": "string",
+            "title": "Location City"
+          },
+          "location_region": {
+            "type": "string",
+            "title": "Location Region"
+          },
+          "salary": {
+            "type": "integer",
+            "title": "Salary"
+          },
+          "skills": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Skills"
+          },
+          "speciality": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Speciality"
+          }
+        },
+        "type": "object",
+        "required": [
+          "login",
+          "password_hash",
+          "fullname",
+          "avatar",
+          "gender",
+          "birthday",
+          "location_country",
+          "location_city",
+          "location_region",
+          "salary",
+          "skills",
+          "speciality"
+        ],
+        "title": "UserRegisterNew"
+      },
+      "UserSendMessage": {
+        "properties": {
+          "token": {
+            "type": "string",
+            "title": "Token"
+          },
+          "chat_id": {
+            "type": "string",
+            "title": "Chat Id"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "token",
+          "chat_id",
+          "message"
+        ],
+        "title": "UserSendMessage"
+      },
+      "UserUpdate": {
+        "properties": {
+          "token": {
+            "type": "string",
+            "title": "Token"
+          },
+          "password_hash": {
+            "type": "string",
+            "title": "Password Hash"
+          },
+          "fullname": {
+            "type": "string",
+            "title": "Fullname"
+          },
+          "avatar": {
+            "type": "string",
+            "title": "Avatar"
+          },
+          "gender": {
+            "type": "integer",
+            "title": "Gender"
+          },
+          "birthday": {
+            "type": "string",
+            "title": "Birthday"
+          },
+          "location_country": {
+            "type": "string",
+            "title": "Location Country"
+          },
+          "location_city": {
+            "type": "string",
+            "title": "Location City"
+          },
+          "location_region": {
+            "type": "string",
+            "title": "Location Region"
+          },
+          "salary": {
+            "type": "integer",
+            "title": "Salary"
+          },
+          "skills": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Skills"
+          },
+          "speciality": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Speciality"
+          }
+        },
+        "type": "object",
+        "required": [
+          "token",
+          "password_hash",
+          "fullname",
+          "avatar",
+          "gender",
+          "birthday",
+          "location_country",
+          "location_city",
+          "location_region",
+          "salary",
+          "skills",
+          "speciality"
+        ],
+        "title": "UserUpdate"
       },
       "ValidationError": {
         "properties": {

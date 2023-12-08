@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!-- Created By CodingNepal - www.codingnepalweb.com -->
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>HabrGuesser</title> 
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+		<link rel="stylesheet" href="searchbox.css">
+		<link rel="stylesheet" href="table.css">
+		<script src="guesser.js"></script>
+	</head>
+	<body onload="load_people()">
+		<nav>
+			<div class="menu">
+				<div class="logo">
+					<a href="#">HabrGuesser</a>
+				</div>
+			</div>
+		</nav>
+		<div class="img"></div>
+		<div class="center">
+			<div class="title">Let our AI to guess your profession</div>
+			<div class="container">
+				<div class="searchInput">
+					<input type="text" placeholder="Start typing your nickname in Habr...">
+					<div class="resultBox">
+						<!-- here list are inserted from javascript -->
+					</div>
+					<div class="icon">
+						<i class="fas fa-search" onclick="guess()"></i>
+					</div>
+				</div>
+			</div>
+			<div id="result">
+			</div>
+<!--			/
+			<div class="sub_title">
+				By bookmarks:
+			</div>
+			<div>
+				Hello
+			</div>
+			<div class="sub_title">
+				By Hubs : 50%
+			</div>
+			<div>
+				Hello
+			</div>
+			
+
+			<div class="btns">
+				<button>Learn More</button>
+				<button>Subscribe</button>
+			</div>-->
+		</div>
+		<script src="searchbox.js"></script>
+	</body>
+</html>

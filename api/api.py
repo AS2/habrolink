@@ -10,6 +10,10 @@ class UserAuth(BaseModel):
     login: str
     password_hash: str
 
+class UserAuthResponse(BaseModel):
+    status: int
+    token: str
+
 # User-bounded API
 @app.post("/user/auth")
 async def user_auth(
@@ -21,7 +25,7 @@ async def user_auth(
             }
         ],
     ),
-):
+) -> UserAuthResponse:
     return {"status": 1, "token" : "abcabcabc"}
 
 class UserRegisterNew(BaseModel):
@@ -56,7 +60,7 @@ async def user_registration(data: UserRegisterNew = Body(
                 "speciality" : ["Ведение Биснеса"]
             }
         ],
-    ),):
+    ),) -> UserAuthResponse:
     return {"status": 1, "token" : "abcabcabc"}
 
 class UserRegisterHabr(BaseModel):
@@ -73,18 +77,34 @@ async def user_registration(data: UserRegisterHabr = Body(
                 "habr_id" : "tshelby",
             }
         ],
-    ),):
+    ),) -> UserAuthResponse:
     return {"status": 1, "token" : "abcabcabc"}
 
 class JustToken(BaseModel):
     token : str
+
+class PersonInfoResponse(BaseModel):
+    fullname : str
+    avatar : str
+    person_id : str
+    login : str
+    gender : int
+    birthday : str
+    location_country : str
+    location_region : str
+    location_city : str
+    salary : int
+    habr_rating : int
+    habr_karma : int
+    speciality : List[str]
+    skills : List[str]
 
 @app.get("/user/info")
 async def user_info(data: JustToken = Body(
         examples=[{
                 "token": "abcabcabc",
                 }]
-    )):
+    )) -> PersonInfoResponse :
     return {
         "fullname": "Томас Шелби",
         "avatar" : "https://someimage.org/img.png",
@@ -134,17 +154,21 @@ async def user_update(data: UserUpdate = Body(
                 "speciality" : ["Ведение Биснеса"]
             }
         ],
-    ),):
+    ),) -> UserAuthResponse:
     return {"status": 1, "token" : "abcabcabc"}
 
-# Messages API
+class ChatShortInfo(BaseModel):
+    chat_id : str
+    avatar : str
+    fullname : str
 
+# Messages API
 @app.get("/user/messages/chats")
 async def user_messages_chats(data: JustToken = Body(
         examples=[{
                 "token": "abcabcabc",
                 }]
-    )):
+    )) -> List[ChatShortInfo]:
     return {
         "chats": [
             {
@@ -170,6 +194,9 @@ class UserSendMessage(BaseModel):
     chat_id : str
     message : str
 
+class StatusResponse(BaseModel):
+    status : str
+
 @app.post("/user/messages/send")
 async def user_messages_send(data: UserSendMessage = Body(
         examples=[{
@@ -177,12 +204,19 @@ async def user_messages_send(data: UserSendMessage = Body(
                 "chat_id" : "Big_bro",
                 "message" : "Артур, нужна твоя помощь. Приезжай в паб."
                 }]
-    )):
+    )) -> StatusResponse:
     return {"status": 1}
 
 class UserRefreshMessages(BaseModel):
     token : str
     chat_id : str
+
+class MessageResponse(BaseModel):
+    recieved : int
+    text : str
+
+class MessagesRefreshResponse(BaseModel):
+    messages : List[MessageResponse]
 
 @app.get("/user/messages/refresh")
 async def user_messages_refresh(data: UserRefreshMessages = Body(
@@ -190,7 +224,7 @@ async def user_messages_refresh(data: UserRefreshMessages = Body(
                 "token" : "abcabcabc",
                 "chat_id" : "Big_bro",
                 }]
-    )):
+    )) -> MessagesRefreshResponse:
     return {
         "messages": [
             {
@@ -219,7 +253,7 @@ async def person_info(person_id : str = Query(
             "value" : "Big_bro"
         }
     }
-)):
+)) -> PersonInfoResponse:
     return {
         "fullname": "Артур Шелби",
         "avatar" : "https://someimage.org/img.png",
@@ -255,8 +289,23 @@ class PersonSearch():
     skills : Union[List[str], None] = Query(None, openapi_examples = {"short" : {"summary" : "Short request example", "value" : None}, "full" : {"summary" : "Full request example", "value" : ["Рэкетирство"]}})
     speciality : Union[List[str], None] = Query(None, openapi_examples = {"short" : {"summary" : "Short request example", "value" : None}, "full" : {"summary" : "Full request example", "value" : ["Писать", "Считать", "Боксировать"]}})
 
+class PersonShortInfoResponse(BaseModel):
+    fullname : str
+    avatar : str
+    source : int
+    person_id : str
+    habr_karma : int
+    habr_rating : int
+    login : str
+    marked : int
+
+class PersonSearchResponse(BaseModel):
+    page : int
+    pages_amount : int
+    persons : List[PersonShortInfoResponse]
+
 @app.get("/person/search")
-async def person_search(data : PersonSearch = Depends()):
+async def person_search(data : PersonSearch = Depends()) -> PersonSearchResponse:
     return {
         "page": 0,
         "pages_amount" : 1,
@@ -300,13 +349,16 @@ class PersonMark(BaseModel):
     token : str
     person_id : str
 
+class PersonMarkStatusResponse(BaseModel):
+    marked : int
+
 @app.post("/person/marks/add")
 async def person_marks_add(data: PersonMark = Body(
         examples = [{
                 "token" : "abcabcabc",
                 "person_id" : "Big_bro",
                 }]
-)):
+)) -> StatusResponse:
     return {"status": 1}
 
 @app.get("/person/marks/status")
@@ -315,7 +367,7 @@ async def person_marks_status(data: PersonMark = Body(
                 "token" : "abcabcabc",
                 "person_id" : "Big_bro",
                 }]
-)):
+)) -> PersonMarkStatusResponse:
     return {"marked": 1}
 
 @app.post("/person/marks/remove")
@@ -324,7 +376,7 @@ async def person_marks_remove(data: PersonMark = Body(
                 "token" : "abcabcabc",
                 "person_id" : "Big_bro",
                 }]
-)):
+)) -> StatusResponse:
     return {"status" : 1}
 
 @app.get("/person/marks/all")
@@ -332,7 +384,7 @@ async def person_marks_all(data: JustToken = Body(
         examples=[{
                 "token": "abcabcabc",
                 }]
-    )):
+    )) -> PersonSearchResponse:
     return {
         "page": 0,
         "pages_amount" : 1,

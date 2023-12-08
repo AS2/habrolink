@@ -35,7 +35,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/UserAuthResponse"
+                }
               }
             }
           },
@@ -98,7 +100,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/UserAuthResponse"
+                }
               }
             }
           },
@@ -146,7 +150,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/UserAuthResponse"
+                }
               }
             }
           },
@@ -192,7 +198,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/PersonInfoResponse"
+                }
               }
             }
           },
@@ -255,7 +263,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/UserAuthResponse"
+                }
               }
             }
           },
@@ -301,7 +311,13 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ChatShortInfo"
+                  },
+                  "type": "array",
+                  "title": "Response User Messages Chats User Messages Chats Get"
+                }
               }
             }
           },
@@ -349,7 +365,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
               }
             }
           },
@@ -396,7 +414,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/MessagesRefreshResponse"
+                }
               }
             }
           },
@@ -439,7 +459,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/PersonInfoResponse"
+                }
               }
             }
           },
@@ -854,7 +876,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/PersonSearchResponse"
+                }
               }
             }
           },
@@ -901,7 +925,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
               }
             }
           },
@@ -948,7 +974,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/PersonMarkStatusResponse"
+                }
               }
             }
           },
@@ -995,7 +1023,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
               }
             }
           },
@@ -1041,7 +1071,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/PersonSearchResponse"
+                }
               }
             }
           },
@@ -1061,6 +1093,29 @@
   },
   "components": {
     "schemas": {
+      "ChatShortInfo": {
+        "properties": {
+          "chat_id": {
+            "type": "string",
+            "title": "Chat Id"
+          },
+          "avatar": {
+            "type": "string",
+            "title": "Avatar"
+          },
+          "fullname": {
+            "type": "string",
+            "title": "Fullname"
+          }
+        },
+        "type": "object",
+        "required": [
+          "chat_id",
+          "avatar",
+          "fullname"
+        ],
+        "title": "ChatShortInfo"
+      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -1087,6 +1142,124 @@
         ],
         "title": "JustToken"
       },
+      "MessageResponse": {
+        "properties": {
+          "recieved": {
+            "type": "integer",
+            "title": "Recieved"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          }
+        },
+        "type": "object",
+        "required": [
+          "recieved",
+          "text"
+        ],
+        "title": "MessageResponse"
+      },
+      "MessagesRefreshResponse": {
+        "properties": {
+          "messages": {
+            "items": {
+              "$ref": "#/components/schemas/MessageResponse"
+            },
+            "type": "array",
+            "title": "Messages"
+          }
+        },
+        "type": "object",
+        "required": [
+          "messages"
+        ],
+        "title": "MessagesRefreshResponse"
+      },
+      "PersonInfoResponse": {
+        "properties": {
+          "fullname": {
+            "type": "string",
+            "title": "Fullname"
+          },
+          "avatar": {
+            "type": "string",
+            "title": "Avatar"
+          },
+          "person_id": {
+            "type": "string",
+            "title": "Person Id"
+          },
+          "login": {
+            "type": "string",
+            "title": "Login"
+          },
+          "gender": {
+            "type": "integer",
+            "title": "Gender"
+          },
+          "birthday": {
+            "type": "string",
+            "title": "Birthday"
+          },
+          "location_country": {
+            "type": "string",
+            "title": "Location Country"
+          },
+          "location_region": {
+            "type": "string",
+            "title": "Location Region"
+          },
+          "location_city": {
+            "type": "string",
+            "title": "Location City"
+          },
+          "salary": {
+            "type": "integer",
+            "title": "Salary"
+          },
+          "habr_rating": {
+            "type": "integer",
+            "title": "Habr Rating"
+          },
+          "habr_karma": {
+            "type": "integer",
+            "title": "Habr Karma"
+          },
+          "speciality": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Speciality"
+          },
+          "skills": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Skills"
+          }
+        },
+        "type": "object",
+        "required": [
+          "fullname",
+          "avatar",
+          "person_id",
+          "login",
+          "gender",
+          "birthday",
+          "location_country",
+          "location_region",
+          "location_city",
+          "salary",
+          "habr_rating",
+          "habr_karma",
+          "speciality",
+          "skills"
+        ],
+        "title": "PersonInfoResponse"
+      },
       "PersonMark": {
         "properties": {
           "token": {
@@ -1105,6 +1278,106 @@
         ],
         "title": "PersonMark"
       },
+      "PersonMarkStatusResponse": {
+        "properties": {
+          "marked": {
+            "type": "integer",
+            "title": "Marked"
+          }
+        },
+        "type": "object",
+        "required": [
+          "marked"
+        ],
+        "title": "PersonMarkStatusResponse"
+      },
+      "PersonSearchResponse": {
+        "properties": {
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "pages_amount": {
+            "type": "integer",
+            "title": "Pages Amount"
+          },
+          "persons": {
+            "items": {
+              "$ref": "#/components/schemas/PersonShortInfoResponse"
+            },
+            "type": "array",
+            "title": "Persons"
+          }
+        },
+        "type": "object",
+        "required": [
+          "page",
+          "pages_amount",
+          "persons"
+        ],
+        "title": "PersonSearchResponse"
+      },
+      "PersonShortInfoResponse": {
+        "properties": {
+          "fullname": {
+            "type": "string",
+            "title": "Fullname"
+          },
+          "avatar": {
+            "type": "string",
+            "title": "Avatar"
+          },
+          "source": {
+            "type": "integer",
+            "title": "Source"
+          },
+          "person_id": {
+            "type": "string",
+            "title": "Person Id"
+          },
+          "habr_karma": {
+            "type": "integer",
+            "title": "Habr Karma"
+          },
+          "habr_rating": {
+            "type": "integer",
+            "title": "Habr Rating"
+          },
+          "login": {
+            "type": "string",
+            "title": "Login"
+          },
+          "marked": {
+            "type": "integer",
+            "title": "Marked"
+          }
+        },
+        "type": "object",
+        "required": [
+          "fullname",
+          "avatar",
+          "source",
+          "person_id",
+          "habr_karma",
+          "habr_rating",
+          "login",
+          "marked"
+        ],
+        "title": "PersonShortInfoResponse"
+      },
+      "StatusResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "StatusResponse"
+      },
       "UserAuth": {
         "properties": {
           "login": {
@@ -1122,6 +1395,24 @@
           "password_hash"
         ],
         "title": "UserAuth"
+      },
+      "UserAuthResponse": {
+        "properties": {
+          "status": {
+            "type": "integer",
+            "title": "Status"
+          },
+          "token": {
+            "type": "string",
+            "title": "Token"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "token"
+        ],
+        "title": "UserAuthResponse"
       },
       "UserRefreshMessages": {
         "properties": {

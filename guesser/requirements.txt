@@ -4,3 +4,4 @@ uvicorn==0.22.0
 torch
 torchvision
 torchaudio
+orjson==3.9.7

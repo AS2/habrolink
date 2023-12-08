@@ -36,11 +36,17 @@ function guessSuccessed(data)
 		{
 			let newCell;
 			if (line == 0)
+			{
 				newCell = document.createElement("th");
+				if (line < data[column].length)
+					newCell.innerHTML = data[column][line];
+			}
 			else
+			{
 				newCell = document.createElement("td");
-			if (line < data[column].length)
-				newCell.innerHTML = data[column][line][0] + " (" + data[column][line][1] + "%);
+				if (line < data[column].length)
+					newCell.innerHTML = data[column][line][0] + " (" + data[column][line][1] + "%)";
+			}
 			newLine.appendChild(newCell);
 		}
 		newTable.appendChild(newLine)

@@ -3,7 +3,7 @@ import os
 import os.path
 from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
-import json
+import orjson
 import torch
 from torch import nn
 import numpy as np
@@ -12,11 +12,11 @@ app = FastAPI()
 
 users = []
 with open("app/site/nicknames.json", encoding="utf-8") as f:
-    users = json.load(f)
+    users = orjson.loads(f.read())
 
 models_configs = []
 with open("app/models.json", encoding="utf-8") as f:
-    models_configs = json.load(f)
+    models_configs = orjson.loads(f.read())
 
 class SimpleNetSigm(nn.Module):
     def __init__(self, in_f, out_f, params):
@@ -71,7 +71,7 @@ class Model:
         print("Parsed column name")
         
         #remap
-        remap = json.load(open(config["remap"], "r", encoding="utf-8"))
+        remap = orjson.loads(open(config["remap"], "r", encoding="utf-8").read())
         self.index2input = {}
         self.input2index = {}
         for i, el in enumerate(remap['input']):
@@ -94,7 +94,7 @@ class Model:
         self.model.load_state_dict(torch.load(config["model"]))
         print("Parsed model")
         #dataset
-        self.inputPerUser = json.load(open(config["dataset"], "r", encoding="utf-8"))
+        self.inputPerUser = orjson.loads(open(config["dataset"], "r", encoding="utf-8").read())
         print("Parsed dataset")
 
 
@@ -104,7 +104,7 @@ class Model:
         # fill input
         input_mask = np.zeros(len(self.input2index), dtype=np.float32)
         for inp in self.inputPerUser[username]:
-            input_mask[self.input2index[inp]] = 1.
+            input_mask[inp] = 1.
         # process model
         output_mask = self.model(torch.tensor(input_mask))
         # decode output

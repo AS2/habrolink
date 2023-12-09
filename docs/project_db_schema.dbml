@@ -1,18 +1,6 @@
 // Use DBML to define your database structure
 // Docs: https://dbml.dbdiagram.io/docs
 
-Table personToSkill {
-  id integer [primary key]
-  person_id text
-  skill text
-}
-
-Table personToSpeciality {
-  id integer [primary key]
-  person_id text
-  speciality text
-}
-
 Table person {
   id text [primary key]
   source integer
@@ -28,16 +16,28 @@ Table person {
   habr_rating integer
 }
 
-Table marked {
+Table personToSkill {
   id integer [primary key]
-  user_id integer
   person_id text
+  skill text
+}
+
+Table personToSpeciality {
+  id integer [primary key]
+  person_id text
+  speciality text
 }
 
 Table user {
   id integer [primary key]
   login text
   password_hash text
+  person_id text
+}
+
+Table marked {
+  id integer [primary key]
+  user_id integer
   person_id text
 }
 
@@ -52,7 +52,7 @@ Ref: "person"."id" < "personToSkill"."person_id"
 
 Ref: "person"."id" < "personToSpeciality"."person_id"
 
-Ref: "user"."person_id" - "person"."id"
+Ref: "user"."person_id" > "person"."id"
 
 
 

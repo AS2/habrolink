@@ -1,0 +1,1 @@
+select id as user_id from public."users" GROUP BY (user_id) ORDER BY user_id

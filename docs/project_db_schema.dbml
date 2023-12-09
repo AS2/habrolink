@@ -1,0 +1,65 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table person {
+  id text [primary key]
+  source integer
+  fullname text
+  avatar text
+  gender integer
+  birthday date
+  location_country text
+  location_city text
+  location_region text
+  salary integer
+  habr_karma integer
+  habr_rating integer
+}
+
+Table personToSkill {
+  id integer [primary key]
+  person_id text
+  skill text
+}
+
+Table personToSpeciality {
+  id integer [primary key]
+  person_id text
+  speciality text
+}
+
+Table user {
+  id integer [primary key]
+  login text
+  password_hash text
+  person_id text
+}
+
+Table marked {
+  id integer [primary key]
+  user_id integer
+  person_id text
+}
+
+Table message {
+  id integer [primary key]
+  from integer
+  to integer
+  message text
+}
+
+Ref: "person"."id" < "personToSkill"."person_id"
+
+Ref: "person"."id" < "personToSpeciality"."person_id"
+
+Ref: "user"."person_id" > "person"."id"
+
+
+
+Ref: "user"."id" < "message"."from"
+
+Ref: "user"."id" < "message"."to"
+
+Ref: "marked"."person_id" > "person"."id"
+
+Ref: "marked"."user_id" > "user"."id"

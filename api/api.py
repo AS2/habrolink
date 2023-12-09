@@ -1,24 +1,110 @@
-from typing import List
+from typing import List, Union, Optional
+from dataclasses import dataclass
 
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, Body, Depends
+from pydantic import BaseModel, Field
 
 app = FastAPI()
 
+class UserAuth(BaseModel):
+    login: str
+    password_hash: str
+
+class UserAuthResponse(BaseModel):
+    status: int
+    token: str
+
 # User-bounded API
-@app.get("/user/auth")
-async def user_auth(login : str = "", password_hash : str = ""):
+@app.post("/user/auth")
+async def user_auth(
+    data: UserAuth = Body(
+        examples=[
+            {
+                "login": "tommy1884@mail.com",
+                "password_hash": "HashHashHashHash",
+            }
+        ],
+    ),
+) -> UserAuthResponse:
     return {"status": 1, "token" : "abcabcabc"}
 
-@app.get("/user/registration/new")
-async def user_registration(login : str, password_hash : str, fullname : str, avatar : str, gender : int, birthday : str, location_country : str, location_city : str, location_region : str, salary : int, skills : List[str] = Query(None), speciality : List[str] = Query(None)):
+class UserRegisterNew(BaseModel):
+    login : str
+    password_hash : str
+    fullname : str
+    avatar : str
+    gender : int
+    birthday : str
+    location_country : str
+    location_city : str
+    location_region : str
+    salary : int
+    skills : List[str]
+    speciality : List[str]
+
+@app.post("/user/registration/new")
+async def user_registration(data: UserRegisterNew = Body(
+        examples=[
+            {
+                "login" : "tommy1884@mail.com",
+                "password_hash" : "HashHashHashHash",
+                "fullname" : "Томас Шелби",
+                "avatar" : "https://someimage.org/img.png",
+                "gender" : 1,
+                "birthday" : "20.01.1884",
+                "location_country" : "Англия",
+                "location_city" : "Смоллхит",
+                "location_region" : "Бирмингем",
+                "salary" : 20000000,
+                "skills" : ["Скачки", "Гадание", "Софтскиллс"],
+                "speciality" : ["Ведение Биснеса"]
+            }
+        ],
+    ),) -> UserAuthResponse:
     return {"status": 1, "token" : "abcabcabc"}
 
-@app.get("/user/registration/habr")
-async def user_registration(login : str, password_hash : str, habr_id : str):
+class UserRegisterHabr(BaseModel):
+    login : str
+    password_hash : str
+    habr_id : str
+
+@app.post("/user/registration/habr")
+async def user_registration(data: UserRegisterHabr = Body(
+        examples=[
+            {
+                "login" : "tommy1884@mail.com",
+                "password_hash" : "HashHashHashHash",
+                "habr_id" : "tshelby",
+            }
+        ],
+    ),) -> UserAuthResponse:
     return {"status": 1, "token" : "abcabcabc"}
+
+class JustToken(BaseModel):
+    token : str
+
+class PersonInfoResponse(BaseModel):
+    fullname : str
+    avatar : str
+    person_id : str
+    login : str
+    gender : int
+    birthday : str
+    location_country : str
+    location_region : str
+    location_city : str
+    salary : int
+    habr_rating : int
+    habr_karma : int
+    speciality : List[str]
+    skills : List[str]
 
 @app.get("/user/info")
-async def user_info(token : str):
+async def user_info(data: JustToken = Body(
+        examples=[{
+                "token": "abcabcabc",
+                }]
+    )) -> PersonInfoResponse :
     return {
         "fullname": "Томас Шелби",
         "avatar" : "https://someimage.org/img.png",
@@ -36,14 +122,53 @@ async def user_info(token : str):
         "skills" : ["Скачки", "Гадание", "Софтскиллс"]
     }
 
-@app.get("/user/update")
-async def user_update(token : str, password_hash : str, fullname : str, avatar : str, gender : int, birthday : str, location_country : str, location_city : str, location_region : str, salary : int, skills : List[str] = Query(None), speciality : List[str] = Query(None)):
+class UserUpdate(BaseModel):
+    token : str
+    password_hash : str
+    fullname : str
+    avatar : str
+    gender : int
+    birthday : str
+    location_country : str
+    location_city : str
+    location_region : str
+    salary : int
+    skills : List[str]
+    speciality : List[str]
+
+@app.post("/user/update")
+async def user_update(data: UserUpdate = Body(
+        examples=[
+            {
+                "token" : "abcabcabc",
+                "password_hash" : "HashHashHashHash",
+                "fullname" : "Томас Шелби",
+                "avatar" : "https://someimage.org/img.png",
+                "gender" : 1,
+                "birthday" : "20.01.1884",
+                "location_country" : "Англия",
+                "location_city" : "Смоллхит",
+                "location_region" : "Бирмингем",
+                "salary" : 20000000,
+                "skills" : ["Скачки", "Гадание", "Софтскиллс"],
+                "speciality" : ["Ведение Биснеса"]
+            }
+        ],
+    ),) -> UserAuthResponse:
     return {"status": 1, "token" : "abcabcabc"}
 
-# Messages API
+class ChatShortInfo(BaseModel):
+    chat_id : str
+    avatar : str
+    fullname : str
 
+# Messages API
 @app.get("/user/messages/chats")
-async def user_messages_chats(token : str):
+async def user_messages_chats(data: JustToken = Body(
+        examples=[{
+                "token": "abcabcabc",
+                }]
+    )) -> List[ChatShortInfo]:
     return {
         "chats": [
             {
@@ -64,12 +189,42 @@ async def user_messages_chats(token : str):
         ]
     }
 
-@app.get("/user/messages/send")
-async def user_messages_send(token : str, chat_id : str, message : str):
+class UserSendMessage(BaseModel):
+    token : str
+    chat_id : str
+    message : str
+
+class StatusResponse(BaseModel):
+    status : str
+
+@app.post("/user/messages/send")
+async def user_messages_send(data: UserSendMessage = Body(
+        examples=[{
+                "token" : "abcabcabc",
+                "chat_id" : "Big_bro",
+                "message" : "Артур, нужна твоя помощь. Приезжай в паб."
+                }]
+    )) -> StatusResponse:
     return {"status": 1}
 
+class UserRefreshMessages(BaseModel):
+    token : str
+    chat_id : str
+
+class MessageResponse(BaseModel):
+    recieved : int
+    text : str
+
+class MessagesRefreshResponse(BaseModel):
+    messages : List[MessageResponse]
+
 @app.get("/user/messages/refresh")
-async def user_messages_refresh(token : str, chat_id : str):
+async def user_messages_refresh(data: UserRefreshMessages = Body(
+        examples=[{
+                "token" : "abcabcabc",
+                "chat_id" : "Big_bro",
+                }]
+    )) -> MessagesRefreshResponse:
     return {
         "messages": [
             {
@@ -90,7 +245,15 @@ async def user_messages_refresh(token : str, chat_id : str):
 # Persons API
 
 @app.get("/person/info")
-async def person_info(person_id : str):
+async def person_info(person_id : str = Query(
+    None,
+    openapi_examples={
+        "normal" : {
+            "summary" : "Example with normal data",
+            "value" : "Big_bro"
+        }
+    }
+)) -> PersonInfoResponse:
     return {
         "fullname": "Артур Шелби",
         "avatar" : "https://someimage.org/img.png",
@@ -108,9 +271,41 @@ async def person_info(person_id : str):
         "skills" : ["Писать", "Считать", "Боксировать", "Софтскилс"]
     }
 
+@dataclass
+class PersonSearch():
+    page : Union[int, None] = Query(None, openapi_examples = {"short" : {"summary" : "Short request example", "value" : None}, "full" : {"summary" : "Full request example", "value" : 0}})
+    source : Union[int, None] = Query(None, openapi_examples = {"short" : {"summary" : "Short request example", "value" : None}, "full" : {"summary" : "Full request example", "value" : 0}})
+    habr_rating_low : Union[int, None] = Query(None, openapi_examples = {"short" : {"summary" : "Short request example", "value" : None}, "full" : {"summary" : "Full request example", "value" : 45}})
+    habr_rating_high : Union[int, None] = Query(None, openapi_examples = {"short" : {"summary" : "Short request example", "value" : None}, "full" : {"summary" : "Full request example", "value" : 50}})
+    habr_karma_low : Union[int, None] = Query(None, openapi_examples = {"short" : {"summary" : "Short request example", "value" : None}, "full" : {"summary" : "Full request example", "value" : 100}})
+    habr_karma_high : Union[int, None] = Query(None, openapi_examples = {"short" : {"summary" : "Short request example", "value" : None}, "full" : {"summary" : "Full request example", "value" : 1000000}})
+    age_low : Union[int, None] = Query(None, openapi_examples = {"short" : {"summary" : "Short request example", "value" : None}, "full" : {"summary" : "Full request example", "value" : 0}})
+    age_high : Union[int, None] = Query(None, openapi_examples = {"short" : {"summary" : "Short request example", "value" : None}, "full" : {"summary" : "Full request example", "value" : 99}})
+    location_country : Union[str, None] = Query(None, openapi_examples = {"short" : {"summary" : "Short request example", "value" : None}, "full" : {"summary" : "Full request example", "value" : "Англия"}})
+    location_city : Union[str, None] = Query(None, openapi_examples = {"short" : {"summary" : "Short request example", "value" : None}, "full" : {"summary" : "Full request example", "value" : "Бирмингем"}})
+    location_region : Union[str, None] = Query(None, openapi_examples = {"short" : {"summary" : "Short request example", "value" : None}, "full" : {"summary" : "Full request example", "value" : "Смоллхит"}})
+    salary_low : Union[int, None] = Query(None, openapi_examples = {"short" : {"summary" : "Short request example", "value" : None}, "full" : {"summary" : "Full request example", "value" : 0}})
+    salary_high : Union[int, None] = Query(None, openapi_examples = {"short" : {"summary" : "Short request example", "value" : None}, "full" : {"summary" : "Full request example", "value" : 1000000}})
+    skills : Union[List[str], None] = Query(None, openapi_examples = {"short" : {"summary" : "Short request example", "value" : None}, "full" : {"summary" : "Full request example", "value" : ["Рэкетирство"]}})
+    speciality : Union[List[str], None] = Query(None, openapi_examples = {"short" : {"summary" : "Short request example", "value" : None}, "full" : {"summary" : "Full request example", "value" : ["Писать", "Считать", "Боксировать"]}})
+
+class PersonShortInfoResponse(BaseModel):
+    fullname : str
+    avatar : str
+    source : int
+    person_id : str
+    habr_karma : int
+    habr_rating : int
+    login : str
+    marked : int
+
+class PersonSearchResponse(BaseModel):
+    page : int
+    pages_amount : int
+    persons : List[PersonShortInfoResponse]
 
 @app.get("/person/search")
-async def person_search(page : int, source : int, habr_rating_low : int, habr_rating_high : int, habr_karma_low : int, habr_karma_high : int, age_low : int, age_high : int, location_country : str, location_city : str, location_region : str, salary_low : int, salary_high : int,  skills : List[str] = Query(None), speciality : List[str] = Query(None)):
+async def person_search(data : PersonSearch = Depends()) -> PersonSearchResponse:
     return {
         "page": 0,
         "pages_amount" : 1,
@@ -150,20 +345,46 @@ async def person_search(page : int, source : int, habr_rating_low : int, habr_ra
 
 # Mark API
 
-@app.get("/person/marks/add")
-async def person_marks_add(token : str, person_id : str):
+class PersonMark(BaseModel):
+    token : str
+    person_id : str
+
+class PersonMarkStatusResponse(BaseModel):
+    marked : int
+
+@app.post("/person/marks/add")
+async def person_marks_add(data: PersonMark = Body(
+        examples = [{
+                "token" : "abcabcabc",
+                "person_id" : "Big_bro",
+                }]
+)) -> StatusResponse:
     return {"status": 1}
 
 @app.get("/person/marks/status")
-async def person_marks_status(token : str, person_id : str):
+async def person_marks_status(data: PersonMark = Body(
+        examples = [{
+                "token" : "abcabcabc",
+                "person_id" : "Big_bro",
+                }]
+)) -> PersonMarkStatusResponse:
     return {"marked": 1}
 
-@app.get("/person/marks/remove")
-async def person_marks_remove(token : str, person_id : str):
+@app.post("/person/marks/remove")
+async def person_marks_remove(data: PersonMark = Body(
+        examples = [{
+                "token" : "abcabcabc",
+                "person_id" : "Big_bro",
+                }]
+)) -> StatusResponse:
     return {"status" : 1}
 
 @app.get("/person/marks/all")
-async def person_marks_all(token : str):
+async def person_marks_all(data: JustToken = Body(
+        examples=[{
+                "token": "abcabcabc",
+                }]
+    )) -> PersonSearchResponse:
     return {
         "page": 0,
         "pages_amount" : 1,

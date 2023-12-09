@@ -1,0 +1,1 @@
+select specialization_id, count(id) from public."userToSpecialization" group by specialization_id order by count desc

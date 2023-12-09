@@ -1,0 +1,18 @@
+[
+	{
+		"columnname" : "By Bookmarks",
+		"type" : "sigmoid",
+		"model" : "app/models/bookmarks.pth",
+		"net_params" : [0.25, 3, 1],
+		"dataset" : "app/models/bookmarks.json",
+		"remap" : "app/models/bookmarks_remap.json"
+	},
+	{
+		"columnname" : "By Hubs",
+		"type" : "sigmoid",
+		"model" : "app/models/hub.pth",
+		"net_params" : [3, 3, 1],
+		"dataset" : "app/models/hubs.json",
+		"remap" : "app/models/hubs_remap.json"
+	}
+]

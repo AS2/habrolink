@@ -1,0 +1,1 @@
+select register from users where rating > 0;

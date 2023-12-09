@@ -1,0 +1,7 @@
+fastapi==0.103.2
+pydantic==2.5.2
+uvicorn==0.22.0
+torch
+torchvision
+torchaudio
+orjson==3.9.7

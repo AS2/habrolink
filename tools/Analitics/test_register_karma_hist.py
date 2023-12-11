@@ -32,6 +32,7 @@ def test_register_date_karma_hist(capsys):
             y = np.array([t[0].timestamp() for t in res])
             print(len(res))
             years = [x for x in range(2006, 2025)]
+            plt.xticks(range(2006, 2025, 2))
             
             hist_all = np.histogram(y, 18, (datetime.datetime(2006, 1, 1).timestamp(), datetime.datetime(2024, 1, 1).timestamp()))
 
@@ -70,4 +71,4 @@ def test_register_date_karma_hist(capsys):
             ax1.bar(years[:-1], hist_all[0], width=np.diff(years), edgecolor="black", align="edge", color=(0,0,1,0))
 
             fig.tight_layout()
-            plt.show()
+            plt.savefig(fname=f"./pics/analitics/register_date_karma_distr.png", bbox_inches='tight', dpi=200)

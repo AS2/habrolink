@@ -63,7 +63,7 @@ def calculateConditionIntersections(q_results, q_results_count):
 
 
 def test_get_data_intersections(capsys):
-    out = open("./intersect.csv", "w+")
+    out = open("./processed_data/intersect.csv", "w+")
     with capsys.disabled():
         with conn.cursor() as cur:
             conditions = [

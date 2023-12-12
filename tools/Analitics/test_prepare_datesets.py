@@ -36,9 +36,9 @@ def test_process_raw_data():
             cache_file = None
             out = None
             try:
-                cache_file = open(f"./{q[1]}.csv", "r", encoding="utf-8")
+                cache_file = open(f"./processed_data/{q[1]}.csv", "r", encoding="utf-8")
             except FileNotFoundError:
-                out = open(f"./{q[1]}.csv", "w+", encoding="utf-8")
+                out = open(f"./processed_data/{q[1]}.csv", "w+", encoding="utf-8")
                 cur.execute(q[0])
             counter = 0
             headers = {}
@@ -61,8 +61,8 @@ def test_process_raw_data():
                 out.close()
             if cache_file:
                 cache_file.close()
-            cache_file = open(f"./{q[1]}.csv", "r", encoding="utf-8")
-            out = open(f"./{q[1]}ProcessedQuick.csv", "w+", encoding="utf-8")
+            cache_file = open(f"./processed_data/{q[1]}.csv", "r", encoding="utf-8")
+            out = open(f"./processed_data/{q[1]}ProcessedQuick.csv", "w+", encoding="utf-8")
             out.write("user_id")
             for header in headers:
                 out.write(f";{header}")
@@ -90,8 +90,8 @@ def test_make_datasets():
         ]
     with conn.cursor() as cur:
         for q in quariesSrc:
-            fileSpec = open(f"./{quaryRes[1]}.csv", "r", encoding="utf-8")
-            fileHub = open(f"./{q[1]}.csv", "r", encoding="utf-8")
+            fileSpec = open(f"./processed_data/{quaryRes[1]}.csv", "r", encoding="utf-8")
+            fileHub = open(f"./processed_data/{q[1]}.csv", "r", encoding="utf-8")
             out = open(f"./{quaryRes[0]}From{q[0]}.csv", "w+", encoding="utf-8")
             headerSpecFull = fileSpec.readline().strip().split(";")[1:]
             headerHubFull = fileHub.readline().strip().split(";")[1:]
@@ -139,8 +139,8 @@ def test_make_datasets():
             out.write("\n")
             fileSpec.close()
             fileHub.close()
-            fileSpec = open(f"./{quaryRes[1]}.csv", "r", encoding="utf-8")
-            fileHub = open(f"./{q[1]}.csv", "r", encoding="utf-8")
+            fileSpec = open(f"./processed_data/{quaryRes[1]}.csv", "r", encoding="utf-8")
+            fileHub = open(f"./processed_data/{q[1]}.csv", "r", encoding="utf-8")
             fileSpec.readline()
             fileHub.readline()
             specRecord = fileSpec.readline().strip().split(";")

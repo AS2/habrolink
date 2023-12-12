@@ -23,3 +23,6 @@
 [Диаграмма состояний](ui_primitives.png)
 
 [Демонстрация Figma](https://www.figma.com/proto/4kfjLXl7rkccWBzTSo4hNU/habrolinker-UI?type=design&node-id=7-32&t=IiIKiPgL1EWn1Kbe-0&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=7%3A32)
+
+### Диаграмма развертывания
+[Диаграмма развертывания](deployment_diagram.png)

@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-12-09T20:08:01.206Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.686 YaBrowser/23.9.5.686 Yowser/2.5 Safari/537.36" etag="QDQyMaaGKXH_74BuSrVr" version="22.1.7" type="device">
+<mxfile host="app.diagrams.net" modified="2023-12-12T14:47:01.478Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.5993.731 YaBrowser/23.11.1.731 Yowser/2.5 Safari/537.36" etag="A4bMhDrYTdrnP82kw1zm" version="22.1.7" type="device">
   <diagram id="RIsx4OWrCgGug_Piqi56" name="Страница — 1">
     <mxGraphModel dx="1524" dy="886" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -112,8 +112,8 @@
             <mxPoint x="151" y="452" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="V-XD4Kh0ydEi16exZV9T-1" value="+string: Текст сообщения" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="110.5" y="410.5" width="81" height="45" as="geometry" />
+        <mxCell id="V-XD4Kh0ydEi16exZV9T-1" value="&lt;u&gt;Текст сообщения&lt;/u&gt;:&amp;nbsp;string" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="96" y="420" width="110" height="45" as="geometry" />
         </mxCell>
         <mxCell id="V-XD4Kh0ydEi16exZV9T-2" value="" style="endArrow=classic;html=1;rounded=0;fillColor=#0050ef;strokeColor=#001DBC;edgeStyle=orthogonalEdgeStyle;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="V-XD4Kh0ydEi16exZV9T-1" target="P0AUMv_GTVeGDAwspM5X-3" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -121,7 +121,7 @@
             <mxPoint x="161" y="485" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="V-XD4Kh0ydEi16exZV9T-3" value="+string: Получатель (логин)" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="V-XD4Kh0ydEi16exZV9T-3" value="&lt;u&gt;Получатель (логин)&lt;/u&gt;:&amp;nbsp;string" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="106.5" y="250" width="89" height="50" as="geometry" />
         </mxCell>
         <mxCell id="V-XD4Kh0ydEi16exZV9T-4" value="" style="endArrow=classic;html=1;rounded=0;fillColor=#0050ef;strokeColor=#001DBC;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="V-XD4Kh0ydEi16exZV9T-5" target="V-XD4Kh0ydEi16exZV9T-3" edge="1">

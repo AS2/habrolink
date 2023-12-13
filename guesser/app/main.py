@@ -91,7 +91,7 @@ class Model:
         else:
             self.model = SimpleNetSigm(len(remap['input']), len(remap['output']), NetParams(config["net_params"][0], config["net_params"][1], config["net_params"][2]))
             
-        self.model.load_state_dict(torch.load(config["model"]))
+        self.model.load_state_dict(torch.load(config["model"], map_location=torch.device('cpu')))
         print("Parsed model")
         #dataset
         self.inputPerUser = orjson.loads(open(config["dataset"], "r", encoding="utf-8").read())

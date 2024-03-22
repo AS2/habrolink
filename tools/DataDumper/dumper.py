@@ -153,7 +153,6 @@ if __name__ == "__main__":
 							with conn.cursor() as cur:			
 								add_one_post(post, cur)	
 								conn.commit()
-<<<<<<< Updated upstream
 						else:
 							print("\nskipped", post)	
 					except Exception as e:
@@ -164,18 +163,6 @@ if __name__ == "__main__":
 					currentTime = time.time()
 					totalTime = (currentTime - startTime) * 1000000 / (i + 0.1) / args.count
 					ss = "\r Post " + str(i) + "/" + str(len(usernames)) + " time left " + str(totalTime - (currentTime - startTime)) + "s"
-=======
-							else:
-								pass
-						except Exception as e:
-							cur.execute("ROLLBACK")
-							conn.commit()
-							print()
-							print(e)
-					currentTime = time.time()
-					totalTime = (currentTime - startTime) * 1000000 / (i + 0.1)
-					ss = "\r Post " + str(i) + "/" + str(1000000) + " time left " + str(totalTime - (currentTime - startTime)) + "s"
->>>>>>> Stashed changes
 					if len(ss) < 80:
 						ss += "*" * (80 - len(ss))
 					print(ss, end="")

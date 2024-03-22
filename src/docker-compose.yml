@@ -1,0 +1,31 @@
+version: "3.9"
+services:
+  habrolink_db:
+    image: postgres:16.0
+    container_name: habrolink_db
+    environment:
+      POSTGRES_DB: "habrolinkdb"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "12345"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - ./database/init:/docker-entrypoint-initdb.d
+      - ./database/data:/var/lib/postgresql/data
+    ports:
+      - "5555:5432"
+  habrolink_backend:
+    container_name: habrolink_backend
+    build:
+      context: ./backend/
+      dockerfile: ./Dockerfile
+    ports:
+      - "8000:8000"
+  habrolink_frontend:
+    container_name: habrolink_frontend
+    environment:
+      PORT: "80"
+    build:
+      context: ./frontend/
+      dockerfile: ./Dockerfile
+    ports:
+      - "80:80"

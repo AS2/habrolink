@@ -3,6 +3,8 @@ from typing import Union
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from .routers import messages, search, users
+
 app = FastAPI()
 
 origins = [
@@ -12,7 +14,9 @@ origins = [
     "habrolink_backend:8000"
 ]
 
-
+app.include_router(messages.router)
+app.include_router(search.router)
+app.include_router(users.router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,

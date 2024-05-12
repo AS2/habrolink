@@ -1,11 +1,11 @@
 import math
 from typing import Annotated
 
-from fastapi import APIRouter, HTTPException, Body
+from fastapi import APIRouter, HTTPException, Body, Depends
 
-from ..authentication import update_token, get_user_id_by_token
+from ..authentication import get_user_id_by_token, reuseable_oauth
 from ..config import DBConfig, SEARCH_ENTRIES_PER_PAGE
-from ..schemas import PersonSearchArguments, PersonSearchResponse, CommonResponse, MarkingArguments, OnlyTokenArguments, \
+from ..schemas import PersonSearchArguments, PersonSearchResponse, CommonResponse, MarkingArguments, \
     MarkListResponse, MarkStatusResponse
 
 import psycopg2
@@ -15,7 +15,7 @@ router = APIRouter()
 
 @router.post("/search", response_model=PersonSearchResponse)
 async def person_search(searchArguments: Annotated[
-    PersonSearchArguments, Body(openapi_examples=PersonSearchArguments.get_example())]) -> PersonSearchResponse:
+    PersonSearchArguments, Body(openapi_examples=PersonSearchArguments.get_example())], token: str = Depends(reuseable_oauth)) -> PersonSearchResponse:
     # connect to DB
     conn = psycopg2.connect(
         host=DBConfig["host"],
@@ -28,7 +28,6 @@ async def person_search(searchArguments: Annotated[
         raise HTTPException(status_code=500, detail="Cannot connect to database")
 
     result = PersonSearchResponse()
-    result.token = update_token(searchArguments.token)
 
     try:
         with conn.cursor() as cur:
@@ -154,7 +153,7 @@ async def person_search(searchArguments: Annotated[
 
 @router.post("/mark/add", response_model=CommonResponse)
 async def add_mark(markArguments: Annotated[
-    MarkingArguments, Body(openapi_examples=MarkingArguments.get_example())]) -> CommonResponse:
+    MarkingArguments, Body(openapi_examples=MarkingArguments.get_example())], token: str = Depends(reuseable_oauth)) -> CommonResponse:
     # connect to DB
     conn = psycopg2.connect(
         host=DBConfig["host"],
@@ -167,24 +166,23 @@ async def add_mark(markArguments: Annotated[
         raise HTTPException(status_code=500, detail="Cannot connect to database")
 
     result = CommonResponse()
-    result.token = update_token(markArguments.token)
 
     # todo - ensure that user is valid
 
     try:
         with conn.cursor() as cur:
             cur.execute('INSERT INTO "marked" ("user_id", "person_id") VALUES (%s, %s) ON CONFLICT DO NOTHING',
-                        (get_user_id_by_token(result.token), markArguments.person_id))
-            cur.commit()
+                        (get_user_id_by_token(token), markArguments.person_id))
     except psycopg2.OperationalError:
         raise HTTPException(status_code=500, detail="Cannot retrieve data from database")
+    conn.commit()
     conn.close()
     return result
 
 
 @router.post("/mark/remove", response_model=CommonResponse)
 async def remove_mark(markArguments: Annotated[
-    MarkingArguments, Body(openapi_examples=MarkingArguments.get_example())]) -> CommonResponse:
+    MarkingArguments, Body(openapi_examples=MarkingArguments.get_example())], token: str = Depends(reuseable_oauth)) -> CommonResponse:
     # connect to DB
     conn = psycopg2.connect(
         host=DBConfig["host"],
@@ -197,24 +195,22 @@ async def remove_mark(markArguments: Annotated[
         raise HTTPException(status_code=500, detail="Cannot connect to database")
 
     result = CommonResponse()
-    result.token = update_token(markArguments.token)
 
     # todo - ensure that user is valid
 
     try:
         with conn.cursor() as cur:
             cur.execute('DELETE FROM "marked" WHERE "user_id" = %s AND "person_id" = %s',
-                        (get_user_id_by_token(result.token), markArguments.person_id))
-            cur.commit()
+                        (get_user_id_by_token(token), markArguments.person_id))
     except psycopg2.OperationalError:
         raise HTTPException(status_code=500, detail="Cannot retrieve data from database")
+    conn.commit()
     conn.close()
     return result
 
 
 @router.post("/mark/list", response_model=MarkListResponse)
-async def list_marked(user: Annotated[
-    OnlyTokenArguments, Body(openapi_examples=OnlyTokenArguments.get_example())]) -> MarkListResponse:
+async def list_marked(token: str = Depends(reuseable_oauth)) -> MarkListResponse:
     # connect to DB
     conn = psycopg2.connect(
         host=DBConfig["host"],
@@ -227,13 +223,12 @@ async def list_marked(user: Annotated[
         raise HTTPException(status_code=500, detail="Cannot connect to database")
 
     result = MarkListResponse()
-    result.token = update_token(user.token)
 
     # todo - ensure that user is valid
 
     try:
         with conn.cursor() as cur:
-            cur.execute('SELECT "person_id" FROM "marked" WHERE "user_id" = %s', (get_user_id_by_token(result.token),))
+            cur.execute('SELECT "person_id" FROM "marked" WHERE "user_id" = %s', (get_user_id_by_token(token),))
             entries = cur.fetchall()
             for i in range(len(entries)):
                 result.persons_ids.append(entries[i][0])
@@ -246,7 +241,7 @@ async def list_marked(user: Annotated[
 
 @router.post("/mark/status", response_model=MarkListResponse)
 async def check_is_marked(markArguments: Annotated[
-    MarkingArguments, Body(openapi_examples=MarkingArguments.get_example())]) -> MarkStatusResponse:
+    MarkingArguments, Body(openapi_examples=MarkingArguments.get_example())], token: str = Depends(reuseable_oauth)) -> MarkStatusResponse:
     # connect to DB
     conn = psycopg2.connect(
         host=DBConfig["host"],
@@ -259,7 +254,6 @@ async def check_is_marked(markArguments: Annotated[
         raise HTTPException(status_code=500, detail="Cannot connect to database")
 
     result = MarkStatusResponse()
-    result.token = update_token(markArguments.token)
     result.status = 0
 
     # todo - ensure that user is valid
@@ -267,7 +261,7 @@ async def check_is_marked(markArguments: Annotated[
     try:
         with conn.cursor() as cur:
             cur.execute('SELECT "person_id" FROM "marked" WHERE "user_id" = %s AND "person_id" = %s',
-                        (get_user_id_by_token(result.token), markArguments.person_id))
+                        (get_user_id_by_token(token), markArguments.person_id))
             entries = cur.fetchall()
             if len(entries) > 0:
                 result.status = 1

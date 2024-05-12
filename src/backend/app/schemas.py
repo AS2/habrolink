@@ -44,12 +44,12 @@ class User(BaseModel):
 
 # base class for info from all responses
 class CommonResponse(BaseModel):
-    token: str = Field(default="token")  # authentication token or empty string
+    pass
 
 
 # base class for info from all requests
 class CommonArguments(BaseModel):
-    token: Optional[str] = Field(default=None)  # authentication token
+    pass
 
 
 #######
@@ -72,7 +72,6 @@ class UserIdArguments(CommonArguments):
             "normal": {
                 "summary": "Biggest valid example",
                 "value": {
-                    "token": "token",
                     "user_id": 0
                 }
             }
@@ -95,7 +94,6 @@ class PersonIdArguments(CommonArguments):
             "normal": {
                 "summary": "Biggest valid example",
                 "value": {
-                    "token": "token",
                     "person_id": "Big_bro"
                 }
             }
@@ -131,7 +129,6 @@ class PersonSearchArguments(CommonArguments):
             "normal": {
                 "summary": "Biggest valid example",
                 "value": {
-                    "token": "token",
                     "page": 0,
                     "source": PersonSourceEnum.HABROLINKER,
                     "habr_rating_low": 0,
@@ -162,39 +159,18 @@ class MarkingArguments(CommonArguments):
             "short": {
                 "summary": "Shortest valid example",
                 "value": {
-                    "token" : "CurUserToken",
                     "person_id" : "Big_bro"
                 }
             },
             "normal": {
                 "summary": "Biggest valid example",
                 "value": {
-                    "token" : "CurUserToken",
                     "person_id" : "Big_bro"
                 }
             }
         }
 
 
-# arguments when only token needed
-class OnlyTokenArguments(CommonArguments):
-
-    @staticmethod
-    def get_example():
-        return {
-            "short": {
-                "summary": "Shortest valid example",
-                "value": {
-                    "token": "CurUserToken",
-                }
-            },
-            "normal": {
-                "summary": "Biggest valid example",
-                "value": {
-                    "token": "CurUserToken",
-                }
-            }
-        }
 #######
 # RESPONSE SCHEMAS
 #######
@@ -228,3 +204,51 @@ class MarkListResponse(CommonResponse):
 # arguments for Marking API
 class MarkStatusResponse(CommonResponse):
     status: int = Field(default=0, examples=[0, 1])                     # marked or not
+
+
+class UserSigninArguments(BaseModel):
+    login: str = Field(...)
+    password: str = Field(...)
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "login": "abdulazeez@x.com",
+                "password": "weakpassword"
+            }
+        }
+
+
+class UserSigninResponse(BaseModel):
+    access_token: str = Field(...)
+    refresh_token: str = Field(...)
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "access_token": "ewtrhyuthdghty",
+                "refresh_token": "yrtutjhtyghdfh"
+            }
+        }
+
+
+class UserSignupArguments(BaseModel):
+    login: str = Field(...)
+    password: str = Field(...)
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "login": "abdulazeez@x.com",
+                "password": "weakpassword"
+            }
+        }
+
+
+class UserSignupResponse(BaseModel):
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+            }
+        }

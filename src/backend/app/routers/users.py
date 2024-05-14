@@ -108,6 +108,7 @@ async def create_person(arguments: Annotated[PersonCreateUpdateArguments, Body(o
                          arguments.location_city,
                          arguments.location_region,
                          arguments.salary))
+            # TODO - specialities and skills
             cur.execute('UPDATE "user" SET "person_id" = %s WHERE "user"."id" = %s', ("habrolinker-" + str(user_id), user_id))
     except psycopg2.OperationalError:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Cannot retrieve data from database")
@@ -158,6 +159,7 @@ async def update_person(arguments: Annotated[PersonCreateUpdateArguments, Body(o
                          arguments.location_city,
                          arguments.location_region,
                          arguments.salary, result.person_id))
+            # TODO - specialities and skills
     except psycopg2.OperationalError:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail="Cannot retrieve data from database")

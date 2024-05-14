@@ -151,7 +151,7 @@ async def person_search(searchArguments: Annotated[
     return result
 
 
-@router.post("/mark/add", tags=["marks"], summary="Mark a person by person id", response_model=CommonResponse)
+@router.put("/mark/add", tags=["marks"], summary="Mark a person by person id", response_model=CommonResponse)
 async def add_mark(markArguments: Annotated[
     MarkingArguments, Body(openapi_examples=MarkingArguments.get_example())], token: str = Depends(reuseable_oauth)) -> CommonResponse:
     # connect to DB
@@ -181,7 +181,7 @@ async def add_mark(markArguments: Annotated[
     return result
 
 
-@router.post("/mark/remove", tags=["marks"], summary="Remove a mark from a person by person id", response_model=CommonResponse)
+@router.delete("/mark/remove", tags=["marks"], summary="Remove a mark from a person by person id", response_model=CommonResponse)
 async def remove_mark(markArguments: Annotated[
     MarkingArguments, Body(openapi_examples=MarkingArguments.get_example())], token: str = Depends(reuseable_oauth)) -> CommonResponse:
     # connect to DB

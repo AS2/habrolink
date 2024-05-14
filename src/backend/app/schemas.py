@@ -37,6 +37,17 @@ class User(BaseModel):
     login: str = Field(default="soft_kitty_lover@mail.com")      # login of this user
     person_id: str = Field(default="Big_bro")                    # person_id for this user entry
 
+
+class ChatShortInfo(BaseModel):
+    user_id: int       # user we are talking to
+    avatar: str        # avatar for this chat
+    name: str          # drawn name
+
+class Message(BaseModel):
+    from_id: int       # from who message sent
+    to_id: int         # to who message sent
+    message: str       # text of the message
+
 #######
 # COMMON CLASSES
 #######
@@ -196,6 +207,7 @@ class UserSigninArguments(BaseModel):
             }
         }
 
+
 class PersonCreateUpdateArguments(BaseModel):
     fullname: str = Field(default="Артур Шелби")  # shown name
     avatar: str = Field(default="https://someimage.org/img.png")  # link to avatar
@@ -227,6 +239,24 @@ class PersonCreateUpdateArguments(BaseModel):
                 }
             }
         }
+
+
+class MessageSendArguments(BaseModel):
+    user_id: int  # user we want to send message to
+    message: str  # message we want to send
+
+    @staticmethod
+    def get_example():
+        return {
+            "normal": {
+                "summary": "Valid example",
+                "value": {
+                    "user_id": 1,
+                    "message": "Артур, нужна твоя помощь. Приезжай в паб."
+                }
+            }
+        }
+
 
 #######
 # RESPONSE SCHEMAS
@@ -264,8 +294,8 @@ class MarkStatusResponse(CommonResponse):
 
 
 class PersonCreateLinkUpdateResponse(CommonResponse):
-    user_id: int
-    person_id: str
+    user_id: int = Field(default=0, examples=[1])
+    person_id: str = Field(default="", examples=["Big_bro"])
 
 
 class UserSigninResponse(BaseModel):
@@ -288,3 +318,48 @@ class UserSignupResponse(BaseModel):
             "example": {
             }
         }
+
+
+class MessageChatsResponse(BaseModel):
+    chats: List[ChatShortInfo] = Field(default=[], examples=[
+        [
+            {
+                "chat_id": "Big_bro",
+                "avatar": "https://someimage.org/img.png",
+                "fullname": "Артур Шелби"
+            },
+            {
+                "chat_id": "Lil_bro",
+                "avatar": "https://someimage.org/img.png",
+                "fullname": "Джон Шелби",
+            }
+        ]
+    ])  # List with all, current user chats
+
+class MessageDialogResponse(BaseModel):
+    this_user_id: int = Field(default=0, examples=[1])
+    this_user_name: str = Field(default="", examples=["Томас Шелби"])
+    this_user_avatar: str = Field(default="", examples=["https://someimage.org/img.png"])
+    other_user_id: int = Field(default=0, examples=[0])
+    other_user_name: str = Field(default="", examples=["Артур Шелби"])
+    other_user_avatar: str = Field(default="", examples=["https://someimage.org/img.png"])
+    messages: List[Message] = Field(default=[], examples=[[
+        [
+            {
+                "from_id": 1,
+                "to_id": 0,
+                "message": "Артур, нужна твоя помощь.\nПриезжай в паб."
+            },
+            {
+                "from_id": 0,
+                "to_id": 1,
+                "message": "Хорошо, Том. Скоро буду."
+            },
+            {
+                "from_id": 0,
+                "to_id": 1,
+                "message": "Ой, Томми, прости. Сорвался, сообщение от злости удалил. Напиши еще раз, куда подъехать :*."
+            }
+        ]
+    ]])
+

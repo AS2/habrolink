@@ -4,15 +4,17 @@ from fastapi import APIRouter, HTTPException, Body, status, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 
 from ..authentication import get_hashed_password, create_access_token, create_refresh_token, verify_password, reuseable_oauth, get_user_id_by_token
-from ..config import DBConfig
-from ..schemas import PersonResponse, PersonIdArguments, UserIdResponse, UserResponse, UserIdArguments, UserSigninResponse, UserSignupArguments, UserSignupResponse
+from ..config import DBConfig, NONE_PERSON_MARK
+from ..schemas import PersonResponse, PersonIdArguments, UserIdResponse, UserResponse, UserIdArguments, \
+    UserSigninResponse, UserSignupArguments, UserSignupResponse, PersonCreateUpdateArguments, \
+    PersonCreateLinkUpdateResponse
 
 import psycopg2
 
 router = APIRouter()
 
 
-@router.post("/person/info", response_model=PersonResponse)
+@router.post("/person/info", tags=["person"], summary="Retrieve info about person by person id", response_model=PersonResponse)
 async def person_by_id(arguments: Annotated[PersonIdArguments, Body(openapi_examples=PersonIdArguments.get_example())], token: str = Depends(reuseable_oauth)) -> PersonResponse:
     # connect to DB
     conn = psycopg2.connect(
@@ -64,9 +66,140 @@ async def person_by_id(arguments: Annotated[PersonIdArguments, Body(openapi_exam
     conn.close()
     return result
 
+@router.post("/person/create", tags=["person"], summary="Create new person and automatically link it to a user")
+async def create_person(arguments: Annotated[PersonCreateUpdateArguments, Body(openapi_examples=PersonCreateUpdateArguments.get_example())], token: str = Depends(reuseable_oauth)) -> PersonCreateLinkUpdateResponse:
+    # connect to DB
+    conn = psycopg2.connect(
+        host=DBConfig["host"],
+        database=DBConfig["database"],
+        user=DBConfig["user"],
+        password=DBConfig["password"],
+        port=DBConfig["port"])
+
+    if conn.closed:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Cannot connect to database")
+
+    # if token for user not valid this function will throw an exception
+    user_id = get_user_id_by_token(token)
+    result = PersonCreateLinkUpdateResponse(user_id=user_id, person_id="habrolinker-" + str(user_id))
+
+    try:
+        with conn.cursor() as cur:
+            cur.execute('INSERT INTO "person" '
+                        '("id",'
+                        ' "source",'
+                        ' "fullname",'
+                        ' "avatar",'
+                        ' "gender",'
+                        ' "birthday",'
+                        ' "location_country",'
+                        ' "location_city",'
+                        ' "location_region",'
+                        ' "salary",'
+                        ' "habr_karma",'
+                        ' "habr_rating") VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 0, 0)',
+                        ("habrolinker-" + str(user_id),
+                         1,
+                         arguments.fullname,
+                         arguments.avatar,
+                         arguments.gender,
+                         arguments.birthday,
+                         arguments.location_country,
+                         arguments.location_city,
+                         arguments.location_region,
+                         arguments.salary))
+            cur.execute('UPDATE "user" SET "person_id" = %s WHERE "user"."id" = %s', ("habrolinker-" + str(user_id), user_id))
+    except psycopg2.OperationalError:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Cannot retrieve data from database")
+    conn.commit()
+    conn.close()
+    return result
+
+@router.put("/person/update", tags=["person"], summary="Update person (associated to logged in user) fields")
+async def update_person(arguments: Annotated[PersonCreateUpdateArguments, Body(openapi_examples=PersonCreateUpdateArguments.get_example())], token: str = Depends(reuseable_oauth)) -> PersonCreateLinkUpdateResponse:
+    # connect to DB
+    conn = psycopg2.connect(
+        host=DBConfig["host"],
+        database=DBConfig["database"],
+        user=DBConfig["user"],
+        password=DBConfig["password"],
+        port=DBConfig["port"])
+
+    if conn.closed:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Cannot connect to database")
+
+    # if token for user not valid this function will throw an exception
+    user_id = get_user_id_by_token(token)
+    result = PersonCreateLinkUpdateResponse(user_id=user_id, person_id="habrolinker-" + str(user_id))
+
+    try:
+        with conn.cursor() as cur:
+            # firstly -> get person id
+            cur.execute('SELECT "user"."person_id" FROM "user" WHERE "user"."id" = %s', (user_id,))
+            entry = cur.fetchone()
+            if entry == None or entry[0] == NONE_PERSON_MARK:
+                raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="No person for such user")
+            result.person_id = entry[0]
+
+            cur.execute('UPDATE "person" SET '
+                        '("fullname",'
+                        ' "avatar",'
+                        ' "gender",'
+                        ' "birthday",'
+                        ' "location_country",'
+                        ' "location_city",'
+                        ' "location_region",'
+                        ' "salary") = (%s, %s, %s, %s, %s, %s, %s, %s) WHERE "person"."id" = %s',
+                        (arguments.fullname,
+                         arguments.avatar,
+                         arguments.gender,
+                         arguments.birthday,
+                         arguments.location_country,
+                         arguments.location_city,
+                         arguments.location_region,
+                         arguments.salary, result.person_id))
+    except psycopg2.OperationalError:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                            detail="Cannot retrieve data from database")
+    conn.commit()
+    conn.close()
+    return result
+@router.post("/person/link", tags=["person"], summary="Link existing to a user")
+async def link_person(arguments: Annotated[PersonIdArguments, Body(openapi_examples=PersonIdArguments.get_example())], token: str = Depends(reuseable_oauth)) -> PersonCreateLinkUpdateResponse:
+    # connect to DB
+    conn = psycopg2.connect(
+        host=DBConfig["host"],
+        database=DBConfig["database"],
+        user=DBConfig["user"],
+        password=DBConfig["password"],
+        port=DBConfig["port"])
+
+    if conn.closed:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Cannot connect to database")
+
+    # if token for user not valid this function will throw an exception
+    user_id = get_user_id_by_token(token)
+    result = PersonCreateLinkUpdateResponse(user_id=user_id, person_id="habrolinker-" + str(user_id))
+
+    try:
+        with conn.cursor() as cur:
+            # firstly -> check if this person id is already taken
+            cur.execute('SELECT "user"."id" FROM "user" WHERE "user"."person_id" = %s', (arguments.person_id,))
+            entry = cur.fetchone()
+            if entry != None:
+                raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Already taken")
+            result.person_id = arguments.person_id
+
+            cur.execute('UPDATE "user" SET "person_id" = %s WHERE "user"."id" = %s', (arguments.person_id, user_id))
+    except psycopg2.OperationalError:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                            detail="Cannot retrieve data from database")
+    conn.commit()
+    conn.close()
+    return result
 
 # find user by person_id
-@router.post("/user/find", response_model=UserIdResponse)
+@router.post("/user/find", tags=["user"], summary="Retrieve person id for provided user", response_model=UserIdResponse)
 async def user_by_person(arguments: Annotated[PersonIdArguments, Body(openapi_examples=PersonIdArguments.get_example())], token: str = Depends(reuseable_oauth)) -> UserIdResponse:
     # connect to DB
     conn = psycopg2.connect(
@@ -95,7 +228,7 @@ async def user_by_person(arguments: Annotated[PersonIdArguments, Body(openapi_ex
     return result
 
 # find user by person_id
-@router.post("/user/info", response_model=UserResponse)
+@router.post("/user/info", tags=["user"], summary="Retrieve info about user by user id", response_model=UserResponse)
 async def user_by_id(arguments: Annotated[UserIdArguments, Body(openapi_examples=UserIdArguments.get_example())], token: str = Depends(reuseable_oauth)) -> UserResponse:
     # connect to DB
     conn = psycopg2.connect(
@@ -126,7 +259,7 @@ async def user_by_id(arguments: Annotated[UserIdArguments, Body(openapi_examples
     return result
 
 
-@router.post("/user/signup", tags=["user"], response_model=UserSignupResponse)
+@router.post("/user/signup", tags=["user"], summary="Create new user with current login and password", response_model=UserSignupResponse)
 async def create_user(arguments: UserSignupArguments = Body(...)):
     # connect to DB
     print("signup start")
@@ -154,7 +287,7 @@ async def create_user(arguments: UserSignupArguments = Body(...)):
             user = {
                 'login': arguments.login,
                 'password_hash': get_hashed_password(arguments.password),
-                'person_id': "none"
+                'person_id': NONE_PERSON_MARK
             }
         with conn.cursor() as cur:
             cur.execute('INSERT INTO "user" ("id", "login", "password_hash", "person_id") VALUES (DEFAULT, %s, %s, DEFAULT)', (user["login"], user["password_hash"]))
@@ -167,7 +300,7 @@ async def create_user(arguments: UserSignupArguments = Body(...)):
     return result
 
 
-@router.post('/user/signin', summary="Create access and refresh tokens for user", response_model=UserSigninResponse)
+@router.post('/user/signin', tags=["user"], summary="Create access and refresh tokens for user", response_model=UserSigninResponse)
 async def login(arguments: OAuth2PasswordRequestForm = Depends()):
     # connect to DB
     conn = psycopg2.connect(
@@ -207,7 +340,7 @@ async def login(arguments: OAuth2PasswordRequestForm = Depends()):
     return UserSigninResponse(access_token=create_access_token(user['id']), refresh_token=create_refresh_token(user['id']))
 
 
-@router.post('/user/self', response_model=UserResponse)
+@router.post('/user/self', tags=["user"], summary="Retrieve info about logged in user", response_model=UserResponse)
 async def get_current_user(token: str = Depends(reuseable_oauth)) -> UserResponse:
     user_id = get_user_id_by_token(token)
         
@@ -231,7 +364,7 @@ async def get_current_user(token: str = Depends(reuseable_oauth)) -> UserRespons
                 )
             person_id = entry[3]
             if person_id is None:
-                person_id = "none"
+                person_id = NONE_PERSON_MARK
             user = UserResponse(
                 id=entry[0],
                 login=entry[1],

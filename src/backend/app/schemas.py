@@ -171,6 +171,63 @@ class MarkingArguments(CommonArguments):
         }
 
 
+class UserSignupArguments(BaseModel):
+    login: str = Field(...)
+    password: str = Field(...)
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "login": "abdulazeez@x.com",
+                "password": "weakpassword"
+            }
+        }
+
+
+class UserSigninArguments(BaseModel):
+    login: str = Field(...)
+    password: str = Field(...)
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "login": "abdulazeez@x.com",
+                "password": "weakpassword"
+            }
+        }
+
+class PersonCreateUpdateArguments(BaseModel):
+    fullname: str = Field(default="Артур Шелби")  # shown name
+    avatar: str = Field(default="https://someimage.org/img.png")  # link to avatar
+    gender: int = Field(default=1)  # gender of person. 0 - woman, 1 - man
+    birthday: str = Field(default="1880-01-20")  # birthday in postgres-style
+    location_country: str = Field(default="Англия")  # location country
+    location_region: str = Field(default="Смоллхит")  # location region
+    location_city: str = Field(default="Бирмингем")  # location city
+    salary: int = Field(default=90000000)  # desired salary
+    specialities: List[str] = Field(default=["Рэкетирство", "Общение с клиентами"])  # list of specialities
+    skills: List[str] = Field(default=["Писать", "Считать", "Боксировать", "Софтскилс"])  # list of skills
+
+    @staticmethod
+    def get_example():
+        return {
+            "normal": {
+                "summary": "Valid example",
+                "value": {
+                    "fullname": "Артур Шелби",
+                    "avatar": "https://someimage.org/img.png",
+                    "gender": 1,
+                    "birthday": "1880-01-20",
+                    "location_country": "Англия",
+                    "location_region": "Смоллхит",
+                    "location_city": "Бирмингем",
+                    "salary": 90000000,
+                    "specialities": ["Рэкетирство", "Общение с клиентами"],
+                    "skills": ["Писать", "Считать", "Боксировать", "Софтскилс"],
+                }
+            }
+        }
+
 #######
 # RESPONSE SCHEMAS
 #######
@@ -206,17 +263,9 @@ class MarkStatusResponse(CommonResponse):
     status: int = Field(default=0, examples=[0, 1])                     # marked or not
 
 
-class UserSigninArguments(BaseModel):
-    login: str = Field(...)
-    password: str = Field(...)
-
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "login": "abdulazeez@x.com",
-                "password": "weakpassword"
-            }
-        }
+class PersonCreateLinkUpdateResponse(CommonResponse):
+    user_id: int
+    person_id: str
 
 
 class UserSigninResponse(BaseModel):
@@ -228,19 +277,6 @@ class UserSigninResponse(BaseModel):
             "example": {
                 "access_token": "ewtrhyuthdghty",
                 "refresh_token": "yrtutjhtyghdfh"
-            }
-        }
-
-
-class UserSignupArguments(BaseModel):
-    login: str = Field(...)
-    password: str = Field(...)
-
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "login": "abdulazeez@x.com",
-                "password": "weakpassword"
             }
         }
 

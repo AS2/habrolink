@@ -1,0 +1,44 @@
+.placeholder {
+  align-self: stretch;
+  position: relative;
+  line-height: 20px;
+}
+.partFieldContentPlace {
+  flex: 1;
+  border-radius: var(--br-9xs) 0 0 var(--br-9xs);
+  background-color: var(--text-white);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-3xs) var(--padding-xs);
+}
+.standardChevronUp {
+  width: 19px;
+  position: relative;
+  height: 19px;
+}
+.partFieldStyleNumber,
+.typenumberCombinedfalseF {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.partFieldStyleNumber {
+  background-color: var(--slate-gray-sg010);
+  flex-direction: column;
+  gap: var(--gap-12xs);
+}
+.typenumberCombinedfalseF {
+  border-radius: var(--br-9xs);
+  background-color: var(--text-white);
+  border: 1px solid var(--slate-gray-sg020);
+  box-sizing: border-box;
+  overflow: hidden;
+  flex-direction: row;
+  text-align: left;
+  font-size: var(--b-body-2-size);
+  color: var(--slate-gray-sg900);
+  font-family: var(--l-label-1);
+  align-self: stretch;
+}

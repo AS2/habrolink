@@ -1,0 +1,21 @@
+.statusWarning {
+  width: 14px;
+  position: relative;
+  height: 14px;
+}
+.helperText {
+  flex: 1;
+  position: relative;
+}
+.emptyfalseHelpfalseError {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-11xs);
+  text-align: left;
+  font-size: var(--l-label-1-size);
+  color: var(--portland-orange-po500);
+  font-family: var(--l-label-1);
+  align-self: stretch;
+}

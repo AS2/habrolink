@@ -1,0 +1,97 @@
+.lable {
+  align-self: stretch;
+  position: relative;
+  line-height: 16px;
+}
+.inputText,
+.prefix {
+  position: relative;
+  line-height: 24px;
+}
+.prefix {
+  width: 9px;
+  display: none;
+}
+.inputText {
+  flex: 1;
+  color: var(--grey-800);
+}
+.text {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.text,
+.textWrapper {
+  align-self: stretch;
+}
+.frame,
+.frameInner,
+.textWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.frameInner {
+  align-self: stretch;
+  font-size: var(--b-body-2-size);
+}
+.frame {
+  flex: 1;
+}
+.eyeIcon {
+  width: 24px;
+  position: relative;
+  height: 24px;
+  display: none;
+}
+.frameParent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: var(--br-xl);
+  background-color: var(--grey-50);
+  width: 328px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-5xs) var(--padding-base);
+  box-sizing: border-box;
+  gap: var(--gap-5xs);
+}
+.field {
+  align-self: stretch;
+  position: relative;
+  height: 56px;
+}
+.helperText1 {
+  flex: 1;
+  position: relative;
+  line-height: 16px;
+}
+.helperText,
+.statefilled {
+  width: 328px;
+  justify-content: flex-start;
+}
+.helperText {
+  display: none;
+  flex-direction: row;
+  align-items: center;
+  padding: var(--padding-11xs) var(--padding-base) 0;
+  box-sizing: border-box;
+}
+.statefilled {
+  border-radius: var(--br-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  font-size: var(--l-label-1-size);
+  color: var(--grey-500);
+  font-family: var(--caption-12);
+}

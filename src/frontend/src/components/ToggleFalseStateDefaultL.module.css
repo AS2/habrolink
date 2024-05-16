@@ -1,0 +1,20 @@
+.togglefalseStatedefaultLChild {
+  width: 20px;
+  position: relative;
+  height: 20px;
+}
+.radioButton {
+  position: relative;
+  text-transform: capitalize;
+}
+.togglefalseStatedefaultL {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+  text-align: left;
+  font-size: var(--l-label-1-size);
+  color: var(--gray-2);
+  font-family: var(--font-poppins);
+}

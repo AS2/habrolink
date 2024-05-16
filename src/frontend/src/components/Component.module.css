@@ -1,0 +1,38 @@
+.b {
+  position: relative;
+}
+.div1 {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.avatarIcon {
+  width: 130px;
+  position: relative;
+  height: 130px;
+}
+.div,
+.topPart {
+  align-self: stretch;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-28xl);
+  font-size: var(--font-size-13xl);
+  color: var(--color-black);
+  font-family: var(--font-inika);
+}
+.div {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gap-xl);
+  text-align: left;
+  font-size: var(--l-label-2-size);
+  color: var(--slate-gray-sg200);
+  font-family: var(--l-label-1);
+}

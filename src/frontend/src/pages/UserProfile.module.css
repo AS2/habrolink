@@ -1,0 +1,7 @@
+.userProfile {
+  width: 100%;
+  position: relative;
+  background-color: var(--text-white);
+  height: 1024px;
+  overflow: hidden;
+}

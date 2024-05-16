@@ -1,0 +1,26 @@
+.clearIcon,
+.label {
+  position: relative;
+}
+.clearIcon {
+  width: 18px;
+  height: 18px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.styleoutlineTypetextClea {
+  border-radius: var(--br-xl);
+  border: 1px solid #c8b4ff;
+  box-sizing: border-box;
+  height: 32px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 var(--padding-5xs) 0 var(--padding-xs);
+  gap: var(--gap-9xs);
+  text-align: left;
+  font-size: var(--l-label-2-size);
+  color: var(--color-black);
+  font-family: var(--font-inter);
+}

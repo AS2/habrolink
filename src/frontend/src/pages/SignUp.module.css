@@ -1,0 +1,86 @@
+.div {
+  position: relative;
+}
+.controllPart,
+.loginPage,
+.save,
+.userInfo {
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+}
+.save {
+  border-radius: var(--br-3xs);
+  background-color: var(--color-steelblue-100);
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-3xs);
+  cursor: pointer;
+}
+.controllPart,
+.loginPage,
+.userInfo {
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.loginPage,
+.userInfo {
+  background-color: var(--color-whitesmoke-100);
+  flex-direction: column;
+}
+.userInfo {
+  width: 646px;
+  border-radius: var(--br-xl);
+  padding: var(--padding-31xl);
+  box-sizing: border-box;
+  gap: var(--gap-base);
+}
+.loginPage {
+  position: absolute;
+  top: 227px;
+  left: calc(50% - 373px);
+  padding: 14px var(--padding-31xl);
+}
+.span {
+  color: var(--color-steelblue-100);
+}
+.b {
+  position: relative;
+  cursor: pointer;
+}
+.interfaceEssentialmagnifier {
+  width: 32px;
+  position: relative;
+  height: 32px;
+}
+.header,
+.signup {
+  background-color: var(--text-white);
+}
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  width: 1440px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--padding-9xl) var(--padding-21xl) var(--padding-9xl)
+    var(--padding-2xl);
+  box-sizing: border-box;
+  text-align: left;
+  font-size: var(--font-size-21xl);
+  color: var(--color-black);
+}
+.signup {
+  width: 100%;
+  position: relative;
+  height: 1937px;
+  overflow: hidden;
+  text-align: center;
+  font-size: var(--font-size-xl);
+  color: var(--text-white);
+  font-family: var(--font-inika);
+}

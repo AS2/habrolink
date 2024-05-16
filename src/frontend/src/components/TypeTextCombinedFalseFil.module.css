@@ -1,0 +1,30 @@
+.placeholder {
+  align-self: stretch;
+  position: relative;
+  line-height: 20px;
+}
+.partFieldContentPlace,
+.typetextCombinedfalseFil {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.partFieldContentPlace {
+  flex: 1;
+  flex-direction: column;
+  padding: var(--padding-11xs) 0;
+}
+.typetextCombinedfalseFil {
+  border-radius: var(--br-9xs);
+  background-color: var(--text-white);
+  border: 1px solid var(--slate-gray-sg020);
+  box-sizing: border-box;
+  overflow: hidden;
+  flex-direction: row;
+  padding: var(--padding-5xs) var(--padding-xs);
+  text-align: left;
+  font-size: var(--b-body-2-size);
+  color: var(--slate-gray-sg900);
+  font-family: var(--l-label-1);
+  align-self: stretch;
+}

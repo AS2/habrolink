@@ -1,0 +1,27 @@
+.tangouserIcon {
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.label,
+.tangouserIcon {
+  position: relative;
+}
+.fillednoStatedefaultSize {
+  width: 256px;
+  border-radius: var(--br-5xs);
+  border: 1px solid var(--gray-6);
+  box-sizing: border-box;
+  height: 56px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-mid) var(--padding-base);
+  gap: var(--gap-5xs);
+  text-align: right;
+  font-size: var(--l-label-2-size);
+  color: var(--gray-2);
+  font-family: var(--font-youtube-sans);
+}

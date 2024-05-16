@@ -1,0 +1,116 @@
+.intersectIcon {
+  width: 100px;
+  position: relative;
+  height: 100px;
+}
+.b {
+  font-size: var(--font-size-xl);
+  font-family: var(--font-inika);
+}
+.b,
+.nickname {
+  position: relative;
+  text-transform: capitalize;
+}
+.dot1 {
+  text-align: center;
+}
+.dot1,
+.dot2 {
+  position: relative;
+  text-transform: capitalize;
+  font-family: var(--font-imprima);
+  color: var(--color-gray-200);
+}
+.habrInfo {
+  align-self: stretch;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-3xs);
+}
+.softKittyLovermailcom {
+  position: relative;
+  text-transform: lowercase;
+}
+.description,
+.mainInfo {
+  align-self: stretch;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-3xs);
+}
+.description {
+  flex: 1;
+  flex-direction: column;
+  padding: var(--padding-11xs) var(--padding-12xs);
+}
+.mainInfo {
+  flex-direction: row;
+}
+.interfaceEssentialchat1Icon {
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.sendMessage {
+  width: 50px;
+  border-radius: var(--br-3xs);
+  background-color: var(--color-gainsboro-100);
+  border: 1px solid var(--color-dimgray-100);
+  box-sizing: border-box;
+  height: 50px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-3xs);
+  cursor: pointer;
+}
+.actionsButtons,
+.mark,
+.sendMessage,
+.user1 {
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+}
+.mark {
+  width: 50px;
+  border-radius: var(--br-3xs);
+  background-color: var(--color-gainsboro-100);
+  border: 1px solid var(--color-dimgray-100);
+  box-sizing: border-box;
+  height: 50px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-3xs);
+}
+.actionsButtons,
+.user1 {
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-3xs);
+}
+.user1 {
+  align-self: stretch;
+  border-radius: var(--br-3xs);
+  border: 2px solid var(--color-steelblue-100);
+  box-sizing: border-box;
+  height: 182px;
+  flex-shrink: 0;
+  flex-direction: column;
+  padding: var(--padding-3xs);
+  gap: var(--gap-5xs);
+  text-align: left;
+  font-size: var(--b-body-2-size);
+  color: var(--color-black);
+  font-family: var(--font-inder);
+}

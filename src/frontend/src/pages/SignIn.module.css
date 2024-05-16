@@ -1,0 +1,40 @@
+.span {
+  color: var(--color-steelblue-100);
+}
+.b {
+  position: relative;
+  cursor: pointer;
+}
+.interfaceEssentialmagnifier {
+  width: 32px;
+  position: relative;
+  height: 32px;
+}
+.header,
+.signin {
+  background-color: var(--text-white);
+}
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  width: 1440px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--padding-9xl) var(--padding-21xl) var(--padding-9xl)
+    var(--padding-2xl);
+  box-sizing: border-box;
+}
+.signin {
+  width: 100%;
+  position: relative;
+  height: 1024px;
+  overflow: hidden;
+  text-align: left;
+  font-size: var(--font-size-21xl);
+  color: var(--color-black);
+  font-family: var(--font-inika);
+}

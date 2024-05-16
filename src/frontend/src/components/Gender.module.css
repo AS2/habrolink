@@ -1,0 +1,24 @@
+.label {
+  align-self: stretch;
+  position: relative;
+  line-height: 16px;
+}
+.gender,
+.partInputLabel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.partInputLabel {
+  width: 200px;
+}
+.gender {
+  align-self: stretch;
+  height: 82px;
+  gap: var(--gap-7xs);
+  text-align: left;
+  font-size: var(--l-label-2-size);
+  color: var(--slate-gray-sg200);
+  font-family: var(--l-label-1);
+}

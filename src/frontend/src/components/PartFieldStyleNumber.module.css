@@ -1,0 +1,13 @@
+.standardChevronUp {
+  width: 19px;
+  position: relative;
+  height: 19px;
+}
+.partFieldStyleNumber {
+  background-color: var(--slate-gray-sg010);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-12xs);
+}

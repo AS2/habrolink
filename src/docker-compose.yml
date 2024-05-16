@@ -22,10 +22,11 @@ services:
       - "8000:8000"
   habrolink_frontend:
     container_name: habrolink_frontend
+    restart: always
     environment:
-      PORT: "80"
+      PORT: "5173"
     build:
       context: ./frontend/
       dockerfile: ./Dockerfile
     ports:
-      - "80:80"
+      - "5173:5173"

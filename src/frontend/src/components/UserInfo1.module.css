@@ -1,0 +1,59 @@
+.b {
+  position: relative;
+}
+.div {
+  align-self: stretch;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-xl);
+}
+.save {
+  border-radius: var(--br-3xs);
+  background-color: var(--color-steelblue-100);
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-3xs);
+  cursor: pointer;
+}
+.controllPart,
+.save,
+.save1,
+.userInfo {
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+}
+.save1 {
+  border-radius: var(--br-3xs);
+  background-color: var(--text-white);
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-3xs);
+  cursor: pointer;
+  color: var(--color-gray-100);
+}
+.controllPart,
+.userInfo {
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-3xs);
+  text-align: center;
+  font-size: var(--font-size-xl);
+  color: var(--text-white);
+}
+.userInfo {
+  width: 646px;
+  border-radius: var(--br-xl);
+  background-color: var(--color-whitesmoke-100);
+  flex-direction: column;
+  padding: var(--padding-31xl);
+  box-sizing: border-box;
+  gap: var(--gap-base);
+  text-align: left;
+  font-size: var(--font-size-13xl);
+  color: var(--color-black);
+  font-family: var(--font-inika);
+}

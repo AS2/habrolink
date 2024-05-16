@@ -1,0 +1,18 @@
+.standardCalendar {
+  width: 24px;
+  position: relative;
+  height: 24px;
+}
+.partFieldStyle {
+  align-self: stretch;
+  border-radius: var(--br-9xs);
+  background-color: var(--text-white);
+  border: 1px solid var(--slate-gray-sg020);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-5xs) var(--padding-xs);
+  gap: var(--gap-xs);
+}

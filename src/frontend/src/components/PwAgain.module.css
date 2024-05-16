@@ -1,0 +1,20 @@
+.label {
+  align-self: stretch;
+  position: relative;
+  line-height: 16px;
+}
+.partInputLabel,
+.pwAgain {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.pwAgain {
+  gap: var(--gap-7xs);
+  text-align: left;
+  font-size: var(--l-label-2-size);
+  color: var(--slate-gray-sg200);
+  font-family: var(--l-label-1);
+}

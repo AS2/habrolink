@@ -12,7 +12,7 @@ import psycopg2
 router = APIRouter()
 
 
-@router.post("/message/chats", tags=["message"], summary="List all chats between current user and other users")
+@router.get("/message/chats", tags=["message"], summary="List all chats between current user and other users")
 async def list_chats(token: str = Depends(reuseable_oauth)) -> MessageChatsResponse:
     # connect to DB
     conn = psycopg2.connect(
@@ -68,7 +68,7 @@ async def list_chats(token: str = Depends(reuseable_oauth)) -> MessageChatsRespo
     return result
 
 
-@router.put("/message/send", tags=["message"], summary="Send a message to another user")
+@router.post("/message/send", tags=["message"], summary="Send a message to another user")
 async def send_message(
         arguments: Annotated[MessageSendArguments, Body(openapi_examples=MessageSendArguments.get_example())],
         token: str = Depends(reuseable_oauth)):
@@ -98,7 +98,7 @@ async def send_message(
     return
 
 
-@router.post("/message/dialog", tags=["message"], summary="List all messages between current user and other user")
+@router.get("/message/dialog", tags=["message"], summary="List all messages between current user and other user")
 async def dialog_chats(arguments: Annotated[UserIdArguments, Body(openapi_examples=UserIdArguments.get_example())],
                      token: str = Depends(reuseable_oauth)) -> MessageDialogResponse:
     # connect to DB

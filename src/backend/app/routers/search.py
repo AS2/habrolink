@@ -13,7 +13,7 @@ import psycopg2
 router = APIRouter()
 
 
-@router.post("/search", tags=["search"], summary="Search persons by filters", response_model=PersonSearchResponse)
+@router.get("/search", tags=["search"], summary="Search persons by filters", response_model=PersonSearchResponse)
 async def person_search(searchArguments: Annotated[
     PersonSearchArguments, Body(openapi_examples=PersonSearchArguments.get_example())]) -> PersonSearchResponse:
     # connect to DB
@@ -151,7 +151,7 @@ async def person_search(searchArguments: Annotated[
     return result
 
 
-@router.put("/mark/add", tags=["marks"], summary="Mark a person by person id", response_model=CommonResponse)
+@router.post("/mark/add", tags=["marks"], summary="Mark a person by person id", response_model=CommonResponse)
 async def add_mark(markArguments: Annotated[
     MarkingArguments, Body(openapi_examples=MarkingArguments.get_example())], token: str = Depends(reuseable_oauth)) -> CommonResponse:
     # connect to DB
@@ -211,7 +211,7 @@ async def remove_mark(markArguments: Annotated[
     return result
 
 
-@router.post("/mark/list", tags=["marks"], summary="List all marked persons ids", response_model=MarkListResponse)
+@router.get("/mark/list", tags=["marks"], summary="List all marked persons ids", response_model=MarkListResponse)
 async def list_marked(token: str = Depends(reuseable_oauth)) -> MarkListResponse:
     # connect to DB
     conn = psycopg2.connect(
@@ -242,7 +242,7 @@ async def list_marked(token: str = Depends(reuseable_oauth)) -> MarkListResponse
     return result
 
 
-@router.post("/mark/status", tags=["marks"], summary="Check if person marked or not by id", response_model=MarkListResponse)
+@router.get("/mark/status", tags=["marks"], summary="Check if person marked or not by id", response_model=MarkListResponse)
 async def check_is_marked(markArguments: Annotated[
     MarkingArguments, Body(openapi_examples=MarkingArguments.get_example())], token: str = Depends(reuseable_oauth)) -> MarkStatusResponse:
     # connect to DB

@@ -14,7 +14,7 @@ import psycopg2
 router = APIRouter()
 
 
-@router.post("/person/info", tags=["person"], summary="Retrieve info about person by person id", response_model=PersonResponse)
+@router.get("/person/info", tags=["person"], summary="Retrieve info about person by person id", response_model=PersonResponse)
 async def person_by_id(arguments: Annotated[PersonIdArguments, Body(openapi_examples=PersonIdArguments.get_example())], token: str = Depends(reuseable_oauth)) -> PersonResponse:
     # connect to DB
     conn = psycopg2.connect(
@@ -201,7 +201,7 @@ async def link_person(arguments: Annotated[PersonIdArguments, Body(openapi_examp
     return result
 
 # find user by person_id
-@router.post("/user/find", tags=["user"], summary="Retrieve person id for provided user", response_model=UserIdResponse)
+@router.get("/user/find", tags=["user"], summary="Retrieve person id for provided user", response_model=UserIdResponse)
 async def user_by_person(arguments: Annotated[PersonIdArguments, Body(openapi_examples=PersonIdArguments.get_example())], token: str = Depends(reuseable_oauth)) -> UserIdResponse:
     # connect to DB
     conn = psycopg2.connect(
@@ -230,7 +230,7 @@ async def user_by_person(arguments: Annotated[PersonIdArguments, Body(openapi_ex
     return result
 
 # find user by person_id
-@router.post("/user/info", tags=["user"], summary="Retrieve info about user by user id", response_model=UserResponse)
+@router.get("/user/info", tags=["user"], summary="Retrieve info about user by user id", response_model=UserResponse)
 async def user_by_id(arguments: Annotated[UserIdArguments, Body(openapi_examples=UserIdArguments.get_example())], token: str = Depends(reuseable_oauth)) -> UserResponse:
     # connect to DB
     conn = psycopg2.connect(
@@ -342,7 +342,7 @@ async def login(arguments: OAuth2PasswordRequestForm = Depends()):
     return UserSigninResponse(access_token=create_access_token(user['id']), refresh_token=create_refresh_token(user['id']))
 
 
-@router.post('/user/self', tags=["user"], summary="Retrieve info about logged in user", response_model=UserResponse)
+@router.get('/user/self', tags=["user"], summary="Retrieve info about logged in user", response_model=UserResponse)
 async def get_current_user(token: str = Depends(reuseable_oauth)) -> UserResponse:
     user_id = get_user_id_by_token(token)
         

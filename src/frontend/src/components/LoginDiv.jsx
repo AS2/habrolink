@@ -1,13 +1,33 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import StateFilled from "./StateFilled";
-import StyleFilledIconNoIconSt from "./StyleFilledIconNoIconSt";
 import styles from "./LoginDiv.module.css";
+import Form from 'react-bootstrap/Form';
 
 const LoginDiv = () => {
   const navigate = useNavigate();
 
   const onButtonStyle1Click = useCallback(() => {
+    const requestData = {
+      email: state.makeGaussianBlur,
+      password: state.gaussianBlurCount,
+    };
+
+    fetch('localhost:8000/user/signin', {
+      method: 'POST',
+      body: "username=aabb@x.com&password=aabb",
+      headers: {
+        'Content-type': 'application/x-www-form-urlencoded',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        // Handle data
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+
     navigate("/user-profile");
   }, [navigate]);
 
@@ -18,48 +38,13 @@ const LoginDiv = () => {
   return (
     <div className={styles.loginDiv}>
       <b className={styles.b}>Войти в систему</b>
-      <div className={styles.div}>
-        <StateFilled
-          labelText="Логин"
-          prefix="$"
-          inputText="tommy1884@mail.com"
-          eye="/eye.svg"
-          helperText="Helper Text"
-          showHelperText={false}
-          showPrefix={false}
-          showIcon={false}
-          stateFilledWidth="328px"
-          stateFilledBorderRadius="20px"
-          stateFilledFlex="unset"
-          frameDivBackgroundColor="#fff"
-          frameDivWidth="328px"
-          helperTextWidth="328px"
-          helperTextAlignSelf="unset"
-        />
-        <StateFilled
-          labelText="Пароль"
-          prefix="$"
-          inputText="*************"
-          eye="/eye-close.svg"
-          helperText="Helper Text"
-          showHelperText={false}
-          showPrefix={false}
-          showIcon
-          stateFilledWidth="328px"
-          stateFilledBorderRadius="20px"
-          stateFilledFlex="unset"
-          frameDivBackgroundColor="#fff"
-          frameDivWidth="328px"
-          helperTextWidth="328px"
-          helperTextAlignSelf="unset"
-        />
-        <StyleFilledIconNoIconSt
-          button="Войти"
-          styleFilledIconNoIconStBackgroundColor="#2a6f97"
-          buttonFontWeight="bold"
-          onButtonStyle1Click={onButtonStyle1Click}
-        />
-      </div>
+      <Form>
+        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+          <Form.Control type="email" placeholder="name@example.com" id="emailInput" />
+          <Form.Control type="password" placeholder="Password" id="pwInput" />
+          <Form.Control type="submit" onClick={onButtonStyle1Click} />
+        </Form.Group>
+      </Form>
       <div className={styles.div1}>
         <i className={styles.b}>Нет записи?</i>
         <div className={styles.div2} onClick={onText1Click}>

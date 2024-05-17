@@ -15,7 +15,7 @@ router = APIRouter()
 
 @router.post("/search", tags=["search"], summary="Search persons by filters", response_model=PersonSearchResponse)
 async def person_search(searchArguments: Annotated[
-    PersonSearchArguments, Body(openapi_examples=PersonSearchArguments.get_example())], token: str = Depends(reuseable_oauth)) -> PersonSearchResponse:
+    PersonSearchArguments, Body(openapi_examples=PersonSearchArguments.get_example())]) -> PersonSearchResponse:
     # connect to DB
     conn = psycopg2.connect(
         host=DBConfig["host"],

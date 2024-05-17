@@ -1,6 +1,6 @@
 import { useCallback } from "react";
-import LoginDiv from "../components/LoginDiv";
 import { useNavigate } from "react-router-dom";
+import LoginDiv from "../components/LoginDiv";
 import styles from "./SignIn.module.css";
 
 const SignIn = () => {
@@ -12,7 +12,6 @@ const SignIn = () => {
 
   return (
     <div className={styles.signin}>
-      <LoginDiv />
       <div className={styles.header}>
         <b className={styles.b} onClick={onTextClick}>
           <span>{`{`}</span>
@@ -25,6 +24,7 @@ const SignIn = () => {
           src="/interface-essentialmagnifier.svg"
         />
       </div>
+      <LoginDiv />
     </div>
   );
 };

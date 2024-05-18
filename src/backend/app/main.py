@@ -19,7 +19,7 @@ app.include_router(search.router)
 app.include_router(users.router)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"]

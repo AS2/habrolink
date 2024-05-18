@@ -59,25 +59,52 @@ const SearchPage = () => {
   const onSubmitClick = useCallback(() => {
     console.log(usersInfoArray, usersInfoArray.length);
 
-    setUsersInfoArray(usersInfoArray.concat([{
-      "intersect": "/intersect.svg",
-      "prop": "Артур Шелби",
-      "nickname": "@big_bro",
-      "karma": "Карма: 140",
-      "rating": "Рейтинг: 4.9",
-      "softKittyLovermailcom": "soft_kitty_lover@mail.com",
-      "interfaceEssentialBookmar": "/interface-essentialbookmark1.svg"
-    }]))
-    usersInfoArray.push({
-      "intersect": "/intersect.svg",
-      "prop": "Артур Шелби",
-      "nickname": "@big_bro",
-      "karma": "Карма: 140",
-      "rating": "Рейтинг: 4.9",
-      "softKittyLovermailcom": "soft_kitty_lover@mail.com",
-      "interfaceEssentialBookmar": "/interface-essentialbookmark1.svg"
-    })
-  }, []);
+    // retrieve id-s of users we want to show
+    const firstRequestOptions = {
+        method: "POST",
+        headers: {
+		"accept": "application/json",
+		"Content-type": "application/json" },
+        body: JSON.stringify({})
+    };
+  
+     fetch("http://localhost:8000/search", firstRequestOptions)
+        .then(res => res.json())
+        .then((data) => 
+           {
+                       const fetchData = async(p_id) => {
+                           const secondRequestOptions = {
+                               method: "POST",
+                               headers: { 
+					"accept": "application/json",
+					"Content-Type": "application/json" },
+                               body: JSON.stringify(
+                               { 
+                                    person_id: p_id
+                               })
+                           };
+
+                             const initialData = await fetch("http://localhost:8000/person/info", secondRequestOptions);
+			     const person_json = await initialData.json()
+    
+                           setUsersInfoArray((previousState) => [
+                                ...previousState,
+                                {
+                                     "intersect": person_json["avatar"],
+                                     "prop": person_json["fullname"],
+                                     "nickname": person_json["id"],
+                                     "karma": "Карма: " + String(person_json["habr_karma"]),
+                                     "rating": "Рейтинг: " + String(person_json["habr_rating"]),
+                                     "softKittyLovermailcom": person_json["id"],
+                                     "interfaceEssentialBookmar": "/interface-essentialbookmark1.svg"
+                                }
+	                       ]);
+			};
+
+	       data["persons_ids"].forEach(id => fetchData(id));
+           })
+
+  }, [usersInfoArray]);
 
   return (
     <div className={styles.searchPage}>
@@ -100,23 +127,9 @@ const SearchPage = () => {
           <div className={styles.foundedUsers}>
             <b className={styles.title}>Результаты</b>
             <div id="searchingResult">
-              <User1
-                intersect="/intersect.svg"
-                prop="Артур Шелби"
-                nickname="@big_bro"
-                karma="Карма: 140"
-                rating="Рейтинг: 4.9"
-                softKittyLovermailcom="soft_kitty_lover@mail.com"
-                interfaceEssentialBookmar="/interface-essentialbookmark1.svg"
-                showDot1
-                showKarma
-                showDot2
-                showRating
-                onSendMessageContainerClick={onSendMessageContainerClick}
-                onInfoContainerClick={onInfoContainerClick}
-              />
               {usersInfoArray.map((info, index) => (
                 <User1
+		  key={index}
                   intersect={info["intersect"]}
                   prop={info["prop"]}
                   nickname={info["nickname"]}

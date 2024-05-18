@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import FiltersBlock from "../components/FiltersBlock";
@@ -7,10 +7,8 @@ import styles from "./SearchPage.module.css";
 
 const SearchPage = () => {
   const navigate = useNavigate();
-
-  const onSubmitClick = useCallback(() => {
-    console.log("submited something");
-  }, []);
+  const array = [];
+  const [usersInfoArray, setUsersInfoArray] = useState([]);
 
   const onTextClick = useCallback(() => {
     navigate("/");
@@ -57,6 +55,30 @@ const SearchPage = () => {
     // Please sync "Other user3 info" to the project
   }, []);
 
+
+  const onSubmitClick = useCallback(() => {
+    console.log(usersInfoArray, usersInfoArray.length);
+
+    setUsersInfoArray(usersInfoArray.concat([{
+      "intersect": "/intersect.svg",
+      "prop": "Артур Шелби",
+      "nickname": "@big_bro",
+      "karma": "Карма: 140",
+      "rating": "Рейтинг: 4.9",
+      "softKittyLovermailcom": "soft_kitty_lover@mail.com",
+      "interfaceEssentialBookmar": "/interface-essentialbookmark1.svg"
+    }]))
+    usersInfoArray.push({
+      "intersect": "/intersect.svg",
+      "prop": "Артур Шелби",
+      "nickname": "@big_bro",
+      "karma": "Карма: 140",
+      "rating": "Рейтинг: 4.9",
+      "softKittyLovermailcom": "soft_kitty_lover@mail.com",
+      "interfaceEssentialBookmar": "/interface-essentialbookmark1.svg"
+    })
+  }, []);
+
   return (
     <div className={styles.searchPage}>
       <Header
@@ -76,63 +98,41 @@ const SearchPage = () => {
           />
 
           <div className={styles.foundedUsers}>
-            <User1
-              intersect="/intersect.svg"
-              prop="Артур Шелби"
-              nickname="@big_bro"
-              karma="Карма: 140"
-              rating="Рейтинг: 4.9"
-              softKittyLovermailcom="soft_kitty_lover@mail.com"
-              interfaceEssentialBookmar="/interface-essentialbookmark1.svg"
-              showDot1
-              showKarma
-              showDot2
-              showRating
-              onSendMessageContainerClick={onSendMessageContainerClick}
-              onInfoContainerClick={onInfoContainerClick}
-            />
-            <User1
-              intersect="/intersect1.svg"
-              prop="Джон Шелби"
-              nickname="@lil_bro"
-              karma="Карма: 124"
-              rating="Рейтинг: 4.6"
-              softKittyLovermailcom="prettygoodboi@mail.com"
-              interfaceEssentialBookmar="/interface-essentialbookmark2.svg"
-              showDot1
-              showKarma
-              showDot2
-              showRating
-              propTextTransform="capitalize"
-              propColor="#000"
-              propWidth="unset"
-              propWidth1="unset"
-              propWidth2="unset"
-              propWidth3="unset"
-              onSendMessageContainerClick={onSendMessageContainer2Click}
-              onInfoContainerClick={onInfoContainer2Click}
-            />
-            <User1
-              intersect="/intersect2.svg"
-              prop="Майкл Грей (Шелби)"
-              nickname="-Не привязан аккаунт в Хабре-"
-              karma="Карма: 140"
-              rating="Рейтинг: 4.9"
-              softKittyLovermailcom="littlebigman@mail.com"
-              interfaceEssentialBookmar="/interface-essentialbookmark1.svg"
-              showDot1={false}
-              showKarma={false}
-              showDot2={false}
-              showRating={false}
-              propTextTransform="unset"
-              propColor="#535353"
-              propWidth="15px"
-              propWidth1="86px"
-              propWidth2="15px"
-              propWidth3="98px"
-              onSendMessageContainerClick={onSendMessageContainer3Click}
-              onInfoContainerClick={onInfoContainer3Click}
-            />
+            <b className={styles.title}>Результаты</b>
+            <div id="searchingResult">
+              <User1
+                intersect="/intersect.svg"
+                prop="Артур Шелби"
+                nickname="@big_bro"
+                karma="Карма: 140"
+                rating="Рейтинг: 4.9"
+                softKittyLovermailcom="soft_kitty_lover@mail.com"
+                interfaceEssentialBookmar="/interface-essentialbookmark1.svg"
+                showDot1
+                showKarma
+                showDot2
+                showRating
+                onSendMessageContainerClick={onSendMessageContainerClick}
+                onInfoContainerClick={onInfoContainerClick}
+              />
+              {usersInfoArray.map((info, index) => (
+                <User1
+                  intersect={info["intersect"]}
+                  prop={info["prop"]}
+                  nickname={info["nickname"]}
+                  karma={info["karma"]}
+                  rating={info["rating"]}
+                  softKittyLovermailcom={info["softKittyLovermailcom"]}
+                  interfaceEssentialBookmar={info["interfaceEssentialBookmar"]}
+                  showDot1
+                  showKarma
+                  showDot2
+                  showRating
+                  onSendMessageContainerClick={onSendMessageContainerClick}
+                  onInfoContainerClick={onInfoContainerClick}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>

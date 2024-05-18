@@ -1,46 +1,7 @@
-.span {
-  color: var(--color-steelblue-100);
-}
-
-.b,
-.interfaceEssentialbookmarkIcon {
-  position: relative;
-  cursor: pointer;
-}
-
-.interfaceEssentialbookmarkIcon {
-  width: 32px;
-  height: 32px;
-}
-
-.interfaceEssentialbellIcon {
-  width: 32px;
-  position: relative;
-  height: 32px;
-  object-fit: cover;
-}
-
-.lilProfileIcon {
-  width: 64px;
-  position: relative;
-  height: 64px;
-  cursor: pointer;
-}
-
-.header,
-.headerRight {
+.header {
   display: flex;
   flex-direction: row;
   align-items: center;
-}
-
-.headerRight {
-  overflow: hidden;
-  justify-content: flex-start;
-  gap: var(--gap-21xl);
-}
-
-.header {
   width: 100%;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   background-color: var(--text-white);
@@ -51,4 +12,65 @@
   font-size: var(--font-size-21xl);
   color: var(--color-black);
   font-family: var(--font-inika);
+}
+
+.headerRight {
+  overflow: hidden;
+  justify-content: flex-start;
+  gap: var(--gap-21xl);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.searchButton {
+  position: relative;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+}
+
+.markedButton {
+  position: relative;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+}
+
+.messagesButton {
+  position: relative;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+}
+
+.logOutButton {
+  position: relative;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  transform: rotate(-90deg);
+}
+
+.profileButton {
+  width: 64px;
+  position: relative;
+  height: 64px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.logo {
+  position: relative;
+  cursor: pointer;
+}
+
+.login {
+  position: relative;
+  cursor: pointer;
+  font-size: var(--font-size-13xl);
+}
+
+.logoBlue {
+  color: var(--color-steelblue-100)
 }

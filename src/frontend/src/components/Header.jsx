@@ -1,64 +1,111 @@
-import { useMemo } from "react";
+import {useCallback, useEffect, useState} from "react";
 import styles from "./Header.module.css";
+import {useNavigate} from "react-router-dom";
+import {BACKEND_INVALID_PERSON_ID, DEFAULT_AVATAR} from "../config";
+import {HasToken, RemoveToken, SendToBackend, SendToBackendAuthorized} from "../utils";
 
-const Header = ({
-  bPosition,
-  bTop,
-  bLeft,
-  onTextClick,
-  onInterfaceEssentialBookmarkIconClick,
-  onInterfaceEssentialChat1IconClick,
-  onInterfaceEssentialMagnifierClick,
-  onLilProfileClick,
-}) => {
-  const headerStyle = useMemo(() => {
-    return {
-      position: bPosition,
-      top: bTop,
-      left: bLeft,
-    };
-  }, [bPosition, bTop, bLeft]);
+const Header = ({}) => {
+    const navigate = useNavigate();
 
-  return (
-    <div className={styles.header} style={headerStyle}>
-      <b className={styles.b} onClick={onTextClick}>
-        <span>{`{`}</span>
-        <span className={styles.span}>Хабро:</span>
-        <span>{`Линкер}`}</span>
-      </b>
-      <div className={styles.headerRight}>
-        <img
-          className={styles.interfaceEssentialbookmarkIcon}
-          alt=""
-          src="/interface-essentialbookmark.svg"
-          onClick={onInterfaceEssentialBookmarkIconClick}
-        />
-        <img
-          className={styles.interfaceEssentialbookmarkIcon}
-          alt=""
-          src="/interface-essentialchat1.svg"
-          onClick={onInterfaceEssentialChat1IconClick}
-        />
-        <img
-          className={styles.interfaceEssentialbookmarkIcon}
-          alt=""
-          src="/interface-essentialmagnifier.svg"
-          onClick={onInterfaceEssentialMagnifierClick}
-        />
-        <img
-          className={styles.interfaceEssentialbellIcon}
-          alt=""
-          src="/interface-essentialbell@2x.png"
-        />
-        <img
-          className={styles.lilProfileIcon}
-          alt=""
-          src="/lil-profile.svg"
-          onClick={onLilProfileClick}
-        />
-      </div>
-    </div>
-  );
+    const [userIcon, setUserIcon] = useState(DEFAULT_AVATAR);
+
+    const onLogoClick = useCallback(() => {
+        navigate("/");
+    }, []);
+
+    const onSearchClick = useCallback(() => {
+        navigate("/search-page");
+    }, []);
+
+    const onMessageClick = useCallback(() => {
+        navigate("/chats-page");
+    }, []);
+
+    const onMarkedClick = useCallback(() => {
+        navigate("/saved-users");
+    }, []);
+
+    const onLogoutClick = useCallback(() => {
+        RemoveToken();
+        navigate("/");
+    }, []);
+
+    const onProfileClick = useCallback(() => {
+        navigate("/user-profile");
+    }, []);
+
+    const onLoginClick = useCallback(() => {
+        navigate("/signin");
+    }, []);
+
+    useEffect(() => {
+        async function fetchData() {
+
+            let userInfo = await SendToBackendAuthorized("POST", "/user/self", {});
+            if (userInfo != null && userInfo["person_id"] !== BACKEND_INVALID_PERSON_ID) {
+                let personInfo = await SendToBackend("POST", "/person/info", {
+                    person_id: userInfo.person_id
+                });
+                if (personInfo["avatar"].startsWith("http"))
+                    setUserIcon(personInfo["avatar"]);
+            }
+        }
+
+        if (HasToken())
+            fetchData()
+    }, [userIcon]);
+
+    return (
+        <div className={styles.header}>
+            <b className={styles.logo} onClick={onLogoClick}>
+                <span>{`{`}</span>
+                <span className={styles.logoBlue}>Хабро:</span>
+                <span>{`Линкер}`}</span>
+            </b>
+
+
+            <div className={styles.headerRight}>
+                <img
+                    className={styles.searchButton}
+                    src="/habrolinker-icon-search.svg"
+                    onClick={onSearchClick}
+                />
+                {HasToken() &&
+                    <img
+                        className={styles.markedButton}
+                        src="/habrolinker-icon-marked.svg"
+                        onClick={onMarkedClick}
+                    />
+                }
+                {HasToken() &&
+                    <img
+                        className={styles.messagesButton}
+                        src="/habrolinker-icon-chat.svg"
+                        onClick={onMessageClick}
+                    />
+                }
+                {HasToken() &&
+                    <img
+                        className={styles.logOutButton}
+                        src="/habrolinker-icon-logout.svg"
+                        onClick={onLogoutClick}
+                    />
+                }
+                {HasToken() &&
+                    <img
+                        className={styles.profileButton}
+                        src={userIcon}
+                        onClick={onProfileClick}
+                    />}
+
+                {!HasToken() &&
+                    <b className={styles.login} onClick={onLoginClick}>
+                        <span className={styles.logoBlue}>Войти</span>
+
+                    </b>}
+            </div>
+        </div>
+    );
 };
 
 export default Header;

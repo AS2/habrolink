@@ -1,6 +1,8 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Homepage.module.css";
+import Header from "../components/Header";
+import { HasToken } from "../utils.jsx"
 
 const Homepage = () => {
   const navigate = useNavigate();
@@ -14,58 +16,49 @@ const Homepage = () => {
   }, [navigate]);
 
   return (
-    <div className={styles.homepage}>
-      <div className={styles.background}>
-        <img
-          className={styles.imageDolboebovIcon}
-          alt=""
-          src="/image-dolboebov@2x.png"
-        />
-        <div className={styles.shadownOnImage} />
-      </div>
-      <div className={styles.welcome}>
-        <div className={styles.hbokContainer}>
-          <p className={styles.hbok}>
-            <span className={styles.span}>{`Хабролинкер `}</span>
-            <i className={styles.hbok1}>[hɑbɹoʊˈɫɪŋkɝ]</i>
-            <span> -</span>
-          </p>
-          <p className={styles.hbok}>
-            <span>{`помощник в поисках `}</span>
-            <i className={styles.it1}>IT-единомышленников</i>
-            <span className={styles.span1}>{`  для `}</span>
-            <i className={styles.span}>ваших</i>
-            <span> проектов.</span>
-          </p>
-          <p className={styles.hbok}>&nbsp;</p>
-          <p className={styles.hbok}>
-            <span>{`Начните прямо `}</span>
-            <span className={styles.span}>сейчас</span>
-            <span className={styles.span1}>!</span>
-          </p>
-        </div>
-        <div
-          className={styles.searchButton}
-          onClick={onSearchButtonContainerClick}
-        >
-          <b className={styles.b}>Начать поиск</b>
-        </div>
-        <div
-          className={styles.signupButton}
-          onClick={onSignupButtonContainerClick}
-        >
-          <b className={styles.b}>Войти в систему</b>
-        </div>
-      </div>
-      <div className={styles.header}>
-        <b className={styles.b}>
-          <span>{`{`}</span>
-          <span className={styles.span4}>Хабро:</span>
-          <span>{`Линкер}`}</span>
-        </b>
-      </div>
-    </div>
-  );
+      <div className={styles.homepage}>
+          <Header/>
+          <div className={styles.background}>
+              <div className={styles.welcome}>
+                  <div className={styles.greetMsg}>
+                      <p className={styles.greetLine}>
+                          <span style={{fontWeight: 800}}>Хабролинкер </span>
+                          <i style={{fontWeight: 500}}>[hɑbɹoʊˈɫɪŋkɝ]</i>
+                          -
+                      </p>
+                      <p className={styles.greetLine}>
+                          помощник в поисках
+                          <i style={{fontWeight: 600}}> IT-единомышленников </i>
+                      </p>
+                      <p className={styles.greetLine}>
+                          для
+                          <i style={{fontWeight: 800}}> ваших </i>
+                          проектов.
+                      </p>
+                      <p className={styles.greetLine}>&nbsp;</p>
+                      <p className={styles.greetLine}>
+                          Начните прямо
+                          <span style={{fontWeight: 800}}> сейчас</span>
+                          !
+                      </p>
+                      <p className={styles.greetLine}>&nbsp;</p>
+                      <p className={styles.greetLine}>&nbsp;</p>
+                  </div>
+                  <div className={styles.greetButtons}>
+                      <div
+                          className={styles.searchButton}
+                          onClick={onSearchButtonContainerClick}>
+                          <b>Начать поиск</b>
+                      </div>
+                      { !HasToken() && <div
+                          className={styles.signupButton}
+                          onClick={onSignupButtonContainerClick}>
+                          <b>Войти в систему</b>
+                      </div> }
+                  </div>
+              </div>
+          </div>
+      </div>);
 };
 
 export default Homepage;

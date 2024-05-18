@@ -97,7 +97,7 @@ const User1 = ({
           <img
             className={styles.interfaceEssentialchat1Icon}
             alt=""
-            src="/interface-essentialchat11.svg"
+            src="/habrolinker-icon-chat.svg"
           />
         </div>
         <div className={styles.mark}>

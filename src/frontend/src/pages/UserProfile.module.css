@@ -1,7 +1,117 @@
 .userProfile {
+  background-color: var(--slate-gray-sg020);
+  display: flex;
+  align-items: center;
   width: 100%;
   position: relative;
-  background-color: var(--text-white);
   height: 1024px;
   overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 20px;
+  text-align: left;
+  font-size: var(--font-size-21xl);
+  color: var(--color-black);
+  font-family: var(--font-inika);
+}
+
+.userInfo {
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 646px;
+  background-color: var(--color-whitesmoke-100);
+  flex-shrink: 0;
+  flex-direction: column;
+  box-sizing: border-box;
+  color: var(--color-black);
+
+  border-radius: var(--br-xl);
+  padding: var(--padding-31xl);
+  gap: var(--gap-base);
+  text-align: left;
+  font-size: var(--font-size-xl);
+}
+
+.topPart {
+  align-self: stretch;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-28xl);
+}
+
+.textPart {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex: 1;
+  gap: var(--gap-mini);
+}
+
+.fieldsText {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  overflow: hidden;
+  display: flex;
+  align-self: stretch;
+  gap: var(--gap-7xs);
+  font-size: var(--b-body-2-size);
+  color: var(--color-darkslategray-100);
+}
+
+.line {
+  align-self: stretch;
+  position: relative;
+}
+
+.bottomPart {
+  align-self: stretch;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.header1
+{
+  position: relative;
+  font-size: var(--font-size-13xl);
+}
+
+.header2
+{
+  width: 276px;
+  display: inline-block;
+  height: 30px;
+  flex-shrink: 0;
+}
+
+.avatarIcon {
+  width: 130px;
+  position: relative;
+  height: 130px;
+  border-radius: 50%;
+}
+
+.redactButton {
+  overflow: hidden;
+  display: flex;
+  text-align: center;
+  color: var(--text-white);
+  border-radius: var(--br-3xs);
+  background-color: var(--color-steelblue-100);
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-3xs);
+  position: relative;
+  cursor: pointer;
 }

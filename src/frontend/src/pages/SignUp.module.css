@@ -43,6 +43,7 @@
 .div {
   position: relative;
 }
+
 .controllPart,
 .save {
   overflow: hidden;
@@ -61,22 +62,6 @@
 {
   align-items: flex-start;
   justify-content: flex-start;
-}
-.span {
-  color: var(--color-steelblue-100);
-}
-.b {
-  position: relative;
-  cursor: pointer;
-}
-.interfaceEssentialmagnifier {
-  width: 32px;
-  position: relative;
-  height: 32px;
-}
-
-.b {
-  position: relative;
 }
 .div1 {
   flex: 1;
@@ -120,4 +105,8 @@
   padding: var(--padding-3xs);
   font-size: var(--font-size-5xl);
   font-family: var(--font-inika);
+}
+
+.formSwitch {
+  font-size: var(--font-size-5xl);
 }

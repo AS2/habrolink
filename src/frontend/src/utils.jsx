@@ -25,7 +25,6 @@ export async function SendToBackend(type, api, data)
     };
 
     const answer_text = await fetch(BACKEND_LINK + api, requestOptions);
-    console.log(answer_text)
     if (answer_text.status !== 200)
         return null
     const answer_json = await answer_text.json()

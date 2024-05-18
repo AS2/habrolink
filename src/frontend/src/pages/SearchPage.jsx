@@ -8,6 +8,10 @@ import styles from "./SearchPage.module.css";
 const SearchPage = () => {
   const navigate = useNavigate();
 
+  const onSubmitClick = useCallback(() => {
+    console.log("submited something");
+  }, []);
+
   const onTextClick = useCallback(() => {
     navigate("/");
   }, [navigate]);
@@ -30,6 +34,7 @@ const SearchPage = () => {
 
   const onSendMessageContainerClick = useCallback(() => {
     // Please sync "Message page" to the project
+    console.log("submited something");
   }, []);
 
   const onInfoContainerClick = useCallback(() => {
@@ -66,7 +71,10 @@ const SearchPage = () => {
       <div className={styles.pageContainer}>
         <b className={styles.title}>Поиск</b>
         <div className={styles.searchContainer}>
-          <FiltersBlock />
+          <FiltersBlock
+            onSubmitClick={onSubmitClick}
+          />
+
           <div className={styles.foundedUsers}>
             <User1
               intersect="/intersect.svg"

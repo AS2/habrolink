@@ -5,6 +5,7 @@
   height: 51px;
   flex-shrink: 0;
 }
+
 .foundedUsers {
   flex: 1;
   border-radius: var(--br-3xs);
@@ -14,6 +15,7 @@
   padding: var(--padding-26xl);
   gap: 45px;
 }
+
 .foundedUsers,
 .pageContainer,
 .searchContainer,
@@ -22,25 +24,29 @@
   display: flex;
   justify-content: flex-start;
 }
+
 .searchContainer {
   align-self: stretch;
   flex-direction: row;
   align-items: flex-start;
   gap: var(--gap-4xs);
 }
+
 .pageContainer,
 .searchPage {
   flex-direction: column;
   box-sizing: border-box;
 }
+
 .pageContainer {
   width: 1183px;
-  height: 974px;
+  height: auto;
   flex-shrink: 0;
   align-items: flex-start;
   padding: var(--padding-xl) var(--padding-31xl);
   gap: var(--gap-7xs);
 }
+
 .searchPage {
   width: 100%;
   position: relative;

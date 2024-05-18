@@ -1,6 +1,7 @@
 .b {
   position: relative;
 }
+
 .platformList,
 .userPlatform {
   overflow: hidden;
@@ -10,34 +11,40 @@
   justify-content: flex-start;
   gap: var(--gap-7xs);
 }
+
 .userPlatform {
   align-self: stretch;
   padding: var(--padding-10xs) var(--padding-9xs);
   gap: var(--gap-smi);
 }
+
 .genderList {
   width: 174px;
   position: relative;
-  height: 80px;
+  height: auto;
   overflow: hidden;
   flex-shrink: 0;
 }
+
 .place,
 .placeFields {
   align-self: stretch;
   overflow: hidden;
   flex-direction: column;
 }
+
 .placeFields {
   display: flex;
   align-items: flex-start;
   justify-content: center;
   gap: var(--gap-3xs);
 }
+
 .place {
   padding: var(--padding-10xs) var(--padding-9xs);
   gap: var(--gap-6xs);
 }
+
 .filtersBlock,
 .place,
 .specialitiesField,
@@ -46,20 +53,24 @@
   align-items: flex-start;
   justify-content: flex-start;
 }
+
 .specialitiesField {
   align-self: stretch;
   flex-direction: row;
   flex-wrap: wrap;
 }
+
 .filtersBlock,
 .specialitiesField1 {
   gap: var(--gap-3xs);
 }
+
 .specialitiesField1 {
   align-self: stretch;
   flex-direction: row;
   flex-wrap: wrap;
 }
+
 .filtersBlock {
   width: 300px;
   border-radius: var(--br-3xs);

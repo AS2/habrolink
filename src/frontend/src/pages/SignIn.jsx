@@ -1,7 +1,7 @@
 import {useCallback, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import styles from "./SignIn.module.css";
-import Header from "../components/Header";
+import HabrolinkerHeader from "../components/HabrolinkerHeader";
 import Form from "react-bootstrap/Form";
 import {AuthenticateOnBack} from "../utils";
 
@@ -32,12 +32,12 @@ const SignIn = () => {
     }, [navigate]);
 
     const onCreateNew = useCallback(() => {
-        navigate("/");
+        navigate("/signup");
     }, [navigate]);
 
     return (
         <div className={styles.signin}>
-            <Header/>
+            <HabrolinkerHeader/>
             <div className={styles.loginDiv}>
                 <b>Войти в систему</b>
                 <Form onSubmit={onFormSubmit}>

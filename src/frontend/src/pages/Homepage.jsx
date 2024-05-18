@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Homepage.module.css";
-import Header from "../components/Header";
+import HabrolinkerHeader from "../components/HabrolinkerHeader";
 import { HasToken } from "../utils.jsx"
 
 const Homepage = () => {
@@ -17,7 +17,7 @@ const Homepage = () => {
 
   return (
       <div className={styles.homepage}>
-          <Header/>
+          <HabrolinkerHeader/>
           <div className={styles.background}>
               <div className={styles.welcome}>
                   <div className={styles.greetMsg}>

@@ -1,6 +1,6 @@
 import { useCallback } from "react";
-import City from "./City";
-import Gender from "./Gender";
+import HabrolinkerTextField from "./HabrolinkerTextField";
+import Gender from "./HabrolinkerEnumField";
 import BDate from "./BDate";
 import Salary from "./Salary";
 import Skills from "./Skills";
@@ -22,7 +22,7 @@ const UserInfo1 = () => {
     <div className={styles.userInfo}>
       <b className={styles.b}>Редактирование аккаунта</b>
       <div className={styles.div}>
-        <City
+        <HabrolinkerTextField
           label="Полное имя"
           placeholder="Томас Шелби"
           helperText="(11/100)"
@@ -44,8 +44,8 @@ const UserInfo1 = () => {
           propWidth="unset"
           propAlignSelf="stretch"
         />
-        <City label="Район" placeholder="Бирмингем" helperText="(9/100)" />
-        <City label="Город" placeholder="Смоллхит" helperText="(8/100)" />
+        <HabrolinkerTextField label="Район" placeholder="Бирмингем" helperText="(9/100)" />
+        <HabrolinkerTextField label="Город" placeholder="Смоллхит" helperText="(8/100)" />
         <Salary />
         <Skills
           label="Специальности"

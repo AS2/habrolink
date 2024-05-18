@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/Header";
+import HabrolinkerHeader from "../components/HabrolinkerHeader";
 import StateFilled from "../components/StateFilled";
 import ToggleTrueStateDefaultLa1 from "../components/ToggleTrueStateDefaultLa1";
 import styles from "./ChatsPage.module.css";
@@ -26,7 +26,7 @@ const ChatsPage = () => {
 
   return (
     <div className={styles.chatsPage}>
-      <Header
+      <HabrolinkerHeader
         bPosition="unset"
         bTop="unset"
         bLeft="unset"

@@ -1,11 +1,12 @@
-import City from "./City";
-import Pw from "./Pw";
+import HabrolinkerTextField from "./HabrolinkerTextField";
+import HabrolinkerPasswordFields from "./HabrolinkerPasswordFields";
 import PwAgain from "./PwAgain";
-import Gender from "./Gender";
+import Gender from "./HabrolinkerEnumField";
 import BDate from "./BDate";
 import Salary from "./Salary";
 import Skills from "./Skills";
 import styles from "./Component.module.css";
+import HabrolinkerEnumField from "./HabrolinkerEnumField";
 
 const Component = () => {
   return (
@@ -16,25 +17,25 @@ const Component = () => {
         </div>
         <img className={styles.avatarIcon} alt="" src="/avatar.svg" />
       </div>
-      <City
+      <HabrolinkerTextField
         label="Логин"
         placeholder="tommy1884@mail.com"
         helperText="(11/100)"
       />
-      <Pw />
+      <HabrolinkerPasswordFields />
       <PwAgain />
-      <City
+      <HabrolinkerTextField
         label="Полное имя"
         placeholder="Томас Шелби"
         helperText="(11/100)"
       />
-      <Gender
+      <HabrolinkerEnumField
         label="Пол"
         placeholder="Мужчина"
         standardChevronDown="/standard--chevrondown.svg"
       />
       <BDate />
-      <Gender
+      <HabrolinkerEnumField
         label="Страна"
         placeholder="Англия"
         standardChevronDown="/standard--select-dictionary.svg"
@@ -42,8 +43,8 @@ const Component = () => {
         propWidth="unset"
         propAlignSelf="stretch"
       />
-      <City label="Район" placeholder="Бирмингем" helperText="(9/100)" />
-      <City label="Город" placeholder="Смоллхит" helperText="(8/100)" />
+      <HabrolinkerTextField label="Район" placeholder="Бирмингем" helperText="(9/100)" />
+      <HabrolinkerTextField label="Город" placeholder="Смоллхит" helperText="(8/100)" />
       <Salary />
       <Skills
         label="Специальности"

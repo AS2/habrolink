@@ -1,6 +1,6 @@
 import { useCallback, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/Header";
+import HabrolinkerHeader from "../components/HabrolinkerHeader";
 import FiltersBlock from "../components/FiltersBlock";
 import User1 from "../components/User1";
 import styles from "./SearchPage.module.css";
@@ -108,7 +108,7 @@ const SearchPage = () => {
 
   return (
     <div className={styles.searchPage}>
-      <Header
+      <HabrolinkerHeader
         onTextClick={onTextClick}
         onInterfaceEssentialBookmarkIconClick={
           onInterfaceEssentialBookmarkIconClick

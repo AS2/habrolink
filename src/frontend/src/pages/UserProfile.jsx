@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import Header from "../components/Header";
+import HabrolinkerHeader from "../components/HabrolinkerHeader";
 import styles from "./UserProfile.module.css";
 import {RemoveToken, SendToBackend, SendToBackendAuthorized} from "../utils";
 import {BACKEND_INVALID_PERSON_ID, DEFAULT_AVATAR} from "../config";
@@ -71,7 +71,7 @@ const UserProfile = () => {
 
     return (
         <div className={styles.userProfile}>
-            <Header/>
+            <HabrolinkerHeader/>
             <div className={styles.userInfo}>
                 <b className={styles.header1}>Аккаунт ХаброЛинкер</b>
                 {

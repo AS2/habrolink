@@ -1,10 +1,10 @@
 import {useCallback, useEffect, useState} from "react";
-import styles from "./Header.module.css";
+import styles from "./HabrolinkerHeader.module.css";
 import {useNavigate} from "react-router-dom";
 import {BACKEND_INVALID_PERSON_ID, DEFAULT_AVATAR} from "../config";
 import {HasToken, RemoveToken, SendToBackend, SendToBackendAuthorized} from "../utils";
 
-const Header = ({}) => {
+const HabrolinkerHeader = ({}) => {
     const navigate = useNavigate();
 
     const [userIcon, setUserIcon] = useState(DEFAULT_AVATAR);
@@ -108,4 +108,4 @@ const Header = ({}) => {
     );
 };
 
-export default Header;
+export default HabrolinkerHeader;

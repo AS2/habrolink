@@ -1,10 +1,50 @@
+.signup {
+  background-color: var(--slate-gray-sg020);
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  height: 1800px;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 20px;
+  text-align: left;
+  font-size: var(--font-size-21xl);
+  color: var(--color-black);
+  font-family: var(--font-inika);
+}
+
+.signupPage {
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: var(--color-whitesmoke-100);
+  flex-direction: column;
+  padding: 14px var(--padding-31xl);
+  border-radius: var(--br-3xs);
+}
+
+.userInfo {
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: var(--color-whitesmoke-100);
+  flex-direction: column;
+  width: 646px;
+  border-radius: var(--br-xl);
+  padding: var(--padding-31xl);
+  box-sizing: border-box;
+  gap: var(--gap-base);
+}
+
 .div {
   position: relative;
 }
 .controllPart,
-.loginPage,
-.save,
-.userInfo {
+.save {
   overflow: hidden;
   display: flex;
   flex-direction: row;
@@ -17,29 +57,10 @@
   padding: var(--padding-3xs);
   cursor: pointer;
 }
-.controllPart,
-.loginPage,
-.userInfo {
+.controllPart
+{
   align-items: flex-start;
   justify-content: flex-start;
-}
-.loginPage,
-.userInfo {
-  background-color: var(--color-whitesmoke-100);
-  flex-direction: column;
-}
-.userInfo {
-  width: 646px;
-  border-radius: var(--br-xl);
-  padding: var(--padding-31xl);
-  box-sizing: border-box;
-  gap: var(--gap-base);
-}
-.loginPage {
-  position: absolute;
-  top: 227px;
-  left: calc(50% - 373px);
-  padding: 14px var(--padding-31xl);
 }
 .span {
   color: var(--color-steelblue-100);
@@ -53,34 +74,50 @@
   position: relative;
   height: 32px;
 }
-.header,
-.signup {
-  background-color: var(--text-white);
+
+.b {
+  position: relative;
 }
-.header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-  width: 1440px;
+.div1 {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.avatarIcon {
+  width: 130px;
+  position: relative;
+  height: 130px;
+  border-radius: 50%;
+}
+
+.topPart {
+  align-self: stretch;
+  overflow: hidden;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  padding: var(--padding-9xl) var(--padding-21xl) var(--padding-9xl)
-    var(--padding-2xl);
-  box-sizing: border-box;
-  text-align: left;
-  font-size: var(--font-size-21xl);
+  justify-content: flex-start;
+  gap: var(--gap-28xl);
+  font-size: var(--font-size-13xl);
   color: var(--color-black);
+  font-family: var(--font-inika);
 }
-.signup {
-  width: 100%;
-  position: relative;
-  height: 1937px;
+
+.createButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
   overflow: hidden;
-  text-align: center;
-  font-size: var(--font-size-xl);
+  flex-shrink: 0;
+  border-radius: var(--br-smi);
+  background-color: var(--color-steelblue-100);
   color: var(--text-white);
+  padding: var(--padding-3xs);
+  font-size: var(--font-size-5xl);
   font-family: var(--font-inika);
 }

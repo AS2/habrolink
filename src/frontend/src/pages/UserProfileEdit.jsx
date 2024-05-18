@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/Header";
+import HabrolinkerHeader from "../components/HabrolinkerHeader";
 import UserInfo1 from "../components/UserInfo1";
 import styles from "./UserProfileEdit.module.css";
 
@@ -29,7 +29,7 @@ const UserProfileEdit = () => {
 
   return (
     <div className={styles.userProfileEdit}>
-      <Header
+      <HabrolinkerHeader
         bPosition="unset"
         bTop="unset"
         bLeft="unset"

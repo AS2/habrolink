@@ -242,7 +242,7 @@ async def list_marked(token: str = Depends(reuseable_oauth)) -> MarkListResponse
     return result
 
 
-@router.post("/mark/status", tags=["marks"], summary="Check if person marked or not by id", response_model=MarkListResponse)
+@router.post("/mark/status", tags=["marks"], summary="Check if person marked or not by id", response_model=MarkStatusResponse)
 async def check_is_marked(markArguments: Annotated[
     MarkingArguments, Body(openapi_examples=MarkingArguments.get_example())], token: str = Depends(reuseable_oauth)) -> MarkStatusResponse:
     # connect to DB

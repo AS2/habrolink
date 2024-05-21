@@ -1,156 +1,82 @@
-import { useCallback, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import {useCallback, useEffect, useState} from "react";
 import HabrolinkerHeader from "../components/HabrolinkerHeader";
-import FiltersBlock from "../components/FiltersBlock";
-import User1 from "../components/User1";
 import styles from "./SearchPage.module.css";
+import HabrolinkerUserCard from "../components/HabrolinkerUserCard";
+import {SendToBackend} from "../utils";
+import HabrolinkerPageChooser from "../components/HabrolinkerPageChooser";
+import HabrolinkerSearchFilters from "../components/HabrolinkerSearchFilters";
 
 const SearchPage = () => {
-  const navigate = useNavigate();
-  const array = [];
-  const [usersInfoArray, setUsersInfoArray] = useState([]);
-
-  const onTextClick = useCallback(() => {
-    navigate("/");
-  }, [navigate]);
-
-  const onInterfaceEssentialBookmarkIconClick = useCallback(() => {
-    navigate("/saved-users");
-  }, [navigate]);
-
-  const onInterfaceEssentialChat1IconClick = useCallback(() => {
-    navigate("/chats-page");
-  }, [navigate]);
-
-  const onInterfaceEssentialMagnifierClick = useCallback(() => {
-    navigate("/search-page");
-  }, [navigate]);
-
-  const onLilProfileClick = useCallback(() => {
-    navigate("/user-profile");
-  }, [navigate]);
-
-  const onSendMessageContainerClick = useCallback(() => {
-    // Please sync "Message page" to the project
-    console.log("submited something");
-  }, []);
-
-  const onInfoContainerClick = useCallback(() => {
-    // Please sync "Other user1 info" to the project
-  }, []);
-
-  const onSendMessageContainer2Click = useCallback(() => {
-    // Please sync "Recived message page" to the project
-  }, []);
-
-  const onInfoContainer2Click = useCallback(() => {
-    // Please sync "Other user2 info" to the project
-  }, []);
-
-  const onSendMessageContainer3Click = useCallback(() => {
-    // Please sync "Recived message page" to the project
-  }, []);
-
-  const onInfoContainer3Click = useCallback(() => {
-    // Please sync "Other user3 info" to the project
-  }, []);
-
-
-  const onSubmitClick = useCallback(() => {
-    console.log(usersInfoArray, usersInfoArray.length);
-
-    // retrieve id-s of users we want to show
-    const firstRequestOptions = {
-        method: "POST",
-        headers: {
-		"accept": "application/json",
-		"Content-type": "application/json" },
-        body: JSON.stringify({})
-    };
-  
-     fetch("http://localhost:8000/search", firstRequestOptions)
-        .then(res => res.json())
-        .then((data) => 
-           {
-                       const fetchData = async(p_id) => {
-                           const secondRequestOptions = {
-                               method: "POST",
-                               headers: { 
-					"accept": "application/json",
-					"Content-Type": "application/json" },
-                               body: JSON.stringify(
-                               { 
-                                    person_id: p_id
-                               })
-                           };
-
-                             const initialData = await fetch("http://localhost:8000/person/info", secondRequestOptions);
-			     const person_json = await initialData.json()
-    
-                           setUsersInfoArray((previousState) => [
-                                ...previousState,
-                                {
-                                     "intersect": person_json["avatar"],
-                                     "prop": person_json["fullname"],
-                                     "nickname": person_json["id"],
-                                     "karma": "Карма: " + String(person_json["habr_karma"]),
-                                     "rating": "Рейтинг: " + String(person_json["habr_rating"]),
-                                     "softKittyLovermailcom": person_json["id"],
-                                     "interfaceEssentialBookmar": "/interface-essentialbookmark1.svg"
-                                }
-	                       ]);
-			};
-
-	       data["persons_ids"].forEach(id => fetchData(id));
-           })
-
-  }, [usersInfoArray]);
-
-  return (
-    <div className={styles.searchPage}>
-      <HabrolinkerHeader
-        onTextClick={onTextClick}
-        onInterfaceEssentialBookmarkIconClick={
-          onInterfaceEssentialBookmarkIconClick
+    const [usersInfoArray, setUsersInfoArray] = useState([]);
+    const [searchFilters, setSearchFilters] = useState({});
+    const [editableSearchFilters, setEditableSearchFilters] = useState(
+        {
+            "page": 0,
+            "source": 0,
+            "habr_rating_low": 0,
+            "habr_rating_high": 1000,
+            "habr_karma_low": 0,
+            "habr_karma_high": 1000,
+            "age_low": 18,
+            "age_high": 100,
+            "location_country": "",
+            "location_city": "",
+            "location_region": "",
+            "salary_low": 0,
+            "salary_high": 1000000,
+            "skills": [],
+            "speciality": []
         }
-        onInterfaceEssentialChat1IconClick={onInterfaceEssentialChat1IconClick}
-        onInterfaceEssentialMagnifierClick={onInterfaceEssentialMagnifierClick}
-        onLilProfileClick={onLilProfileClick}
-      />
-      <div className={styles.pageContainer}>
-        <b className={styles.title}>Поиск</b>
-        <div className={styles.searchContainer}>
-          <FiltersBlock
-            onSubmitClick={onSubmitClick}
-          />
+    );
+    const [pages, setPages] = useState({current: 0, amount: 0});
 
-          <div className={styles.foundedUsers}>
-            <b className={styles.title}>Результаты</b>
-            <div id="searchingResult">
-              {usersInfoArray.map((info, index) => (
-                <User1
-		  key={index}
-                  intersect={info["intersect"]}
-                  prop={info["prop"]}
-                  nickname={info["nickname"]}
-                  karma={info["karma"]}
-                  rating={info["rating"]}
-                  softKittyLovermailcom={info["softKittyLovermailcom"]}
-                  interfaceEssentialBookmar={info["interfaceEssentialBookmar"]}
-                  showDot1
-                  showKarma
-                  showDot2
-                  showRating
-                  onSendMessageContainerClick={onSendMessageContainerClick}
-                  onInfoContainerClick={onInfoContainerClick}
-                />
-              ))}
+    useEffect(() => {
+        setUsersInfoArray([]);
+        async function fetchData() {
+            let searchAnswer = await SendToBackend("POST", "/search", searchFilters);
+            if (searchAnswer != null) {
+                setUsersInfoArray(searchAnswer.persons_ids);
+                setPages({current: searchAnswer.page, amount: searchAnswer.pages_amount});
+            }
+        }
+
+        fetchData()
+    }, [searchFilters]);
+
+    const onSubmitClick = useCallback(() => {
+        setSearchFilters(editableSearchFilters);
+    }, [editableSearchFilters]);
+
+    function onPage(data) {
+        setSearchFilters((oldFilters) => ({...oldFilters, page: data}));
+    }
+
+    return (
+        <div className={styles.searchPage}>
+            <HabrolinkerHeader/>
+            <div className={styles.pageContainer}>
+                <div className={styles.searchContainer}>
+                    <HabrolinkerSearchFilters onSubmitClick={onSubmitClick} filters={editableSearchFilters} filtersSetter={setEditableSearchFilters}/>
+                    <div className={styles.foundedUsers}>
+                        <b className={styles.title}>Результаты</b>
+                        <HabrolinkerPageChooser current={pages.current} amount={pages.amount} onChangeValue={onPage}/>
+                        {usersInfoArray.length > 0
+                            ? <div className={styles.searchResult}>
+                                {usersInfoArray.map((personId, index) => (
+                                    <HabrolinkerUserCard
+                                        key={personId}
+                                        personId={personId}
+                                    />
+                                ))}
+                            </div>
+                            : <b className={styles.title}> Пусто &#128577; </b>
+                        }
+                        <HabrolinkerPageChooser current={pages.current} amount={pages.amount} onChangeValue={onPage}/>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default SearchPage;

@@ -111,7 +111,7 @@ const User1 = ({
           <img
             className={styles.interfaceEssentialchat1Icon}
             alt=""
-            src="/interface-essentialinformationcircle.svg"
+            src="/habrolinker-icon-info.svg"
           />
         </div>
       </div>

@@ -73,7 +73,7 @@ const HabrolinkerHeader = ({ }) => {
                 {HasToken() &&
                     <img
                         className={styles.markedButton}
-                        src="/habrolinker-icon-marked.svg"
+                        src="/habrolinker-icon-unmarked.svg"
                         onClick={onMarkedClick}
                     />
                 }

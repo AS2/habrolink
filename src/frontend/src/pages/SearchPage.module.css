@@ -1,3 +1,9 @@
+.pageContainer {
+  background-color: var(--slate-gray-sg020);
+  width: 100vw;
+  height: 100vh;
+}
+
 .title {
   width: 293px;
   position: relative;
@@ -26,7 +32,8 @@
 }
 
 .searchContainer {
-  align-self: stretch;
+  width: 75%;
+  align-self: center;
   flex-direction: row;
   align-items: flex-start;
   gap: var(--gap-4xs);
@@ -39,7 +46,6 @@
 }
 
 .pageContainer {
-  width: 1183px;
   height: auto;
   flex-shrink: 0;
   align-items: flex-start;
@@ -57,4 +63,8 @@
   font-size: var(--font-size-21xl);
   color: var(--color-black);
   font-family: var(--font-inika);
+}
+
+.searchResult {
+  width: 100%;
 }

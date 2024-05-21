@@ -1,0 +1,27 @@
+.pages {
+  align-self: stretch;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: var(--gap-7xs);
+  text-align: center;
+  font-size: var(--l-label-2-size);
+  color: var(--slate-gray-sg200);
+  font-family: var(--l-label-1);
+}
+
+.button {
+  gap: var(--gap-7xs);
+  font-size: var(--font-size-13xl);
+  color: var(--color-black);
+  font-family: var(--l-label-1);
+  cursor: pointer;
+}
+
+.choosedButton {
+  gap: var(--gap-7xs);
+  font-size: var(--font-size-21xl);
+  color: var(--color-black);
+  font-family: var(--l-label-1);
+}

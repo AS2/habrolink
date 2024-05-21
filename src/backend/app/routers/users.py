@@ -218,7 +218,7 @@ async def user_by_person(arguments: Annotated[PersonIdArguments, Body(openapi_ex
 
     try:
         with conn.cursor() as cur:
-            cur.execute('SELECT "user"."user_id" FROM "user" WHERE "user"."person_id" = %s', (arguments.person_id,))
+            cur.execute('SELECT "user"."id" FROM "user" WHERE "user"."person_id" = %s', (arguments.person_id,))
             entry = cur.fetchone()
             if entry == None:
                 raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="No such user")
@@ -247,11 +247,11 @@ async def user_by_id(arguments: Annotated[UserIdArguments, Body(openapi_examples
 
     try:
         with conn.cursor() as cur:
-            cur.execute('SELECT * FROM "user" WHERE "user"."id" = %s', (arguments.person_id,))
+            cur.execute('SELECT * FROM "user" WHERE "user"."id" = %s', (arguments.user_id,))
             entry = cur.fetchone()
             if entry == None:
                 raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="No such user")
-            result.user_id = entry[0]
+            result.id = entry[0]
             result.login = entry[1]
             result.person_id = entry[3]
 

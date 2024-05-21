@@ -274,7 +274,7 @@ class UserResponse(CommonResponse, User):
 
 # Response when user id needed
 class UserIdResponse(CommonResponse):
-    user_id: int
+    user_id: int = Field(default=0)
 
 
 # parameters for searching

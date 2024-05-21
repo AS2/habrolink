@@ -78,7 +78,7 @@ const UserProfileEdit = () => {
         navigate("/")
       }
       else {
-        SendToBackend("POST", "/person/update", {
+        SendToBackendAuthorized("PUT", "/person/update", {
           fullname: info.fullname,
           avatar: info.avatar,
           gender: info.gender,

@@ -4,7 +4,7 @@ import { useCallback, useState, useEffect } from "react";
 
 const HabrolinkerTextArrayField = ({ label, placeholder, value, onChangeValue }) => {
     const [currentTextArray, setCurrentTextArray] = useState(value == null ? "" : value.join());
-    const [helperText, setHelperText] = useState(value == null ? "0/100" : String(value.length) + "/100");
+    const [helperText, setHelperText] = useState(value == null ? "0/100" : String(value.join().length) + "/100");
 
     const onValueChanged = useCallback(event => {
         let curValue = event.target.value;
@@ -22,7 +22,7 @@ const HabrolinkerTextArrayField = ({ label, placeholder, value, onChangeValue })
 
     useEffect(() => {
         setCurrentTextArray(value == null ? "" : value.join());
-        setHelperText(value == null ? "0/100" : String(value.length) + "/100");
+        setHelperText(value == null ? "0/100" : String(value.join().length) + "/100");
     }, [value]);
 
     return (

@@ -33,6 +33,7 @@
   background-color: var(--slate-gray-sg020);
   width: 100vw;
   height: auto;
+  min-height: 100vh;
   flex-shrink: 0;
   align-items: flex-start;
   padding: var(--padding-xl) var(--padding-31xl);

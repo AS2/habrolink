@@ -38,6 +38,7 @@ const HabrolinkerUserCard = ({personId}) => {
                         setInfo((oldInfo) => ({
                             ...oldInfo,
                             hasUser: true,
+                            userId: userId,
                             login: userInfo.login
                         }))
                     }
@@ -58,7 +59,7 @@ const HabrolinkerUserCard = ({personId}) => {
 
     const onSendMessage = useCallback(() => {
         const params = new URLSearchParams({
-            chatId: info.login
+            chatId: info.userId
         });
 
         navigate("/chats-page?" + params.toString());
@@ -116,7 +117,7 @@ const HabrolinkerUserCard = ({personId}) => {
                 </div>
             </div>
             <div className={styles.actionsButtons}>
-                {HasToken() &&
+                {HasToken() && info.hasUser &&
                     <div className={styles.buttonDiv} onClick={onSendMessage}>
                         <img
                             className={styles.buttonIcon}

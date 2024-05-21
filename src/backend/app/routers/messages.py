@@ -41,7 +41,7 @@ async def list_chats(token: str = Depends(reuseable_oauth)) -> MessageChatsRespo
             for i in range(len(entries)):
                 chat_id = entries[i][0]
                 # get corresponding person
-                cur.execute('SELECT "user"."person_id", "user"."login" FROM "user" WHERE "user"."id" = %s', (user_id,))
+                cur.execute('SELECT "user"."person_id", "user"."login" FROM "user" WHERE "user"."id" = %s', (chat_id,))
                 entry = cur.fetchone()
                 if entry is None:
                     # We do not have opponent in this dialog. Let-s put some dummy info
@@ -60,7 +60,7 @@ async def list_chats(token: str = Depends(reuseable_oauth)) -> MessageChatsRespo
                         result.chats.append(ChatShortInfo(user_id=chat_id, avatar=UNKNOWN_AVATAR, name=user_login))
                     else:
                         # Put valid data
-                        result.chats.append(ChatShortInfo(user_id=chat_id, avatar=entry[1], name=entry[0]))
+                        result.chats.append(ChatShortInfo(user_id=chat_id, avatar=entry[1], name=entry[0], login=user_login))
 
     except psycopg2.OperationalError:
         raise HTTPException(status_code=500, detail="Cannot retrieve data from database")
@@ -128,12 +128,14 @@ async def dialog_chats(arguments: Annotated[UserIdArguments, Body(openapi_exampl
                 # no use entry... strange but ok
                 result.this_user_name = UNKNOWN_USER
                 result.this_user_avatar = UNKNOWN_AVATAR
+                result.this_user_login = UNKNOWN_USER
             else:
                 person_id = entry[0]
                 user_login = entry[1]
                 cur.execute('SELECT "person"."fullname", "person"."avatar" FROM "person" WHERE "person"."id" = %s',
                             (person_id,))
                 entry = cur.fetchone()
+                result.this_user_login = user_login
                 if entry is None:
                     # no person, lets put dummy values
                     result.this_user_name = user_login
@@ -151,12 +153,14 @@ async def dialog_chats(arguments: Annotated[UserIdArguments, Body(openapi_exampl
                 # no use entry... strange but ok
                 result.other_user_name = UNKNOWN_USER
                 result.other_user_avatar = UNKNOWN_AVATAR
+                result.other_user_login = UNKNOWN_USER
             else:
                 person_id = entry[0]
                 user_login = entry[1]
                 cur.execute('SELECT "person"."fullname", "person"."avatar" FROM "person" WHERE "person"."id" = %s',
                             (person_id,))
                 entry = cur.fetchone()
+                result.other_user_login = user_login
                 if entry is None:
                     # no person, lets put dummy values
                     result.other_user_name = user_login

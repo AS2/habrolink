@@ -1,79 +1,42 @@
-import { useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import {useCallback, useEffect, useState} from "react";
 import HabrolinkerHeader from "../components/HabrolinkerHeader";
-import User1 from "../components/User1";
 import styles from "./SavedUsers.module.css";
+import HabrolinkerUserCard from "../components/HabrolinkerUserCard";
+import {SendToBackend, SendToBackendAuthorized} from "../utils";
 
 const SavedUsers = () => {
-  const navigate = useNavigate();
+  const [usersInfoArray, setUsersInfoArray] = useState([]);
 
-  const onTextClick = useCallback(() => {
-    navigate("/");
-  }, [navigate]);
+  useEffect(() => {
+    setUsersInfoArray([]);
+    async function fetchData() {
+      let searchAnswer = await SendToBackendAuthorized("POST", "/mark/list", {});
+      if (searchAnswer != null) {
+        setUsersInfoArray(searchAnswer.persons_ids);
+      }
+    }
 
-  const onInterfaceEssentialBookmarkIconClick = useCallback(() => {
-    navigate("/saved-users");
-  }, [navigate]);
-
-  const onInterfaceEssentialChat1IconClick = useCallback(() => {
-    navigate("/chats-page");
-  }, [navigate]);
-
-  const onInterfaceEssentialMagnifierClick = useCallback(() => {
-    navigate("/search-page");
-  }, [navigate]);
-
-  const onLilProfileClick = useCallback(() => {
-    navigate("/user-profile");
-  }, [navigate]);
-
-  const onSendMessageContainerClick = useCallback(() => {
-    // Please sync "Message page" to the project
-  }, []);
-
-  const onInfoContainerClick = useCallback(() => {
-    // Please sync "Other user1 info" to the project
+    fetchData()
   }, []);
 
   return (
     <div className={styles.savedUsers}>
-      <HabrolinkerHeader
-        bPosition="unset"
-        bTop="unset"
-        bLeft="unset"
-        onTextClick={onTextClick}
-        onInterfaceEssentialBookmarkIconClick={
-          onInterfaceEssentialBookmarkIconClick
-        }
-        onInterfaceEssentialChat1IconClick={onInterfaceEssentialChat1IconClick}
-        onInterfaceEssentialMagnifierClick={onInterfaceEssentialMagnifierClick}
-        onLilProfileClick={onLilProfileClick}
-      />
+      <HabrolinkerHeader/>
       <div className={styles.pageContainer}>
         <b className={styles.title}>Сохраненные пользователи</b>
         <div className={styles.searchContainer}>
           <div className={styles.foundedUsers}>
-            <User1
-              intersect="/intersect.svg"
-              prop="Артур Шелби"
-              nickname="@big_bro"
-              karma="Карма: 140"
-              rating="Рейтинг: 4.9"
-              softKittyLovermailcom="soft_kitty_lover@mail.com"
-              interfaceEssentialBookmar="/interface-essentialbookmark1.svg"
-              showDot1
-              showKarma
-              showDot2
-              showRating
-              propTextTransform="capitalize"
-              propColor="#000"
-              propWidth="unset"
-              propWidth1="unset"
-              propWidth2="unset"
-              propWidth3="unset"
-              onSendMessageContainerClick={onSendMessageContainerClick}
-              onInfoContainerClick={onInfoContainerClick}
-            />
+          {usersInfoArray.length > 0
+              ? <div className={styles.searchResult}>
+                {usersInfoArray.map((personId, index) => (
+                    <HabrolinkerUserCard
+                        key={personId}
+                        personId={personId}
+                    />
+                ))}
+              </div>
+              : <b className={styles.title}> Пусто &#128577; </b>
+          }
           </div>
         </div>
       </div>

@@ -1,9 +1,3 @@
-.pageContainer {
-  background-color: var(--slate-gray-sg020);
-  width: 100vw;
-  height: 100vh;
-}
-
 .title {
   width: 293px;
   position: relative;
@@ -46,6 +40,8 @@
 }
 
 .pageContainer {
+  background-color: var(--slate-gray-sg020);
+  width: 100vw;
   height: auto;
   flex-shrink: 0;
   align-items: flex-start;
@@ -58,7 +54,6 @@
   position: relative;
   background-color: var(--text-white);
   align-items: center;
-  padding: 0 0 var(--padding-81xl);
   text-align: left;
   font-size: var(--font-size-21xl);
   color: var(--color-black);

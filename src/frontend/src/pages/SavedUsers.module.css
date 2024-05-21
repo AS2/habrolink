@@ -8,6 +8,7 @@
   flex-direction: column;
   align-items: flex-start;
   padding: var(--padding-26xl);
+  gap: 45px;
 }
 .foundedUsers,
 .pageContainer,
@@ -18,7 +19,8 @@
   justify-content: flex-start;
 }
 .searchContainer {
-  align-self: stretch;
+  width: 75%;
+  align-self: center;
   flex-direction: row;
   align-items: flex-start;
 }
@@ -28,8 +30,9 @@
   box-sizing: border-box;
 }
 .pageContainer {
-  width: 1183px;
-  height: 974px;
+  background-color: var(--slate-gray-sg020);
+  width: 100vw;
+  height: auto;
   flex-shrink: 0;
   align-items: flex-start;
   padding: var(--padding-xl) var(--padding-31xl);
@@ -40,9 +43,11 @@
   position: relative;
   background-color: var(--text-white);
   align-items: center;
-  padding: 0 0 var(--padding-81xl);
   text-align: left;
   font-size: var(--font-size-21xl);
   color: var(--color-black);
   font-family: var(--font-inika);
+}
+.searchResult {
+  width: 100%;
 }

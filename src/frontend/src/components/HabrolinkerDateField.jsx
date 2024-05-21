@@ -1,7 +1,7 @@
 import styles from "./HabrolinkerEnumField.module.css";
-import {useCallback, useState} from "react";
+import { useCallback, useState, useEffect } from "react";
 
-const HabrolinkerDateField = ({ label, onChangeValue, value}) => {
+const HabrolinkerDateField = ({ label, onChangeValue, value }) => {
   const [currentDate, setCurrentDate] = useState(value == null ? "" : value);
 
   const onValueChanged = useCallback(event => {
@@ -11,13 +11,17 @@ const HabrolinkerDateField = ({ label, onChangeValue, value}) => {
       onChangeValue(curValue);
   }, [currentDate]);
 
+  useEffect(() => {
+    setCurrentDate(value == null ? "" : value);
+  }, [value]);
+
   return (
-      <div className={styles.textField}>
-        <div className={styles.partInputLabel}>
-          <b className={styles.label}>{label}</b>
-        </div>
-        <input type="date" className={styles.inputField} onInput={onValueChanged} value={currentDate} />
+    <div className={styles.textField}>
+      <div className={styles.partInputLabel}>
+        <b className={styles.label}>{label}</b>
       </div>
+      <input type="date" className={styles.inputField} onInput={onValueChanged} value={currentDate} />
+    </div>
   );
 };
 

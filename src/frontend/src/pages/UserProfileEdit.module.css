@@ -1,13 +1,115 @@
-.userProfileEdit {
+.signup {
+  background-color: var(--slate-gray-sg020);
+  display: flex;
+  align-items: center;
   width: 100%;
   position: relative;
-  background-color: var(--text-white);
+  height: 1800px;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 20px;
+  text-align: left;
+  font-size: var(--font-size-21xl);
+  color: var(--color-black);
+  font-family: var(--font-inika);
+}
+
+.signupPage {
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: var(--color-whitesmoke-100);
+  flex-direction: column;
+  padding: 14px var(--padding-31xl);
+  border-radius: var(--br-3xs);
+}
+
+.userInfo {
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: var(--color-whitesmoke-100);
+  flex-direction: column;
+  width: 646px;
+  border-radius: var(--br-xl);
+  padding: var(--padding-31xl);
+  box-sizing: border-box;
+  gap: var(--gap-base);
+}
+
+.div {
+  position: relative;
+}
+
+.controllPart,
+.save {
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+}
+
+.save {
+  border-radius: var(--br-3xs);
+  background-color: var(--color-steelblue-100);
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-3xs);
+  cursor: pointer;
+}
+
+.controllPart {
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.div1 {
+  flex: 1;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.avatarIcon {
+  width: 130px;
+  position: relative;
+  height: 130px;
+  border-radius: 50%;
+}
+
+.topPart {
+  align-self: stretch;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  padding: 0 0 var(--padding-81xl);
-  box-sizing: border-box;
-  gap: 111px;
+  gap: var(--gap-28xl);
+  font-size: var(--font-size-13xl);
+  color: var(--color-black);
+  font-family: var(--font-inika);
+}
+
+.createButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  flex-shrink: 0;
+  border-radius: var(--br-smi);
+  background-color: var(--color-steelblue-100);
+  color: var(--text-white);
+  padding: var(--padding-3xs);
+  font-size: var(--font-size-5xl);
+  font-family: var(--font-inika);
+}
+
+.formSwitch {
+  font-size: var(--font-size-5xl);
 }

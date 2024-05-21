@@ -1,6 +1,6 @@
 import TypeTextCombinedFalseFil from "./TypeTextCombinedFalseFil";
 import styles from "./HabrolinkerTextField.module.css";
-import {useCallback, useState} from "react";
+import { useCallback, useState, useEffect } from "react";
 
 const HabrolinkerTextArrayField = ({ label, placeholder, value, onChangeValue }) => {
     const [currentTextArray, setCurrentTextArray] = useState(value == null ? "" : value.join());
@@ -20,18 +20,23 @@ const HabrolinkerTextArrayField = ({ label, placeholder, value, onChangeValue })
             onChangeValue(curValue);
     }, [helperText, currentTextArray]);
 
-  return (
-      <div className={styles.textField}>
-          <div className={styles.partInputLabel}>
-              <b className={styles.label}>{label}</b>
-          </div>
-          <input className={styles.inputField} onInput={onValueChanged} value={currentTextArray}
-                 placeholder={placeholder}/>
-          <div className={styles.partInputHelper}>
-              <div className={styles.helperText}>Значения разделяются запятой. Считано {helperText} значений</div>
-          </div>
-      </div>
-  );
+    useEffect(() => {
+        setCurrentTextArray(value == null ? "" : value.join());
+        setHelperText(value == null ? "0/100" : String(value.length) + "/100");
+    }, [value]);
+
+    return (
+        <div className={styles.textField}>
+            <div className={styles.partInputLabel}>
+                <b className={styles.label}>{label}</b>
+            </div>
+            <input className={styles.inputField} onInput={onValueChanged} value={currentTextArray}
+                placeholder={placeholder} />
+            <div className={styles.partInputHelper}>
+                <div className={styles.helperText}>Значения разделяются запятой. Считано {helperText} значений</div>
+            </div>
+        </div>
+    );
 };
 
 export default HabrolinkerTextArrayField;

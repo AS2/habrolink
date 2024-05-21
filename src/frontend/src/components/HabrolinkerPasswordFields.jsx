@@ -1,8 +1,8 @@
 import styles from "./HabrolinkerPasswordFields.module.css";
-import {useCallback, useState} from "react";
+import { useCallback, useState } from "react";
 import EmptyFalseHelpFalseError from "./EmptyFalseHelpFalseError";
 
-const HabrolinkerPasswordFields = ({label1, label2, onChangeValue}) => {
+const HabrolinkerPasswordFields = ({ label1, label2, onChangeValue }) => {
     const [current1Password, setCurrent1PasswordText] = useState("");
     const [current2Password, setCurrent2PasswordText] = useState("");
 
@@ -25,14 +25,14 @@ const HabrolinkerPasswordFields = ({label1, label2, onChangeValue}) => {
             <div className={styles.partInputLabel}>
                 <b className={styles.label}>{label1}</b>
             </div>
-            <input type="password" className={styles.inputField} onInput={onValue1Changed} value={current1Password}/>
+            <input type="password" className={styles.inputField} onInput={onValue1Changed} value={current1Password} />
             <div className={styles.partInputLabel}>
                 <b className={styles.label}>{label2}</b>
             </div>
-            <input type="password" className={styles.inputField} onInput={onValue2Changed} value={current2Password}/>
+            <input type="password" className={styles.inputField} onInput={onValue2Changed} value={current2Password} />
             {(current1Password != current2Password) &&
                 <div className={styles.errorHelper}>
-                    <img className={styles.errorHelperWarning} alt="" src="/status--warning.svg"/>
+                    <img className={styles.errorHelperWarning} alt="" src="/status--warning.svg" />
                     <b className={styles.errorHelperText}>Пароли не совпадают</b>
                 </div>
             }

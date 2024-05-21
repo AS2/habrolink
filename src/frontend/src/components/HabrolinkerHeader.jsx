@@ -1,10 +1,10 @@
-import {useCallback, useEffect, useState} from "react";
+import { useCallback, useEffect, useState } from "react";
 import styles from "./HabrolinkerHeader.module.css";
-import {useNavigate} from "react-router-dom";
-import {BACKEND_INVALID_PERSON_ID, DEFAULT_AVATAR} from "../config";
-import {HasToken, RemoveToken, SendToBackend, SendToBackendAuthorized} from "../utils";
+import { useNavigate } from "react-router-dom";
+import { BACKEND_INVALID_PERSON_ID, DEFAULT_AVATAR } from "../config";
+import { HasToken, RemoveToken, SendToBackend, SendToBackendAuthorized } from "../utils";
 
-const HabrolinkerHeader = ({}) => {
+const HabrolinkerHeader = ({ }) => {
     const navigate = useNavigate();
 
     const [userIcon, setUserIcon] = useState(DEFAULT_AVATAR);
@@ -46,7 +46,7 @@ const HabrolinkerHeader = ({}) => {
                 let personInfo = await SendToBackend("POST", "/person/info", {
                     person_id: userInfo.person_id
                 });
-                if (personInfo["avatar"].startsWith("http"))
+                if (personInfo["avatar"].startsWith("http") && personInfo["avatar"] != "https://someimage.org/img.png")
                     setUserIcon(personInfo["avatar"]);
             }
         }
